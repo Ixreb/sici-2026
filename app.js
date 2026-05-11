@@ -13,13 +13,32 @@ import {
   renderCriticalLogistics,
   renderJourneySummary,
   renderPlaces,
+  renderOperational,
+  renderViewSwitch,
+  renderOpTabs,
+  renderTodayButton,
 } from "./src/render.js";
 import { initMap } from "./src/map.js";
-import { bindEvents } from "./src/actions.js";
+import { bindEvents, placeMapInActiveSlot } from "./src/actions.js";
+import { getDefaultViewMode, getTodayDayId } from "./src/utils.js";
 
-// Validate selectedDayId after load (data may have changed)
+// Validate persisted selectedDayId still exists
 if (state.selectedDayId !== null && !days.find((d) => d.id === state.selectedDayId)) {
   state.selectedDayId = 1;
+}
+
+// First-load: auto-detect view mode. Already-persisted choice wins.
+if (state.viewMode === null) {
+  state.viewMode = getDefaultViewMode(days, trip);
+}
+
+// If we're within trip dates AND the user hasn't manually chosen a day this session,
+// surface today. We respect the persisted day if it's reasonable, but on a "first open today"
+// the user expects to see today.
+const todayId = getTodayDayId(days, trip);
+if (todayId !== null && state.viewMode === "operational" && !sessionStorage.getItem("sicilia-session-started")) {
+  state.selectedDayId = todayId;
+  sessionStorage.setItem("sicilia-session-started", "1");
 }
 
 initRender({
@@ -33,6 +52,10 @@ initRender({
   trip,
 });
 
+renderViewSwitch();
+renderTodayButton();
+renderOpTabs();
+
 populateFilters();
 renderSideTabs();
 renderStats();
@@ -42,9 +65,14 @@ renderDayDetail();
 renderAdditions();
 renderCriticalLogistics();
 renderJourneySummary();
+renderOperational();
+
+// Map slot must be in the visible view BEFORE Leaflet initializes.
+placeMapInActiveSlot();
 initMap({ bases, places, days });
 renderPlaces();
-bindEvents();
+
+bindEvents({ days, trip });
 
 // Service Worker (offline support during the trip)
 if ("serviceWorker" in navigator && location.protocol !== "file:") {

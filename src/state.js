@@ -3,6 +3,8 @@ const STORAGE_KEYS = {
   visited: "sicilia-visited",
   showDescartados: "sicilia-show-descartados",
   sideTab: "sicilia-side-tab",
+  viewMode: "sicilia-view-mode",
+  opTab: "sicilia-op-tab",
 };
 
 function readJson(key, fallback) {
@@ -28,11 +30,21 @@ export const state = {
   activeSideTab: readJson(STORAGE_KEYS.sideTab, "map"),
   visited: new Set(readJson(STORAGE_KEYS.visited, [])),
   showDescartados: readJson(STORAGE_KEYS.showDescartados, false),
+  viewMode: readJson(STORAGE_KEYS.viewMode, null), // null = auto-detect on first load
+  opTab: readJson(STORAGE_KEYS.opTab, "plan"),
   search: "",
   type: "all",
   priority: "all",
   zone: "all",
 };
+
+export function persistViewMode() {
+  writeJson(STORAGE_KEYS.viewMode, state.viewMode);
+}
+
+export function persistOpTab() {
+  writeJson(STORAGE_KEYS.opTab, state.opTab);
+}
 
 export function persistSelectedDay() {
   writeJson(STORAGE_KEYS.selectedDay, state.selectedDayId);

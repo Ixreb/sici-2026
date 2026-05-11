@@ -36,3 +36,19 @@ export function getDirectionsUrl(place) {
 export function getGoogleMapsUrl(place) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${place.lat},${place.lng}`)}`;
 }
+
+// Returns the day id matching today's date within the trip, or null if outside.
+export function getTodayDayId(days, trip, today = new Date()) {
+  if (!trip || !trip.startDate) return null;
+  const start = new Date(`${trip.startDate}T00:00:00`);
+  const dayMs = 86400000;
+  const t = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const diff = Math.floor((t - start) / dayMs);
+  if (diff < 0 || diff >= days.length) return null;
+  return days[diff].id;
+}
+
+export function getDefaultViewMode(days, trip) {
+  if (getTodayDayId(days, trip) !== null) return "operational";
+  return window.innerWidth < 900 ? "operational" : "planning";
+}

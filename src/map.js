@@ -41,6 +41,18 @@ export function invalidateMapSize() {
   if (map) setTimeout(() => map.invalidateSize(), 30);
 }
 
+export function placeMapInSlot(slotId) {
+  const slot = document.getElementById(slotId);
+  const mapEl = document.getElementById("map");
+  if (!slot || !mapEl) return;
+  if (mapEl.parentNode !== slot) {
+    slot.appendChild(mapEl);
+  }
+  setTimeout(() => {
+    if (map) map.invalidateSize();
+  }, 50);
+}
+
 export function focusPlace(placeId) {
   if (!map) return;
   const place = placesRef.find((p) => p.id === placeId);

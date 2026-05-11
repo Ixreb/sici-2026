@@ -2,6 +2,8 @@ export const trip = {
   title: "Sicilia 2026",
   totalDays: 14,
   totalNights: 13,
+  startDate: "2026-06-20",
+  endDate: "2026-07-03",
 };
 
 export const bases = [

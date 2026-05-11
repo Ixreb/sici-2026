@@ -5,6 +5,7 @@ import {
   paceBadgeClass,
   getDirectionsUrl,
   uniqueValues,
+  getTodayDayId,
 } from "./utils.js";
 
 let placesRef = [];
@@ -47,6 +48,199 @@ export function initRender(refs) {
 
   els.searchInput.value = state.search;
   if (els.showDescartados) els.showDescartados.checked = state.showDescartados;
+
+  els.opDayTitle = document.getElementById("opDayTitle");
+  els.opSummary = document.getElementById("opSummary");
+  els.opPlanContent = document.getElementById("opPlanContent");
+  els.opPointsContent = document.getElementById("opPointsContent");
+  els.opMoreContent = document.getElementById("opMoreContent");
+  els.opPrevDay = document.getElementById("opPrevDay");
+  els.opNextDay = document.getElementById("opNextDay");
+  els.todayButton = document.getElementById("todayButton");
+  els.viewSwitchButtons = Array.from(document.querySelectorAll("[data-view]"));
+  els.opTabButtons = Array.from(document.querySelectorAll(".op-tab"));
+  els.opTabContents = Array.from(document.querySelectorAll(".op-tab-content"));
+}
+
+export function renderViewSwitch() {
+  els.viewSwitchButtons.forEach((btn) => {
+    const active = btn.dataset.view === state.viewMode;
+    btn.classList.toggle("is-active", active);
+    btn.setAttribute("aria-selected", active ? "true" : "false");
+  });
+  document.body.classList.toggle("view-planning", state.viewMode === "planning");
+  document.body.classList.toggle("view-operational", state.viewMode === "operational");
+}
+
+export function renderTodayButton() {
+  if (!els.todayButton) return;
+  const todayId = getTodayDayId(daysRef, tripRef);
+  els.todayButton.classList.toggle("is-hidden", todayId === null);
+  els.todayButton.disabled = todayId === null;
+}
+
+export function renderOpTabs() {
+  els.opTabButtons.forEach((btn) => {
+    const active = btn.dataset.opTab === state.opTab;
+    btn.classList.toggle("is-active", active);
+    btn.setAttribute("aria-selected", active ? "true" : "false");
+  });
+  els.opTabContents.forEach((panel) => {
+    const active = panel.dataset.opContent === state.opTab;
+    panel.hidden = !active;
+  });
+}
+
+export function renderOperational() {
+  const day = daysRef.find((d) => d.id === state.selectedDayId) || daysRef[0];
+  if (!day) return;
+
+  const todayId = getTodayDayId(daysRef, tripRef);
+  const isToday = todayId === day.id;
+  const metrics = metricsRef[day.id] || { driveKm: 0, walkKm: 0, peajeEuro: 0 };
+
+  els.opDayTitle.innerHTML = `
+    <p class="op-day-kicker">${isToday ? "Hoy · " : ""}Día ${day.id} · ${escapeHtml(day.date)}</p>
+    <h2 class="op-day-name">${escapeHtml(day.title)}</h2>
+    <p class="op-day-summary">${escapeHtml(day.summary)}</p>
+  `;
+
+  els.opPrevDay.disabled = day.id === daysRef[0].id;
+  els.opNextDay.disabled = day.id === daysRef[daysRef.length - 1].id;
+
+  els.opSummary.innerHTML = `
+    <span class="op-chip op-chip-pace ${paceBadgeClass(day.pace)}">${escapeHtml(day.pace)}</span>
+    <span class="op-chip"><strong>Base:</strong> ${escapeHtml(day.base)}</span>
+    <span class="op-chip"><strong>Coche:</strong> ~${metrics.driveKm} km</span>
+    <span class="op-chip"><strong>A pie:</strong> ~${metrics.walkKm} km</span>
+    ${metrics.peajeEuro ? `<span class="op-chip op-chip-warn"><strong>Peajes:</strong> ~${metrics.peajeEuro} €</span>` : ""}
+  `;
+
+  renderOpPlan(day);
+  renderOpPoints(day);
+  renderOpMore(day);
+}
+
+function renderOpPlan(day) {
+  const list = (items) => `
+    <ul class="op-list">
+      ${items.map((i) => `<li>${escapeHtml(i)}</li>`).join("")}
+    </ul>
+  `;
+
+  els.opPlanContent.innerHTML = `
+    <article class="op-card">
+      <h3>Mañana</h3>
+      ${list(day.morning)}
+    </article>
+    <article class="op-card">
+      <h3>Tarde / cierre</h3>
+      ${list(day.afternoon)}
+    </article>
+    <article class="op-card">
+      <h3>Imprescindible hoy</h3>
+      ${list(day.mustDo)}
+    </article>
+    ${day.optional && day.optional.length ? `
+      <article class="op-card">
+        <h3>Si vais bien</h3>
+        ${list(day.optional)}
+      </article>
+    ` : ""}
+    <article class="op-card op-card-soft">
+      <h3>Notas</h3>
+      <ul class="op-list">
+        ${day.notes.map((n) => `<li>${escapeHtml(n)}</li>`).join("")}
+      </ul>
+    </article>
+    <article class="op-card op-card-soft">
+      <h3>Parking</h3>
+      <p>${escapeHtml(day.parking)}</p>
+    </article>
+    <article class="op-card op-card-soft">
+      <h3>Reservas / revisar</h3>
+      <p>${escapeHtml(day.booking)}</p>
+    </article>
+    <article class="op-card op-card-soft">
+      <h3>Plan B</h3>
+      <p>${escapeHtml(day.planB)}</p>
+    </article>
+  `;
+}
+
+function renderOpPoints(day) {
+  const dayPlaces = day.focusPlaceIds
+    .map((id) => placesRef.find((p) => p.id === id))
+    .filter(Boolean);
+
+  if (dayPlaces.length === 0) {
+    els.opPointsContent.innerHTML = `<div class="empty-state">Sin puntos asignados a este día.</div>`;
+    return;
+  }
+
+  els.opPointsContent.innerHTML = dayPlaces
+    .map((p) => {
+      const visited = isVisited(p.id);
+      return `
+        <article class="op-point ${visited ? "is-visited" : ""}">
+          <div class="op-point-head">
+            <div class="op-point-title">
+              <strong>${escapeHtml(p.name)}</strong>
+              <span class="op-point-meta">${escapeHtml(p.tipo)} · ${escapeHtml(p.zona)}</span>
+            </div>
+            <button class="op-point-check js-toggle-visit" type="button" data-place-id="${escapeHtml(p.id)}" aria-pressed="${visited}" title="${visited ? "Marcar no visitado" : "Marcar visitado"}">
+              ${visited ? "✓" : "○"}
+            </button>
+          </div>
+          ${p.nota ? `<p class="op-point-note">${escapeHtml(p.nota)}</p>` : ""}
+          <div class="op-point-actions">
+            <button class="op-link js-focus-place" type="button" data-place-id="${escapeHtml(p.id)}">Ver en mapa</button>
+            <a class="op-link" href="${escapeHtml(getDirectionsUrl(p))}" target="_blank" rel="noopener noreferrer">Cómo llegar</a>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function renderOpMore(day) {
+  const totals = getJourneyTotals();
+  els.opMoreContent.innerHTML = `
+    <article class="op-card">
+      <h3>Bases del viaje</h3>
+      <div class="op-bases">
+        ${basesRef
+          .map(
+            (b) => `
+              <div class="op-base">
+                <strong>${escapeHtml(b.area)}</strong>
+                <span>${escapeHtml(b.range)} · ${b.nights} ${b.nights === 1 ? "noche" : "noches"}</span>
+                <p>${escapeHtml(b.reason)}</p>
+              </div>
+            `
+          )
+          .join("")}
+      </div>
+    </article>
+    <article class="op-card">
+      <h3>Reservas críticas y alertas</h3>
+      <ul class="op-list">
+        ${criticalRef.map((c) => `<li><strong>${escapeHtml(c.title)}:</strong> ${escapeHtml(c.body)}</li>`).join("")}
+      </ul>
+    </article>
+    <article class="op-card">
+      <h3>Refuerzos sugeridos</h3>
+      <ul class="op-list">
+        ${additionsRef.map((a) => `<li><strong>${escapeHtml(a.name)}:</strong> ${escapeHtml(a.why)}</li>`).join("")}
+      </ul>
+    </article>
+    <article class="op-card op-card-soft">
+      <h3>Totales orientativos</h3>
+      <p><strong>~${totals.driveKm} km</strong> en coche · <strong>~${totals.walkKm} km</strong> a pie</p>
+      <p>Gasolina (Fiat 500): ~${totals.fuelCostEuro} € · Peajes opcionales: ~${totals.peajeEuro} €</p>
+      <p class="op-card-fineprint">No incluye parking, ferries ni teleféricos.</p>
+    </article>
+  `;
 }
 
 export function populateFilters() {
