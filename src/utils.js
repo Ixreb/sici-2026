@@ -33,8 +33,11 @@ export function getDirectionsUrl(place) {
   return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${place.lat},${place.lng}`)}`;
 }
 
+// Opens the place LISTING in Google Maps (with stars, photos, hours, reviews).
+// Uses name + Sicily for disambiguation; coords as fallback for unique pins.
 export function getGoogleMapsUrl(place) {
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${place.lat},${place.lng}`)}`;
+  const query = place.gmapsQuery || `${place.name}, Sicilia`;
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 }
 
 // Returns the day id matching today's date within the trip, or null if outside.

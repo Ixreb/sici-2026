@@ -2,7 +2,7 @@
 // App shell is precached on install. Map tiles are cached on the fly so
 // regions you've already viewed work offline during the trip.
 
-const APP_CACHE = "sicilia-app-v2";
+const APP_CACHE = "sicilia-app-v3";
 const TILE_CACHE = "sicilia-tiles-v1";
 
 const APP_ASSETS = [

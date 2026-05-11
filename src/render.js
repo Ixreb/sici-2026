@@ -4,6 +4,7 @@ import {
   badgeClass,
   paceBadgeClass,
   getDirectionsUrl,
+  getGoogleMapsUrl,
   uniqueValues,
   getTodayDayId,
 } from "./utils.js";
@@ -193,8 +194,10 @@ function renderOpPoints(day) {
             </button>
           </div>
           ${p.nota ? `<p class="op-point-note">${escapeHtml(p.nota)}</p>` : ""}
+          ${renderInfoRows(p)}
           <div class="op-point-actions">
             <button class="op-link js-focus-place" type="button" data-place-id="${escapeHtml(p.id)}">Ver en mapa</button>
+            <a class="op-link op-link-primary" href="${escapeHtml(getGoogleMapsUrl(p))}" target="_blank" rel="noopener noreferrer">Google Maps</a>
             <a class="op-link" href="${escapeHtml(getDirectionsUrl(p))}" target="_blank" rel="noopener noreferrer">Cómo llegar</a>
           </div>
         </article>
@@ -619,6 +622,7 @@ export function renderPlaces() {
             </button>
           </div>
           ${place.nota ? `<p class="place-note">${escapeHtml(place.nota)}</p>` : ""}
+          ${renderInfoRows(place)}
           <div class="place-meta">
             <span class="badge ${badgeClass(place.prioridad)}">${escapeHtml(place.prioridad)}</span>
             <span class="badge badge-type">${escapeHtml(place.tipo)}</span>
@@ -626,13 +630,22 @@ export function renderPlaces() {
             ${place.dia ? `<span class="badge badge-type">Día ${place.dia}</span>` : ""}
           </div>
           <div class="place-actions">
-            <button class="text-button js-focus-place" type="button" data-place-id="${escapeHtml(place.id)}">Ver en el mapa</button>
-            <a class="text-link" href="${escapeHtml(getDirectionsUrl(place))}" target="_blank" rel="noopener noreferrer">Cómo llegar</a>
+            <button class="text-button js-focus-place" type="button" data-place-id="${escapeHtml(place.id)}">Ver en mapa</button>
+            <a class="text-link" href="${escapeHtml(getGoogleMapsUrl(place))}" target="_blank" rel="noopener noreferrer">Google Maps</a>
+            <a class="text-link text-link-muted" href="${escapeHtml(getDirectionsUrl(place))}" target="_blank" rel="noopener noreferrer">Cómo llegar</a>
           </div>
         </article>
       `;
     })
     .join("");
+}
+
+function renderInfoRows(place) {
+  const rows = [];
+  if (place.horario) rows.push(`<dt>Horario</dt><dd>${escapeHtml(place.horario)}</dd>`);
+  if (place.precio) rows.push(`<dt>Precio</dt><dd>${escapeHtml(place.precio)}</dd>`);
+  if (!rows.length) return "";
+  return `<dl class="place-info">${rows.join("")}</dl>`;
 }
 
 function getFilteredPlaces() {

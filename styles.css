@@ -689,23 +689,33 @@ select {
   margin-bottom: 16px;
 }
 
-.field-checkbox {
+.field.field-checkbox {
   grid-column: 1 / -1;
-  flex-direction: row;
   display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 10px;
+  padding: 4px 2px;
+  cursor: pointer;
 }
 
-.field-checkbox input {
-  width: auto;
+.field.field-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
   margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+  cursor: pointer;
+  accent-color: var(--accent);
 }
 
-.field-checkbox span {
-  font-size: 0.9rem;
+.field.field-checkbox span {
+  font-size: 0.88rem;
   color: var(--ink);
   font-weight: 600;
+  margin: 0;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .field {
@@ -1565,25 +1575,116 @@ select {
   color: var(--accent) !important;
 }
 
-/* Popup actions for the leaflet popup */
-.popup-actions {
+/* Popup info rows */
+.popup-info {
+  display: grid;
+  gap: 4px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+
+.popup-row {
   display: flex;
   gap: 8px;
-  margin-top: 8px;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.popup-row-label {
+  flex-shrink: 0;
+  font-weight: 800;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.7rem;
+  padding-top: 2px;
+  min-width: 56px;
+}
+
+.popup-row-note {
+  font-style: italic;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+/* Popup actions */
+.popup-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
   flex-wrap: wrap;
 }
 
-.popup-actions a,
-.popup-actions button {
-  font-size: 0.82rem;
-  color: var(--accent);
+.popup-action {
+  font-size: 0.8rem;
+  color: var(--ink);
   text-decoration: none;
-  background: var(--accent-soft);
-  border: 0;
-  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--line);
+  padding: 5px 10px;
   border-radius: 999px;
   cursor: pointer;
   font-weight: 700;
+}
+
+.popup-action:hover {
+  background: var(--accent-soft);
+}
+
+.popup-action-primary {
+  background: var(--accent);
+  color: #fff8ef;
+  border-color: var(--accent);
+}
+
+.popup-action-primary:hover {
+  background: var(--accent);
+  color: #fff8ef;
+  filter: brightness(1.08);
+}
+
+/* Info rows inside place / op-point cards */
+.place-info,
+.op-point-info {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  margin: 10px 0;
+  font-size: 0.86rem;
+  color: var(--ink);
+}
+
+.place-info dt,
+.op-point-info dt {
+  font-weight: 800;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.72rem;
+  padding-top: 3px;
+}
+
+.place-info dd,
+.op-point-info dd {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.text-link-muted {
+  color: var(--muted) !important;
+}
+
+.op-link-primary {
+  background: var(--accent);
+  color: #fff8ef;
+  border-color: var(--accent);
+}
+
+.op-link-primary:hover {
+  background: var(--accent);
+  filter: brightness(1.08);
 }
 
 /* Operational view mobile tweaks */

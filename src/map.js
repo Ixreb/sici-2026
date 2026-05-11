@@ -1,5 +1,5 @@
 import { state, isVisited } from "./state.js";
-import { escapeHtml, getDirectionsUrl, markerColor } from "./utils.js";
+import { escapeHtml, getDirectionsUrl, getGoogleMapsUrl, markerColor } from "./utils.js";
 
 let map = null;
 let markerLayer = null;
@@ -156,16 +156,22 @@ function renderMarkers(filteredPlaces) {
 }
 
 function buildPopup(place, visited) {
+  const info = [];
+  if (place.horario) info.push(`<div class="popup-row"><span class="popup-row-label">Horario</span><span>${escapeHtml(place.horario)}</span></div>`);
+  if (place.precio) info.push(`<div class="popup-row"><span class="popup-row-label">Precio</span><span>${escapeHtml(place.precio)}</span></div>`);
+  if (place.nota) info.push(`<div class="popup-row popup-row-note"><span>${escapeHtml(place.nota)}</span></div>`);
+
   return `
     <div class="popup-title">${escapeHtml(place.name)}</div>
     <div class="popup-meta">
-      ${escapeHtml(place.tipo)} · ${escapeHtml(place.zona)}${place.dia ? ` · día ${place.dia}` : ""}<br>
-      ${place.nota ? escapeHtml(place.nota) : escapeHtml(place.prioridad)}
+      ${escapeHtml(place.tipo)} · ${escapeHtml(place.zona)}${place.dia ? ` · día ${place.dia}` : ""}
     </div>
+    ${info.length ? `<div class="popup-info">${info.join("")}</div>` : ""}
     <div class="popup-actions">
-      <a href="${escapeHtml(getDirectionsUrl(place))}" target="_blank" rel="noopener noreferrer">Cómo llegar</a>
-      <button class="popup-visit js-toggle-visit" data-place-id="${escapeHtml(place.id)}" type="button">
-        ${visited ? "Marcar no visitado" : "Marcar visitado"}
+      <a class="popup-action popup-action-primary" href="${escapeHtml(getGoogleMapsUrl(place))}" target="_blank" rel="noopener noreferrer">Ver en Google Maps</a>
+      <a class="popup-action" href="${escapeHtml(getDirectionsUrl(place))}" target="_blank" rel="noopener noreferrer">Cómo llegar</a>
+      <button class="popup-action js-toggle-visit" data-place-id="${escapeHtml(place.id)}" type="button">
+        ${visited ? "✓ Visitado" : "Marcar visitado"}
       </button>
     </div>
   `;
