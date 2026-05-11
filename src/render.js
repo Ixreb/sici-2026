@@ -7,6 +7,8 @@ import {
   getGoogleMapsUrl,
   uniqueValues,
   getTodayDayId,
+  typeIcon,
+  resolveAgendaPlace,
 } from "./utils.js";
 
 let placesRef = [];
@@ -123,29 +125,29 @@ export function renderOperational() {
 }
 
 function renderOpPlan(day) {
-  const list = (items) => `
-    <ul class="op-list">
-      ${items.map((i) => `<li>${escapeHtml(i)}</li>`).join("")}
+  const agenda = (items) => `
+    <ul class="agenda-list agenda-list-compact">
+      ${items.map((item) => renderAgendaItem(item, day)).join("")}
     </ul>
   `;
 
   els.opPlanContent.innerHTML = `
     <article class="op-card">
       <h3>Mañana</h3>
-      ${list(day.morning)}
+      ${agenda(day.morning)}
     </article>
     <article class="op-card">
       <h3>Tarde / cierre</h3>
-      ${list(day.afternoon)}
+      ${agenda(day.afternoon)}
     </article>
     <article class="op-card">
       <h3>Imprescindible hoy</h3>
-      ${list(day.mustDo)}
+      ${agenda(day.mustDo)}
     </article>
     ${day.optional && day.optional.length ? `
       <article class="op-card">
         <h3>Si vais bien</h3>
-        ${list(day.optional)}
+        ${agenda(day.optional)}
       </article>
     ` : ""}
     <article class="op-card op-card-soft">
@@ -360,8 +362,9 @@ export function renderDayDetail() {
         .map((p) => {
           const visited = isVisited(p.id);
           return `
-            <button class="badge badge-type js-focus-place ${visited ? "badge-visited" : ""}" type="button" data-place-id="${escapeHtml(p.id)}">
-              ${visited ? "✓ " : ""}${escapeHtml(p.name)}
+            <button class="badge badge-type badge-place js-focus-place ${visited ? "badge-visited" : ""}" type="button" data-place-id="${escapeHtml(p.id)}" title="Ver en el mapa">
+              <span class="badge-icon" aria-hidden="true">${typeIcon(p.tipo)}</span>
+              <span>${visited ? "✓ " : ""}${escapeHtml(p.name)}</span>
             </button>
           `;
         })
@@ -520,15 +523,25 @@ function renderOverview() {
 
 function renderAgendaList(items, day) {
   return `
-    <ul class="detail-list">
-      ${items
-        .map((item) => `
-          <li class="detail-line">
-            <span class="detail-line-text">${escapeHtml(item)}</span>
-          </li>
-        `)
-        .join("")}
+    <ul class="agenda-list">
+      ${items.map((item) => renderAgendaItem(item, day)).join("")}
     </ul>
+  `;
+}
+
+function renderAgendaItem(text, day) {
+  const place = resolveAgendaPlace(text, day, placesRef);
+  if (!place) {
+    return `<li class="agenda-item agenda-item-text"><span class="agenda-text">${escapeHtml(text)}</span></li>`;
+  }
+  return `
+    <li>
+      <button class="agenda-item agenda-item-place js-focus-place" type="button" data-place-id="${escapeHtml(place.id)}" data-tipo="${escapeHtml(place.tipo)}" title="Ver en el mapa">
+        <span class="agenda-icon" aria-hidden="true">${typeIcon(place.tipo)}</span>
+        <span class="agenda-text">${escapeHtml(text)}</span>
+        <span class="agenda-arrow" aria-hidden="true">→</span>
+      </button>
+    </li>
   `;
 }
 

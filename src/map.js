@@ -55,18 +55,16 @@ export function placeMapInSlot(slotId) {
 
 export function focusPlace(placeId) {
   if (!map) return;
-  const place = placesRef.find((p) => p.id === placeId);
-  if (!place || !place._marker) {
-    // ensure it's rendered first
+  let place = placesRef.find((p) => p.id === placeId);
+  if (!place) return;
+  if (!place._marker) {
     refreshMap();
-    const placeAfter = placesRef.find((p) => p.id === placeId);
-    if (!placeAfter || !placeAfter._marker) return;
-    map.setView([placeAfter.lat, placeAfter.lng], 13, { animate: true });
-    placeAfter._marker.openPopup();
-    return;
+    place = placesRef.find((p) => p.id === placeId);
+    if (!place || !place._marker) return;
   }
   map.setView([place.lat, place.lng], 13, { animate: true });
   place._marker.openPopup();
+  pulseMap();
 }
 
 export function focusBase(baseId) {
@@ -75,6 +73,19 @@ export function focusBase(baseId) {
   if (!base || !base._marker) return;
   map.setView([base.lat, base.lng], 9, { animate: true });
   base._marker.openPopup();
+  pulseMap();
+}
+
+export function pulseMap() {
+  const inOp = document.body.classList.contains("view-operational");
+  const target = inOp
+    ? document.querySelector(".op-map-section")
+    : document.querySelector(".sticky-panel");
+  if (!target) return;
+  target.classList.remove("flash-panel");
+  void target.offsetWidth;
+  target.classList.add("flash-panel");
+  setTimeout(() => target.classList.remove("flash-panel"), 900);
 }
 
 export function focusDay(dayId) {

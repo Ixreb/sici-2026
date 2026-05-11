@@ -152,7 +152,8 @@ export function bindEvents({ days, trip }) {
     const placeButton = e.target.closest(".js-focus-place");
     if (placeButton) {
       if (state.viewMode === "operational") {
-        setOpTab(null); // keep map visible at top, no tab change needed since map is always shown
+        const mapSection = document.querySelector(".op-map-section");
+        if (mapSection) mapSection.scrollIntoView({ behavior: "smooth", block: "start" });
       } else {
         setActiveSideTab("map", { scroll: true });
       }
