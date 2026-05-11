@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sicilia 2026 · Planner interactivo</title>
+  <meta
+    name="description"
+    content="Planner interactivo para un viaje por Sicilia: ruta circular, bases, planning por días y mapa con chinchetas."
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Cormorant+Garamond:wght@600;700&display=swap"
+    rel="stylesheet"
+  >
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  >
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Sicilia 2026 · Sevilla → Catania</p>
+        <h1>Planner interactivo del viaje por Sicilia.</h1>
+        <p class="hero-text">
+          Ruta circular, bases de alojamiento, planning por días y mapa con las 72 chinchetas
+          convertido en una herramienta más clara para preparar y usar el viaje.
+        </p>
+        <div class="hero-actions">
+          <button id="printButton" class="button button-primary" type="button">Imprimir / guardar PDF</button>
+          <button id="overviewButton" class="button button-secondary" type="button">Ver resumen de ruta</button>
+        </div>
+      </div>
+
+      <aside class="trip-card">
+        <h2>Ficha rápida</h2>
+        <dl>
+          <div>
+            <dt>Vuelo ida</dt>
+            <dd>20 junio · 16:10 · Catania</dd>
+          </div>
+          <div>
+            <dt>Vuelo vuelta</dt>
+            <dd>3 julio · 16:55 · Catania</dd>
+          </div>
+          <div>
+            <dt>Duración</dt>
+            <dd>14 días / 13 noches</dd>
+          </div>
+          <div>
+            <dt>Estilo</dt>
+            <dd>Cultura por la mañana, costa por la tarde</dd>
+          </div>
+          <div>
+            <dt>Coche</dt>
+            <dd>Sí, evitando centros históricos y ZTL</dd>
+          </div>
+        </dl>
+      </aside>
+    </header>
+
+    <main class="layout">
+      <section class="main-column">
+        <section class="panel stats-panel">
+          <div id="statsGrid" class="stats-grid"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <p class="section-kicker">Ruta</p>
+              <h2>Bases recomendadas</h2>
+            </div>
+            <p class="panel-note">Cinco cambios razonables y final cómodo cerca del aeropuerto.</p>
+          </div>
+          <div id="baseGrid" class="base-grid"></div>
+        </section>
+
+        <section class="panel planning-panel">
+          <div class="panel-head">
+            <div>
+              <p class="section-kicker">Planning</p>
+              <h2>Días del viaje</h2>
+            </div>
+            <p id="dayHint" class="panel-note">Selecciona un día para ver el detalle completo sin salir de este panel.</p>
+          </div>
+          <div class="planner-workspace">
+            <div class="planner-list-column">
+              <div id="dayList" class="day-list"></div>
+            </div>
+            <div class="planner-detail-column">
+              <section id="dayDetail" class="detail-panel"></section>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <p class="section-kicker">Cierre</p>
+              <h2>Resumen final del viaje</h2>
+            </div>
+            <p class="panel-note">Totales aproximados para entender escala, ritmo y coste básico del coche.</p>
+          </div>
+          <div id="journeySummary" class="journey-summary"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <p class="section-kicker">Operativa</p>
+              <h2>Parking y reservas críticas</h2>
+            </div>
+            <p class="panel-note">Lo que conviene dejar atado antes de salir para no perder tiempo ni asumir riesgos tontos.</p>
+          </div>
+          <div id="criticalLogistics" class="critical-logistics"></div>
+        </section>
+      </section>
+
+      <aside class="side-column">
+        <section class="panel sticky-panel side-stage">
+          <div class="panel-head">
+            <div>
+              <p class="section-kicker">Apoyo visual</p>
+              <h2>Mapa, puntos y extras</h2>
+            </div>
+            <p class="panel-note">Una sola zona lateral para orientarse mejor sin pelearse con varios bloques a la vez.</p>
+          </div>
+
+          <div class="side-tabs" role="tablist" aria-label="Vistas laterales">
+            <button id="sideTabMap" class="side-tab-button" type="button" role="tab" aria-selected="true" data-side-tab="map">
+              Mapa
+            </button>
+            <button id="sideTabPlaces" class="side-tab-button" type="button" role="tab" aria-selected="false" data-side-tab="places">
+              Puntos
+            </button>
+            <button id="sideTabExtras" class="side-tab-button" type="button" role="tab" aria-selected="false" data-side-tab="extras">
+              Extras
+            </button>
+          </div>
+
+          <section class="side-tab-panel is-active" id="sidePanelMap" role="tabpanel" data-tab-panel="map">
+            <p class="tab-helper">Marcadores con prioridad y filtro por tipo, zona y búsqueda.</p>
+            <div class="filter-grid">
+              <label class="field">
+                <span>Buscar</span>
+                <input id="searchInput" type="search" placeholder="Ej. Ortigia, Zingaro, Ragusa">
+              </label>
+              <label class="field">
+                <span>Tipo</span>
+                <select id="typeFilter"></select>
+              </label>
+              <label class="field">
+                <span>Prioridad</span>
+                <select id="priorityFilter"></select>
+              </label>
+              <label class="field">
+                <span>Zona</span>
+                <select id="zoneFilter"></select>
+              </label>
+            </div>
+
+            <div id="map" class="map-frame" aria-label="Mapa del viaje"></div>
+            <div id="mapFallback" class="map-fallback" hidden>
+              El mapa no se ha podido cargar. La parte interactiva del planning sigue disponible.
+            </div>
+
+            <div class="legend">
+              <span><i class="dot dot-high"></i> Imprescindible</span>
+              <span><i class="dot dot-medium"></i> Secundario</span>
+              <span><i class="dot dot-low"></i> Revisar / prescindible</span>
+            </div>
+          </section>
+
+          <section class="side-tab-panel" id="sidePanelPlaces" role="tabpanel" data-tab-panel="places" hidden>
+            <div class="places-header">
+              <div>
+                <h3>Puntos filtrados</h3>
+                <p class="tab-helper">Lista práctica para saltar a mapa o abrir Google Maps.</p>
+              </div>
+              <p id="placeCount"></p>
+            </div>
+            <div id="placeList" class="place-list"></div>
+          </section>
+
+          <section class="side-tab-panel" id="sidePanelExtras" role="tabpanel" data-tab-panel="extras" hidden>
+            <div class="panel-head panel-head-compact">
+              <div>
+                <p class="section-kicker">Fuera del CSV</p>
+                <h3>Refuerzos sugeridos</h3>
+              </div>
+              <p class="panel-note">Paradas útiles para reforzar la ruta si el ritmo o la logística lo permiten.</p>
+            </div>
+            <div id="additionList" class="addition-list"></div>
+          </section>
+        </section>
+      </aside>
+    </main>
+  </div>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+  <script src="./app.js"></script>
+</body>
+</html>
