@@ -150,23 +150,22 @@ function renderOpPlan(day) {
         ${agenda(day.optional)}
       </article>
     ` : ""}
-    <article class="op-card op-card-soft">
-      <h3>Notas</h3>
-      <ul class="op-list">
-        ${day.notes.map((n) => `<li>${escapeHtml(n)}</li>`).join("")}
-      </ul>
-    </article>
-    <article class="op-card op-card-soft">
-      <h3>Parking</h3>
-      <p>${escapeHtml(day.parking)}</p>
-    </article>
-    <article class="op-card op-card-soft">
-      <h3>Reservas / revisar</h3>
-      <p>${escapeHtml(day.booking)}</p>
-    </article>
-    <article class="op-card op-card-soft">
-      <h3>Plan B</h3>
-      <p>${escapeHtml(day.planB)}</p>
+    <article class="op-card op-card-soft op-logistics">
+      <h3>Logística del día</h3>
+      <dl class="op-logistics-list">
+        <dt>Notas</dt>
+        <dd>
+          <ul class="op-list">
+            ${day.notes.map((n) => `<li>${escapeHtml(n)}</li>`).join("")}
+          </ul>
+        </dd>
+        <dt>Parking</dt>
+        <dd>${escapeHtml(day.parking)}</dd>
+        <dt>Reservas / revisar</dt>
+        <dd>${escapeHtml(day.booking)}</dd>
+        <dt>Plan B</dt>
+        <dd>${escapeHtml(day.planB)}</dd>
+      </dl>
     </article>
   `;
 }
@@ -211,6 +210,9 @@ function renderOpPoints(day) {
 function renderOpMore(day) {
   const totals = getJourneyTotals();
   els.opMoreContent.innerHTML = `
+    <p class="op-section-intro">
+      Información del <strong>viaje completo</strong> (no del día). Útil como referencia rápida.
+    </p>
     <article class="op-card">
       <h3>Bases del viaje</h3>
       <div class="op-bases">
@@ -240,10 +242,10 @@ function renderOpMore(day) {
       </ul>
     </article>
     <article class="op-card op-card-soft">
-      <h3>Totales orientativos</h3>
+      <h3>Totales del viaje completo</h3>
       <p><strong>~${totals.driveKm} km</strong> en coche · <strong>~${totals.walkKm} km</strong> a pie</p>
       <p>Gasolina (Fiat 500): ~${totals.fuelCostEuro} € · Peajes opcionales: ~${totals.peajeEuro} €</p>
-      <p class="op-card-fineprint">No incluye parking, ferries ni teleféricos.</p>
+      <p class="op-card-fineprint">Suma de los 14 días. No incluye parking, ferries ni teleféricos.</p>
     </article>
   `;
 }
