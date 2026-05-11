@@ -1,0 +1,106 @@
+// Curated places. Source of truth for the trip.
+// Columns: tipo, prioridad, zona, dia, descartar are HAND-CURATED — not inferred.
+// Edit here to change classification, day assignment, or priority.
+
+export const places = [
+  // ===== ORTIGIA / SIRACUSA (días 1-3) =====
+  { id: "siracusa", name: "Siracusa", address: "96100 Siracusa, Italia", lat: 37.075401, lng: 15.286742, tipo: "Ciudad", prioridad: "Imprescindible", zona: "Sureste", dia: 1 },
+  { id: "ortigia-lungomare", name: "Lungomare d'Ortigia", lat: 37.056466, lng: 15.295130, tipo: "Mirador", prioridad: "Imprescindible", zona: "Sureste", dia: 2 },
+  { id: "templo-apolo", name: "Templo de Apolo", lat: 37.063884, lng: 15.293037, tipo: "Arqueología", prioridad: "Secundario", zona: "Sureste", dia: 2 },
+  { id: "mercado-ortigia", name: "Antiguo mercado de Ortigia", lat: 37.064597, lng: 15.293334, tipo: "Ciudad", prioridad: "Imprescindible", zona: "Sureste", dia: 2 },
+  { id: "fuente-diana", name: "Fuente de Diana", lat: 37.061249, lng: 15.293857, tipo: "Ciudad", prioridad: "Secundario", zona: "Sureste", dia: 2 },
+  { id: "piazza-duomo-siracusa", name: "Piazza Duomo (Ortigia)", address: "96100 Siracusa, Italia", lat: 37.059390, lng: 15.293144, tipo: "Ciudad", prioridad: "Imprescindible", zona: "Sureste", dia: 2 },
+  { id: "fonte-aretusa", name: "Fonte Aretusa", lat: 37.057298, lng: 15.292928, tipo: "Ciudad", prioridad: "Imprescindible", zona: "Sureste", dia: 2 },
+  { id: "castello-maniace", name: "Castello Maniace", lat: 37.053843, lng: 15.294961, tipo: "Ciudad", prioridad: "Imprescindible", zona: "Sureste", dia: 2 },
+  { id: "passeggio-foro", name: "Passeggio Foro Vittorio Emanuele II", lat: 37.059961, lng: 15.291928, tipo: "Mirador", prioridad: "Secundario", zona: "Sureste", dia: 2 },
+  { id: "passeggio-grotta-seggia", name: "Grotta La Seggia", lat: 37.091520, lng: 15.299927, tipo: "Naturaleza", prioridad: "Revisar", zona: "Sureste", descartar: true },
+  // Día 3 - Neapolis
+  { id: "neapolis", name: "Parque Arqueológico de Neapolis", lat: 37.075269, lng: 15.278573, tipo: "Arqueología", prioridad: "Imprescindible", zona: "Sureste", dia: 3 },
+  { id: "catacumbas-san-juan", name: "Catacumbas de San Juan", lat: 37.076864, lng: 15.284402, tipo: "Arqueología", prioridad: "Secundario", zona: "Sureste", dia: 3 },
+  { id: "basilica-santa-lucia", name: "Basílica de Santa Lucía del Sepulcro", lat: 37.073045, lng: 15.291226, tipo: "Ciudad", prioridad: "Secundario", zona: "Sureste", dia: 3 },
+  { id: "pillirina", name: "Cave of Pillirina", lat: 37.021865, lng: 15.317424, tipo: "Naturaleza", prioridad: "Secundario", zona: "Sureste", dia: 3, nota: "Costa rocosa Plemmirio; acceso por sendero." },
+  { id: "cavagrande", name: "Cavagrande del Cassibile (Belvedere)", lat: 37.021100, lng: 15.100600, tipo: "Naturaleza", prioridad: "Secundario", zona: "Sureste", dia: 3, nota: "Cañón con piscinas naturales. Sendero exigente; mejor mañana muy temprano." },
+  // Día 4 - Noto / Vendicari
+  { id: "noto", name: "Noto", address: "96017 Noto, Siracusa, Italia", lat: 36.892443, lng: 15.065194, tipo: "Pueblo", prioridad: "Imprescindible", zona: "Sureste", dia: 4 },
+  { id: "vendicari", name: "Riserva di Vendicari", lat: 36.798643, lng: 15.092975, tipo: "Naturaleza", prioridad: "Imprescindible", zona: "Sureste", dia: 4, nota: "Reserva con varias playas y la tonnara. Calamosche está DENTRO." },
+  { id: "calamosche", name: "Spiaggia di Calamosche (en Vendicari)", lat: 36.824427, lng: 15.105836, tipo: "Playa", prioridad: "Secundario", zona: "Sureste", dia: 4, nota: "Cala más fotogénica del parque. ~25 min andando desde el parking." },
+  { id: "marzamemi", name: "Marzamemi", lat: 36.738900, lng: 15.114200, tipo: "Pueblo", prioridad: "Secundario", zona: "Sureste", dia: 4, nota: "Cena temprana y paseo. Cierre ideal del día." },
+
+  // ===== RAGUSA / MODICA / CASALE (día 5) =====
+  { id: "ragusa-ibla", name: "Ragusa Ibla", address: "97100 Ragusa, Italia", lat: 36.926293, lng: 14.744105, tipo: "Pueblo", prioridad: "Imprescindible", zona: "Sureste", dia: 5 },
+  { id: "duomo-san-giorgio-ragusa", name: "Duomo di San Giorgio (Ragusa)", lat: 36.926671, lng: 14.742620, tipo: "Ciudad", prioridad: "Imprescindible", zona: "Sureste", dia: 5 },
+  { id: "panorama-ragusa", name: "Panorama Città Ragusa", lat: 36.919588, lng: 14.758816, tipo: "Mirador", prioridad: "Secundario", zona: "Sureste", dia: 5 },
+  { id: "modica", name: "Modica", address: "97015 Modica, Ragusa, Italia", lat: 36.858972, lng: 14.760840, tipo: "Pueblo", prioridad: "Imprescindible", zona: "Sureste", dia: 5 },
+  { id: "duomo-san-pietro-modica", name: "Duomo di San Pietro (Modica)", lat: 36.860679, lng: 14.760751, tipo: "Ciudad", prioridad: "Secundario", zona: "Sureste", dia: 5 },
+  { id: "catedral-san-jorge-modica", name: "Duomo di San Giorgio (Modica)", lat: 36.863934, lng: 14.761457, tipo: "Ciudad", prioridad: "Secundario", zona: "Sureste", dia: 5 },
+  { id: "villa-romana-casale", name: "Villa Romana del Casale", lat: 37.364724, lng: 14.334552, tipo: "Arqueología", prioridad: "Imprescindible", zona: "Interior", dia: 5, nota: "UNESCO. Mosaicos romanos sin igual. Imprescindible recuperarla en el día Ragusa-Modica-Agrigento." },
+  { id: "cava-ispica", name: "Parco Archeologico di Cava d'Ispica", lat: 36.850161, lng: 14.837929, tipo: "Arqueología", prioridad: "Revisar", zona: "Sureste", nota: "Solo si interés arqueológico fuerte. Fuera de la ruta principal." },
+
+  // ===== AGRIGENTO / SELINUNTE (día 6) =====
+  { id: "valle-templos", name: "Valle de los Templos", lat: 37.292366, lng: 13.593701, tipo: "Arqueología", prioridad: "Imprescindible", zona: "Sur", dia: 6, nota: "Entrar al abrir. Calor extremo a media mañana." },
+  { id: "scala-turchi-ingresso", name: "Ingresso Scala dei Turchi", lat: 37.289940, lng: 13.473827, tipo: "Mirador", prioridad: "Secundario", zona: "Sur", dia: 6, nota: "ACCESO A LA MARGA CERRADO desde 2020. Solo se ve desde miradores laterales." },
+  { id: "scala-turchi-belvedere", name: "Belvedere Scala dei Turchi", lat: 37.293285, lng: 13.470120, tipo: "Mirador", prioridad: "Secundario", zona: "Sur", dia: 6 },
+  { id: "selinunte", name: "Parque Arqueológico de Selinunte", lat: 37.583600, lng: 12.825900, tipo: "Arqueología", prioridad: "Imprescindible", zona: "Sur", dia: 6, nota: "Yacimiento griego enorme junto al mar. En ruta Agrigento → Trapani. Recorrer en cochecillo eléctrico si pega el sol." },
+
+  // ===== TRAPANI / FAVIGNANA / ZINGARO / ERICE (días 7-9) =====
+  { id: "favignana", name: "Favignana", address: "Isla Favignana, Trapani, Italia", lat: 37.929883, lng: 12.328288, tipo: "Pueblo", prioridad: "Imprescindible", zona: "Noroeste", dia: 7 },
+  { id: "cala-rossa-favignana", name: "Cala Rossa (Favignana)", lat: 37.922033, lng: 12.362630, tipo: "Playa", prioridad: "Imprescindible", zona: "Noroeste", dia: 7, nota: "Roca plana, no arena. Escarpines obligatorios. Acceso por sendero corto pero pedregoso." },
+  { id: "punta-cannone", name: "Punta Cannone", lat: 37.110240, lng: 15.282086, tipo: "Mirador", prioridad: "Revisar", zona: "Noroeste", descartar: true, nota: "Coordenadas del CSV apuntan al Plemmirio, no a Favignana. Ignorar." },
+  { id: "zingaro", name: "Riserva dello Zingaro", lat: 38.122364, lng: 12.785063, tipo: "Naturaleza", prioridad: "Imprescindible", zona: "Noroeste", dia: 8, nota: "Entrar muy temprano. Elegir 1-2 calas. Llevar agua, gorra, escarpines." },
+  { id: "scopello", name: "Tonnara di Scopello", lat: 38.066400, lng: 12.823200, tipo: "Costa", prioridad: "Imprescindible", zona: "Noroeste", dia: 8, nota: "Faraglioni y antigua tonnara. Aperitivo al atardecer." },
+  { id: "san-vito-lo-capo", name: "San Vito Lo Capo", address: "San Vito Lo Capo, Trapani, Italia", lat: 38.175942, lng: 12.733573, tipo: "Playa", prioridad: "Secundario", zona: "Noroeste", nota: "Alternativa a Zingaro si queréis playa fácil." },
+  { id: "cala-mancina", name: "Cala Mancina", lat: 38.175908, lng: 12.716757, tipo: "Playa", prioridad: "Revisar", zona: "Noroeste", descartar: true, nota: "Si queréis explorar San Vito; redundante con Zingaro." },
+  { id: "cala-rossa-san-vito", name: "Cala Rossa (San Vito)", address: "91030 San Vito Lo Capo, Trapani, Italia", lat: 38.182225, lng: 12.723926, tipo: "Playa", prioridad: "Revisar", zona: "Noroeste", descartar: true, nota: "Duplicado funcional de Cala Mancina." },
+  { id: "erice", name: "Erice", address: "91016 Erice, Trapani, Italia", lat: 38.037780, lng: 12.587927, tipo: "Pueblo", prioridad: "Imprescindible", zona: "Noroeste", dia: 9, nota: "Subir por teleférico evita curvas y aparcamiento." },
+  { id: "castle-venus", name: "Castello di Venere (Erice)", lat: 38.035323, lng: 12.591744, tipo: "Ciudad", prioridad: "Imprescindible", zona: "Noroeste", dia: 9 },
+  { id: "erice-panorama", name: "Erice Panorama", lat: 38.041660, lng: 12.587536, tipo: "Mirador", prioridad: "Secundario", zona: "Noroeste", dia: 9 },
+  { id: "trapani-erice-cableway", name: "Funivia Trapani-Erice", lat: 38.036508, lng: 12.582513, tipo: "Transporte", prioridad: "Secundario", zona: "Noroeste", dia: 9 },
+  { id: "mozia", name: "Mozia / Isola di San Pantaleo", lat: 37.869400, lng: 12.470800, tipo: "Arqueología", prioridad: "Secundario", zona: "Noroeste", dia: 9, nota: "Isla fenicia a 5 min en lancha. Auriga de Mozia + ruinas + salinas alrededor." },
+  { id: "saline-marsala", name: "Saline di Marsala (Ettore e Infersa)", lat: 37.874200, lng: 12.463100, tipo: "Mirador", prioridad: "Secundario", zona: "Noroeste", dia: 9, nota: "Atardecer con molinos. MEJOR que las salinas de Trapani." },
+
+  // ===== SEGESTA / PALERMO / MONREALE (días 10-11) =====
+  { id: "segesta-parque", name: "Parque Arqueológico de Segesta", lat: 37.941769, lng: 12.835728, tipo: "Arqueología", prioridad: "Imprescindible", zona: "Noroeste", dia: 10 },
+  { id: "segesta-templo", name: "Templo de Segesta", lat: 37.941424, lng: 12.832379, tipo: "Arqueología", prioridad: "Imprescindible", zona: "Noroeste", dia: 10 },
+  { id: "segesta-teatro", name: "Teatro de Segesta", lat: 37.941099, lng: 12.843865, tipo: "Arqueología", prioridad: "Imprescindible", zona: "Noroeste", dia: 10, nota: "Shuttle interno si no apetece subir andando." },
+  { id: "monreale", name: "Monreale (Catedral + Claustro)", address: "90046 Monreale, Palermo, Italia", lat: 38.080759, lng: 13.288090, tipo: "Ciudad", prioridad: "Imprescindible", zona: "Palermo", dia: 10, nota: "Catedral suele cerrar ~12:45 hasta 14:30. Comprobar horario antes." },
+  { id: "palermo", name: "Palermo", address: "Palermo, Italia", lat: 38.115686, lng: 13.361464, tipo: "Ciudad", prioridad: "Imprescindible", zona: "Palermo", dia: 10 },
+  { id: "cappella-palatina", name: "Cappella Palatina", lat: 38.111500, lng: 13.353100, tipo: "Ciudad", prioridad: "Imprescindible", zona: "Palermo", dia: 11, nota: "OBLIGATORIA. Mosaicos normando-bizantinos del s. XII. Cierra tarde algunos días; reservar online." },
+  { id: "catacombe-cappuccini", name: "Catacombe dei Cappuccini", lat: 38.116300, lng: 13.343300, tipo: "Ciudad", prioridad: "Secundario", zona: "Palermo", dia: 11, nota: "8.000 cuerpos momificados en las criptas. Visita impactante, no para todos." },
+  { id: "mondello", name: "Mondello Beach", lat: 38.200063, lng: 13.328589, tipo: "Playa", prioridad: "Secundario", zona: "Palermo", dia: 11, nota: "Solo si os apetece de verdad. No es prioritaria." },
+
+  // ===== CEFALÙ / TINDARI / TAORMINA / ETNA (días 12-13) =====
+  { id: "cefalu", name: "Cefalù", address: "Cefalù, Palermo, Italia", lat: 38.034998, lng: 14.021222, tipo: "Pueblo", prioridad: "Imprescindible", zona: "Norte", dia: 12 },
+  { id: "catedral-cefalu", name: "Catedral de Cefalù", lat: 38.040090, lng: 14.023172, tipo: "Ciudad", prioridad: "Imprescindible", zona: "Norte", dia: 12 },
+  { id: "spiaggia-cefalu", name: "Spiaggia di Cefalù", lat: 38.035733, lng: 14.015927, tipo: "Playa", prioridad: "Secundario", zona: "Norte", dia: 12, nota: "Baño corto, no media tarde." },
+  { id: "tindari", name: "Santuario di Tindari + Laguna Marinello", lat: 38.139500, lng: 15.038600, tipo: "Mirador", prioridad: "Imprescindible", zona: "Norte", dia: 12, nota: "Parada IMPRESCINDIBLE en ruta Cefalù → Giardini Naxos. Santuario en acantilado + laguna en forma de cara." },
+  { id: "taormina-teatro", name: "Teatro Antico de Taormina", lat: 37.852318, lng: 15.292134, tipo: "Arqueología", prioridad: "Imprescindible", zona: "Este", dia: 13 },
+  { id: "isola-bella", name: "Isola Bella", lat: 37.850548, lng: 15.300105, tipo: "Playa", prioridad: "Imprescindible", zona: "Este", dia: 13 },
+  { id: "etna-norte", name: "Piano Provenzana (Etna Norte)", lat: 37.795600, lng: 15.038100, tipo: "Naturaleza", prioridad: "Imprescindible", zona: "Este", dia: 13, nota: "DESDE GIARDINI NAXOS, MEJOR QUE EL SUR: 50 min vs 1h20. Menos masificación, paisaje volcánico igual de bueno." },
+  { id: "etna-sur", name: "Rifugio Sapienza (Etna Sur)", lat: 37.702700, lng: 14.999400, tipo: "Naturaleza", prioridad: "Secundario", zona: "Este", dia: 13, nota: "Alternativa clásica. Más turística, más lejos desde Taormina." },
+  { id: "alcantara", name: "Gole dell'Alcantara", lat: 37.880100, lng: 15.184300, tipo: "Naturaleza", prioridad: "Secundario", zona: "Este", dia: 13, nota: "Gargantas de basalto. Plan B / refresco con calor. 25 min de Taormina." },
+
+  // ===== DESCARTADOS / GENÉRICOS / OFF-ROUTE =====
+  { id: "sicilia-generico", name: "Sicilia", address: "Italia", lat: 37.397930, lng: 14.658782, tipo: "Otro", prioridad: "Revisar", zona: "Interior", descartar: true, nota: "Pin genérico, sin valor." },
+  { id: "palazzo-adriano", name: "Palazzo Adriano", lat: 37.681558, lng: 13.379220, tipo: "Pueblo", prioridad: "Revisar", zona: "Interior", descartar: true, nota: "Bonito pero off-route. Saltar." },
+  { id: "agora-segesta", name: "L'Agorà di Segesta - Sala Ricevimenti", lat: 37.947926, lng: 12.839030, tipo: "Otro", prioridad: "Revisar", zona: "Noroeste", descartar: true, nota: "Sala de eventos, no turística." },
+  { id: "sunset-white-wall", name: "Sunset White Wall", lat: 37.291046, lng: 13.473107, tipo: "Mirador", prioridad: "Revisar", zona: "Sur", descartar: true, nota: "Mirador ambiguo cerca de Scala dei Turchi. Saltar." },
+  { id: "cementerio", name: "Cementerio (Modica)", lat: 36.863991, lng: 14.748770, tipo: "Otro", prioridad: "Revisar", zona: "Sureste", descartar: true },
+  { id: "bar-sirenetta", name: "Bar gelateria La Sirenetta", lat: 38.177805, lng: 12.733297, tipo: "Comida", prioridad: "Revisar", zona: "Noroeste", descartar: true, nota: "Bar suelto, no condiciona ruta." },
+  { id: "porta-carmine", name: "Porta Carmine", lat: 38.039962, lng: 12.586919, tipo: "Ciudad", prioridad: "Revisar", zona: "Noroeste", descartar: true },
+  { id: "stairs-down-sea", name: "Stairs down to sea (Taormina)", lat: 37.857205, lng: 15.293717, tipo: "Mirador", prioridad: "Revisar", zona: "Este", descartar: true },
+  { id: "isola-sirene", name: "Isola delle Sirene", lat: 37.858425, lng: 15.300942, tipo: "Mirador", prioridad: "Revisar", zona: "Este", descartar: true },
+  { id: "cimitero-ibla", name: "Cimitero di Ibla", lat: 36.919740, lng: 14.745564, tipo: "Otro", prioridad: "Revisar", zona: "Sureste", descartar: true },
+  { id: "santa-maria-gesu", name: "Santa Maria di Gesù", lat: 36.872007, lng: 14.758833, tipo: "Ciudad", prioridad: "Revisar", zona: "Sureste", descartar: true },
+  { id: "villa-siliqua", name: "Villa Siliqua", lat: 36.920958, lng: 14.745670, tipo: "Otro", prioridad: "Revisar", zona: "Sureste", descartar: true },
+  { id: "fortified-segesta", name: "Fortified Area Medieval Castle (Segesta)", lat: 37.940335, lng: 12.843899, tipo: "Otro", prioridad: "Revisar", zona: "Noroeste", descartar: true, nota: "Ya cubierto por el parque de Segesta." },
+  { id: "santuario-mango", name: "Santuario di Contrada Mango", lat: 37.933621, lng: 12.843190, tipo: "Otro", prioridad: "Revisar", zona: "Noroeste", descartar: true },
+  { id: "view-scala-turchi", name: "View Point Scala dei Turchi", lat: 37.292152, lng: 13.472239, tipo: "Mirador", prioridad: "Revisar", zona: "Sur", descartar: true, nota: "Duplicado del Belvedere." },
+  { id: "stair-turks-dup", name: "Stair of the Turks", lat: 37.289967, lng: 13.472762, tipo: "Mirador", prioridad: "Revisar", zona: "Sur", descartar: true, nota: "Duplicado del Ingresso." },
+  { id: "escursioni-sultan", name: "Escursioni Galeone Sultan", lat: 38.182074, lng: 12.734145, tipo: "Otro", prioridad: "Revisar", zona: "Noroeste", descartar: true, nota: "Excursión comercial." },
+  { id: "al-sabbione-lido", name: "Al Sabbione Lido", lat: 38.175372, lng: 12.741150, tipo: "Playa", prioridad: "Revisar", zona: "Noroeste", descartar: true },
+  { id: "sentiero-mancina", name: "Sentiero per Cala Mancina", lat: 38.183426, lng: 12.725432, tipo: "Naturaleza", prioridad: "Revisar", zona: "Noroeste", descartar: true },
+  { id: "grotta-cavalli", name: "Grotta dei Cavalli", lat: 38.167980, lng: 12.720106, tipo: "Naturaleza", prioridad: "Revisar", zona: "Noroeste", descartar: true },
+];
+
+// Convenience: id -> place
+export const placesById = Object.fromEntries(places.map((p) => [p.id, p]));

@@ -1,0 +1,160 @@
+import { state, isVisited } from "./state.js";
+import { escapeHtml, getDirectionsUrl, markerColor } from "./utils.js";
+
+let map = null;
+let markerLayer = null;
+let routeLayer = null;
+let basesRef = [];
+let placesRef = [];
+let daysRef = [];
+
+export function initMap({ bases, places, days }) {
+  basesRef = bases;
+  placesRef = places;
+  daysRef = days;
+
+  const mapEl = document.getElementById("map");
+  const fallback = document.getElementById("mapFallback");
+  if (typeof L === "undefined" || !mapEl) {
+    if (fallback) fallback.hidden = false;
+    return;
+  }
+
+  map = L.map("map", { zoomControl: true, scrollWheelZoom: true });
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 18,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  }).addTo(map);
+
+  markerLayer = L.layerGroup().addTo(map);
+  routeLayer = L.layerGroup().addTo(map);
+  renderRoute();
+  renderMarkers(getFilteredPlaces());
+}
+
+export function refreshMap() {
+  if (!map) return;
+  renderMarkers(getFilteredPlaces());
+}
+
+export function invalidateMapSize() {
+  if (map) setTimeout(() => map.invalidateSize(), 30);
+}
+
+export function focusPlace(placeId) {
+  if (!map) return;
+  const place = placesRef.find((p) => p.id === placeId);
+  if (!place || !place._marker) {
+    // ensure it's rendered first
+    refreshMap();
+    const placeAfter = placesRef.find((p) => p.id === placeId);
+    if (!placeAfter || !placeAfter._marker) return;
+    map.setView([placeAfter.lat, placeAfter.lng], 13, { animate: true });
+    placeAfter._marker.openPopup();
+    return;
+  }
+  map.setView([place.lat, place.lng], 13, { animate: true });
+  place._marker.openPopup();
+}
+
+export function focusBase(baseId) {
+  if (!map) return;
+  const base = basesRef.find((b) => b.id === baseId);
+  if (!base || !base._marker) return;
+  map.setView([base.lat, base.lng], 9, { animate: true });
+  base._marker.openPopup();
+}
+
+export function focusDay(dayId) {
+  if (!map) return;
+  const day = daysRef.find((d) => d.id === dayId);
+  if (!day) return;
+  const dayPlaces = placesRef.filter((p) => p.dia === dayId && !p.descartar);
+  if (dayPlaces.length === 0) return;
+  const bounds = L.latLngBounds(dayPlaces.map((p) => [p.lat, p.lng]));
+  map.fitBounds(bounds, { padding: [40, 40], maxZoom: 11 });
+}
+
+function renderRoute() {
+  if (!map || !routeLayer) return;
+  routeLayer.clearLayers();
+  const route = basesRef.map((b) => [b.lat, b.lng]);
+  L.polyline(route, { color: "#cf6b2d", weight: 4, opacity: 0.8, dashArray: "8 10" }).addTo(routeLayer);
+  basesRef.forEach((base) => {
+    const marker = L.circleMarker([base.lat, base.lng], {
+      radius: 8,
+      color: "#fff8ef",
+      weight: 2,
+      fillColor: "#cf6b2d",
+      fillOpacity: 0.95,
+    })
+      .bindPopup(`<div class="popup-title">${escapeHtml(base.area)}</div><div class="popup-meta">${escapeHtml(base.range)}<br>${base.nights} noches</div>`)
+      .addTo(routeLayer);
+    base._marker = marker;
+  });
+  map.fitBounds(route, { padding: [28, 28] });
+}
+
+function getFilteredPlaces() {
+  const selectedDay = daysRef.find((d) => d.id === state.selectedDayId);
+  return placesRef.filter((place) => {
+    if (place.descartar && !state.showDescartados) return false;
+    if (state.search) {
+      const haystack = `${place.name} ${place.address || ""} ${place.zona} ${place.tipo}`.toLowerCase();
+      if (!haystack.includes(state.search.toLowerCase())) return false;
+    }
+    if (state.type !== "all" && place.tipo !== state.type) return false;
+    if (state.priority !== "all" && place.prioridad !== state.priority) return false;
+    if (state.zone !== "all" && place.zona !== state.zone) return false;
+    if (selectedDay && selectedDay.focusPlaceIds && selectedDay.focusPlaceIds.length) {
+      // When a day is selected, show its places AND points in same zones (light context)
+      const inDay = selectedDay.focusPlaceIds.includes(place.id);
+      const inZone = selectedDay.focusZones.includes(place.zona);
+      if (!inDay && !inZone) return false;
+    }
+    return true;
+  });
+}
+
+function renderMarkers(filteredPlaces) {
+  if (!map || !markerLayer) return;
+  markerLayer.clearLayers();
+  const selectedDay = daysRef.find((d) => d.id === state.selectedDayId);
+  const dayPlaceIds = selectedDay?.focusPlaceIds ? new Set(selectedDay.focusPlaceIds) : new Set();
+
+  filteredPlaces.forEach((place) => {
+    const highlighted = dayPlaceIds.has(place.id);
+    const visited = isVisited(place.id);
+    const marker = L.circleMarker([place.lat, place.lng], {
+      radius: highlighted ? 10 : 6,
+      color: visited ? "#5e6a67" : "#fff8ef",
+      weight: highlighted ? 2.5 : 1.5,
+      fillColor: visited ? "#5e6a67" : markerColor(place.prioridad),
+      fillOpacity: highlighted ? 1 : visited ? 0.55 : 0.86,
+    })
+      .bindPopup(buildPopup(place, visited))
+      .addTo(markerLayer);
+    place._marker = marker;
+  });
+
+  if (filteredPlaces.length) {
+    const bounds = L.latLngBounds(filteredPlaces.map((p) => [p.lat, p.lng]));
+    map.fitBounds(bounds, { padding: [34, 34], maxZoom: state.selectedDayId ? 11 : 8 });
+  }
+}
+
+function buildPopup(place, visited) {
+  return `
+    <div class="popup-title">${escapeHtml(place.name)}</div>
+    <div class="popup-meta">
+      ${escapeHtml(place.tipo)} · ${escapeHtml(place.zona)}${place.dia ? ` · día ${place.dia}` : ""}<br>
+      ${place.nota ? escapeHtml(place.nota) : escapeHtml(place.prioridad)}
+    </div>
+    <div class="popup-actions">
+      <a href="${escapeHtml(getDirectionsUrl(place))}" target="_blank" rel="noopener noreferrer">Cómo llegar</a>
+      <button class="popup-visit js-toggle-visit" data-place-id="${escapeHtml(place.id)}" type="button">
+        ${visited ? "Marcar no visitado" : "Marcar visitado"}
+      </button>
+    </div>
+  `;
+}

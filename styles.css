@@ -683,6 +683,25 @@ select {
   margin-bottom: 16px;
 }
 
+.field-checkbox {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.field-checkbox input {
+  width: auto;
+  margin: 0;
+}
+
+.field-checkbox span {
+  font-size: 0.9rem;
+  color: var(--ink);
+  font-weight: 600;
+}
+
 .field {
   display: grid;
   gap: 6px;
