@@ -37,6 +37,14 @@ export function refreshMap() {
   renderMarkers(getFilteredPlaces());
 }
 
+export function focusRoute() {
+  if (!map) return;
+  const route = basesRef.map((b) => [b.lat, b.lng]);
+  if (!route.length) return;
+  map.fitBounds(route, { padding: [36, 36] });
+  pulseMap();
+}
+
 export function invalidateMapSize() {
   if (map) setTimeout(() => map.invalidateSize(), 30);
 }

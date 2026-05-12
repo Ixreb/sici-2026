@@ -18,7 +18,7 @@ import {
   renderOpTabs,
   renderTodayButton,
 } from "./render.js";
-import { refreshMap, invalidateMapSize, focusPlace, focusBase, focusDay, placeMapInSlot } from "./map.js";
+import { refreshMap, invalidateMapSize, focusPlace, focusBase, focusDay, focusRoute, placeMapInSlot } from "./map.js";
 import { getTodayDayId } from "./utils.js";
 
 const els = {};
@@ -164,6 +164,7 @@ export function bindEvents({ days, trip }) {
 
   els.printButton.addEventListener("click", () => window.print());
   els.overviewButton.addEventListener("click", () => {
+    setViewMode("planning");
     state.selectedDayId = null;
     state.search = "";
     state.type = "all";
@@ -178,6 +179,12 @@ export function bindEvents({ days, trip }) {
     renderDayDetail();
     renderPlaces();
     refreshMap();
+    setActiveSideTab("map");
+    requestAnimationFrame(() => {
+      const detail = document.getElementById("dayDetail");
+      if (detail) detail.scrollIntoView({ behavior: "smooth", block: "start" });
+      focusRoute();
+    });
   });
 }
 
