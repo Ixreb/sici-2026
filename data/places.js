@@ -11,36 +11,36 @@ export const places = [
   { id: "fuente-diana", name: "Fuente de Diana", lat: 37.061249, lng: 15.293857, tipo: "Ciudad", prioridad: "Secundario", zona: "Sureste", dia: 2 },
   { id: "piazza-duomo-siracusa", name: "Piazza Duomo (Ortigia)", address: "96100 Siracusa, Italia", lat: 37.059390, lng: 15.293144, tipo: "Ciudad", prioridad: "Imprescindible", zona: "Sureste", dia: 2 },
   { id: "fonte-aretusa", name: "Fonte Aretusa", lat: 37.057298, lng: 15.292928, tipo: "Ciudad", prioridad: "Imprescindible", zona: "Sureste", dia: 2 },
-  { id: "castello-maniace", name: "Castello Maniace", lat: 37.053843, lng: 15.294961, tipo: "Ciudad", prioridad: "Imprescindible", zona: "Sureste", dia: 2, horario: "9:00 – 19:30", precio: "8 €" },
+  { id: "castello-maniace", name: "Castello Maniace", lat: 37.053843, lng: 15.294961, tipo: "Ciudad", prioridad: "Imprescindible", zona: "Sureste", dia: 2, horario: "Mar-Dom 10:00 – 18:00 · Lun cerrado", precio: "8 €" },
   { id: "passeggio-foro", name: "Passeggio Foro Vittorio Emanuele II", lat: 37.059961, lng: 15.291928, tipo: "Mirador", prioridad: "Secundario", zona: "Sureste", dia: 2 },
   { id: "passeggio-grotta-seggia", name: "Grotta La Seggia", lat: 37.091520, lng: 15.299927, tipo: "Naturaleza", prioridad: "Revisar", zona: "Sureste", descartar: true },
-  // Día 3 - Neapolis
-  { id: "neapolis", name: "Parque Arqueológico de Neapolis", lat: 37.075269, lng: 15.278573, tipo: "Arqueología", prioridad: "Imprescindible", zona: "Sureste", dia: 3, horario: "8:30 – 19:30 verano · último acceso 18:00", precio: "17 € (incluye Museo Arqueológico Paolo Orsi)" },
-  { id: "catacumbas-san-juan", name: "Catacumbas de San Juan", lat: 37.076864, lng: 15.284402, tipo: "Arqueología", prioridad: "Secundario", zona: "Sureste", dia: 3, horario: "9:30 – 17:30 (visita guiada cada 40 min)", precio: "8 €" },
-  { id: "basilica-santa-lucia", name: "Basílica de Santa Lucía del Sepulcro", lat: 37.073045, lng: 15.291226, tipo: "Ciudad", prioridad: "Secundario", zona: "Sureste", dia: 3, horario: "Lun-Sáb 9:30-13 · 16:00-18:00", precio: "Gratis" },
-  { id: "pillirina", name: "Cave of Pillirina", lat: 37.021865, lng: 15.317424, tipo: "Naturaleza", prioridad: "Secundario", zona: "Sureste", dia: 3, nota: "Costa rocosa Plemmirio; acceso por sendero." },
-  { id: "cavagrande", name: "Cavagrande del Cassibile (Belvedere)", lat: 37.021100, lng: 15.100600, tipo: "Naturaleza", prioridad: "Secundario", zona: "Sureste", dia: 3, horario: "Amanecer – anochecer", precio: "Gratis", nota: "Cañón con piscinas naturales. Sendero exigente; mejor mañana muy temprano." },
+  // Día 2 - Neapolis + Ortigia
+  { id: "neapolis", name: "Parque Arqueológico de Neapolis", lat: 37.075269, lng: 15.278573, tipo: "Arqueología", prioridad: "Imprescindible", zona: "Sureste", dia: 2, horario: "8:30 – tarde · confirmar horario de junio", precio: "14-17 € según exposición / combinado" },
+  { id: "catacumbas-san-juan", name: "Catacumbas de San Juan", lat: 37.076864, lng: 15.284402, tipo: "Arqueología", prioridad: "Secundario", zona: "Sureste", dia: 2, horario: "9:30 – 17:30 (visita guiada cada 40 min)", precio: "8 €" },
+  { id: "basilica-santa-lucia", name: "Basílica de Santa Lucía del Sepulcro", lat: 37.073045, lng: 15.291226, tipo: "Ciudad", prioridad: "Secundario", zona: "Sureste", horario: "Lun-Sáb 9:30-13 · 16:00-18:00", precio: "Gratis" },
+  { id: "pillirina", name: "Cave of Pillirina", lat: 37.021865, lng: 15.317424, tipo: "Naturaleza", prioridad: "Secundario", zona: "Sureste", nota: "Costa rocosa Plemmirio; acceso por sendero. Alternativa si se sacrifica alguna ciudad." },
+  { id: "cavagrande", name: "Cavagrande del Cassibile (Belvedere)", lat: 37.021100, lng: 15.100600, tipo: "Naturaleza", prioridad: "Secundario", zona: "Sureste", horario: "Amanecer – anochecer", precio: "Gratis", nota: "Cañón con piscinas naturales. Sendero exigente; solo como alternativa si se libera media jornada." },
   // Día 4 - Noto / Vendicari
   { id: "noto", name: "Noto", address: "96017 Noto, Siracusa, Italia", lat: 36.892443, lng: 15.065194, tipo: "Pueblo", prioridad: "Imprescindible", zona: "Sureste", dia: 4 },
   { id: "vendicari", name: "Riserva di Vendicari", lat: 36.798643, lng: 15.092975, tipo: "Naturaleza", prioridad: "Imprescindible", zona: "Sureste", dia: 4, horario: "7:00 – 19:30 verano", precio: "3 €", nota: "Reserva con varias playas y la tonnara. Calamosche está DENTRO." },
   { id: "calamosche", name: "Spiaggia di Calamosche (en Vendicari)", lat: 36.824427, lng: 15.105836, tipo: "Playa", prioridad: "Secundario", zona: "Sureste", dia: 4, nota: "Cala más fotogénica del parque. ~25 min andando desde el parking." },
   { id: "marzamemi", name: "Marzamemi", lat: 36.738900, lng: 15.114200, tipo: "Pueblo", prioridad: "Secundario", zona: "Sureste", dia: 4, nota: "Cena temprana y paseo. Cierre ideal del día." },
 
-  // ===== RAGUSA / MODICA / CASALE (día 5) =====
-  { id: "ragusa-ibla", name: "Ragusa Ibla", address: "97100 Ragusa, Italia", lat: 36.926293, lng: 14.744105, tipo: "Pueblo", prioridad: "Imprescindible", zona: "Sureste", dia: 5 },
-  { id: "duomo-san-giorgio-ragusa", name: "Duomo di San Giorgio (Ragusa)", lat: 36.926671, lng: 14.742620, tipo: "Ciudad", prioridad: "Imprescindible", zona: "Sureste", dia: 5, horario: "10:00 – 12:30 · 16:00 – 18:30", precio: "Gratis" },
-  { id: "panorama-ragusa", name: "Panorama Città Ragusa", lat: 36.919588, lng: 14.758816, tipo: "Mirador", prioridad: "Secundario", zona: "Sureste", dia: 5 },
-  { id: "modica", name: "Modica", address: "97015 Modica, Ragusa, Italia", lat: 36.858972, lng: 14.760840, tipo: "Pueblo", prioridad: "Imprescindible", zona: "Sureste", dia: 5 },
-  { id: "duomo-san-pietro-modica", name: "Duomo di San Pietro (Modica)", lat: 36.860679, lng: 14.760751, tipo: "Ciudad", prioridad: "Secundario", zona: "Sureste", dia: 5, horario: "9:00 – 12:30 · 16:00 – 19:00", precio: "Gratis" },
-  { id: "catedral-san-jorge-modica", name: "Duomo di San Giorgio (Modica)", lat: 36.863934, lng: 14.761457, tipo: "Ciudad", prioridad: "Secundario", zona: "Sureste", dia: 5, horario: "9:00 – 12:30 · 16:00 – 19:30", precio: "Gratis" },
-  { id: "villa-romana-casale", name: "Villa Romana del Casale", lat: 37.364724, lng: 14.334552, tipo: "Arqueología", prioridad: "Imprescindible", zona: "Interior", dia: 5, horario: "9:00 – 18:30 · último acceso 17:00", precio: "12 €", nota: "UNESCO. Mosaicos romanos sin igual. Imprescindible recuperarla en el día Ragusa-Modica-Agrigento." },
+  // ===== RAGUSA / MODICA (día 3) + CASALE / SCALA (día 5) =====
+  { id: "ragusa-ibla", name: "Ragusa Ibla", address: "97100 Ragusa, Italia", lat: 36.926293, lng: 14.744105, tipo: "Pueblo", prioridad: "Imprescindible", zona: "Sureste", dia: 3 },
+  { id: "duomo-san-giorgio-ragusa", name: "Duomo di San Giorgio (Ragusa)", lat: 36.926671, lng: 14.742620, tipo: "Ciudad", prioridad: "Imprescindible", zona: "Sureste", dia: 3, horario: "10:00 – 12:30 · 16:00 – 18:30", precio: "Gratis" },
+  { id: "panorama-ragusa", name: "Panorama Città Ragusa", lat: 36.919588, lng: 14.758816, tipo: "Mirador", prioridad: "Secundario", zona: "Sureste", dia: 3 },
+  { id: "modica", name: "Modica", address: "97015 Modica, Ragusa, Italia", lat: 36.858972, lng: 14.760840, tipo: "Pueblo", prioridad: "Imprescindible", zona: "Sureste", dia: 3 },
+  { id: "duomo-san-pietro-modica", name: "Duomo di San Pietro (Modica)", lat: 36.860679, lng: 14.760751, tipo: "Ciudad", prioridad: "Secundario", zona: "Sureste", dia: 3, horario: "9:00 – 12:30 · 16:00 – 19:00", precio: "Gratis" },
+  { id: "catedral-san-jorge-modica", name: "Duomo di San Giorgio (Modica)", lat: 36.863934, lng: 14.761457, tipo: "Ciudad", prioridad: "Secundario", zona: "Sureste", dia: 3, horario: "9:00 – 12:30 · 16:00 – 19:30", precio: "Gratis" },
+  { id: "villa-romana-casale", name: "Villa Romana del Casale", lat: 37.364724, lng: 14.334552, tipo: "Arqueología", prioridad: "Imprescindible", zona: "Interior", dia: 5, horario: "9:00 – 19:00 · último acceso 18:00", precio: "17 € hasta 30 junio 2026", nota: "UNESCO. Mosaicos romanos sin igual. Al separarla de Ragusa/Modica encaja con Scala dei Turchi por la tarde." },
   { id: "cava-ispica", name: "Parco Archeologico di Cava d'Ispica", lat: 36.850161, lng: 14.837929, tipo: "Arqueología", prioridad: "Revisar", zona: "Sureste", horario: "9:00 – 17:30", precio: "4 €", nota: "Solo si interés arqueológico fuerte. Fuera de la ruta principal." },
 
-  // ===== AGRIGENTO / SELINUNTE (día 6) =====
+  // ===== AGRIGENTO / PALAZZO ADRIANO / SELINUNTE (días 5-6) =====
   { id: "valle-templos", name: "Valle de los Templos", lat: 37.292366, lng: 13.593701, tipo: "Arqueología", prioridad: "Imprescindible", zona: "Sur", dia: 6, horario: "8:30 – 20:00 · visitas nocturnas algunos días verano", precio: "13.50 €", nota: "Entrar al abrir. Calor extremo a media mañana." },
-  { id: "scala-turchi-ingresso", name: "Ingresso Scala dei Turchi", lat: 37.289940, lng: 13.473827, tipo: "Mirador", prioridad: "Secundario", zona: "Sur", dia: 6, nota: "ACCESO A LA MARGA CERRADO desde 2020. Solo se ve desde miradores laterales." },
-  { id: "scala-turchi-belvedere", name: "Belvedere Scala dei Turchi", lat: 37.293285, lng: 13.470120, tipo: "Mirador", prioridad: "Secundario", zona: "Sur", dia: 6 },
-  { id: "selinunte", name: "Parque Arqueológico de Selinunte", lat: 37.583600, lng: 12.825900, tipo: "Arqueología", prioridad: "Imprescindible", zona: "Sur", dia: 6, horario: "9:00 – 19:00", precio: "6 € · cochecillo eléctrico +6 €", nota: "Yacimiento griego enorme junto al mar. En ruta Agrigento → Trapani. Recorrer en cochecillo eléctrico si pega el sol." },
+  { id: "scala-turchi-ingresso", name: "Ingresso Scala dei Turchi", lat: 37.289940, lng: 13.473827, tipo: "Mirador", prioridad: "Imprescindible", zona: "Sur", dia: 5, horario: "10:00 – 19:00 · acceso con pass por franja", precio: "5-6 € según pass", nota: "Acceso reabierto de forma controlada y limitada. Reservar pass; no salirse del recorrido autorizado." },
+  { id: "scala-turchi-belvedere", name: "Belvedere Scala dei Turchi", lat: 37.293285, lng: 13.470120, tipo: "Mirador", prioridad: "Imprescindible", zona: "Sur", dia: 5, nota: "Plan visual de respaldo si no hay pass para pisar el tramo autorizado." },
+  { id: "selinunte", name: "Parque Arqueológico de Selinunte", lat: 37.583600, lng: 12.825900, tipo: "Arqueología", prioridad: "Secundario", zona: "Sur", dia: 6, horario: "9:00 – 19:00", precio: "6 € · cochecillo eléctrico +6 €", nota: "Yacimiento griego enorme junto al mar. Solo alternativa si se descarta Palazzo Adriano; no encaja bien con Scala + Valle + Palazzo." },
 
   // ===== TRAPANI / FAVIGNANA / ZINGARO / ERICE (días 7-9) =====
   { id: "favignana", name: "Favignana", address: "Isla Favignana, Trapani, Italia", lat: 37.929883, lng: 12.328288, tipo: "Pueblo", prioridad: "Imprescindible", zona: "Noroeste", dia: 7 },
@@ -81,7 +81,7 @@ export const places = [
 
   // ===== DESCARTADOS / GENÉRICOS / OFF-ROUTE =====
   { id: "sicilia-generico", name: "Sicilia", address: "Italia", lat: 37.397930, lng: 14.658782, tipo: "Otro", prioridad: "Revisar", zona: "Interior", descartar: true, nota: "Pin genérico, sin valor." },
-  { id: "palazzo-adriano", name: "Palazzo Adriano", lat: 37.681558, lng: 13.379220, tipo: "Pueblo", prioridad: "Revisar", zona: "Interior", descartar: true, nota: "Bonito pero off-route. Saltar." },
+  { id: "palazzo-adriano", name: "Palazzo Adriano", lat: 37.681558, lng: 13.379220, tipo: "Pueblo", prioridad: "Secundario", zona: "Interior", dia: 6, nota: "Pueblo de los Monti Sicani y localización de Cinema Paradiso. Viable como parada compacta Agrigento → Trapani si se renuncia a Selinunte." },
   { id: "agora-segesta", name: "L'Agorà di Segesta - Sala Ricevimenti", lat: 37.947926, lng: 12.839030, tipo: "Otro", prioridad: "Revisar", zona: "Noroeste", descartar: true, nota: "Sala de eventos, no turística." },
   { id: "sunset-white-wall", name: "Sunset White Wall", lat: 37.291046, lng: 13.473107, tipo: "Mirador", prioridad: "Revisar", zona: "Sur", descartar: true, nota: "Mirador ambiguo cerca de Scala dei Turchi. Saltar." },
   { id: "cementerio", name: "Cementerio (Modica)", lat: 36.863991, lng: 14.748770, tipo: "Otro", prioridad: "Revisar", zona: "Sureste", descartar: true },

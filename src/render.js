@@ -486,8 +486,11 @@ function renderOverview() {
       <section class="detail-section">
         <h3>Cambios clave vs. el primer borrador</h3>
         <ul>
-          <li>Villa Romana del Casale entra el día 5 (UNESCO, estaba ignorada).</li>
-          <li>Selinunte sustituye al baño en Scala dei Turchi el día 6 (Scala está cerrada).</li>
+          <li>Neapolis y Ortigia se juntan el día 2 para liberar una jornada útil.</li>
+          <li>Ragusa y Modica pasan al día 3, ya sin cargar el traslado al sur.</li>
+          <li>Villa Romana del Casale y Scala dei Turchi quedan fijadas el día 5.</li>
+          <li>Palazzo Adriano entra el día 6 como parada interior compacta hacia Trapani.</li>
+          <li>Selinunte queda como alternativa si se descarta Palazzo Adriano.</li>
           <li>Cappella Palatina pasa a obligatoria + Cappuccini se incorpora a Palermo.</li>
           <li>Tindari + Laguna Marinello rompe el día 12 (Palermo → Giardini).</li>
           <li>Etna Norte (Piano Provenzana) recomendado sobre Etna Sur.</li>
@@ -497,7 +500,9 @@ function renderOverview() {
       <section class="detail-section">
         <h3>Días sensibles</h3>
         <ul>
-          <li>24 junio: Ragusa + Modica + Casale + traslado. Modica debe ser rápida.</li>
+          <li>21 junio: Neapolis temprano + Ortigia; no convertirlo en día de playa.</li>
+          <li>24 junio: Villa del Casale + Scala dei Turchi con pass reservado.</li>
+          <li>25 junio: Valle + Palazzo Adriano; Selinunte solo como alternativa.</li>
           <li>1 julio: 4-5 h de coche. Tindari es la parada que justifica el trayecto.</li>
           <li>2 julio: Etna sensato + Taormina. No exprimir.</li>
         </ul>
@@ -506,7 +511,7 @@ function renderOverview() {
         <h3>Alertas operativas</h3>
         <ul>
           <li>Parking claro en Ortigia, Palermo y Taormina es crítico.</li>
-          <li>Cappella Palatina y Villa del Casale conviene reservar online.</li>
+          <li>Scala dei Turchi necesita pass por franja; Cappella Palatina conviene reservar online.</li>
           <li>Ferry de Favignana también.</li>
           <li>Monreale cierra al mediodía: encajar bien la hora.</li>
         </ul>
@@ -515,8 +520,9 @@ function renderOverview() {
         <h3>Antes de cerrar reservas</h3>
         <ul>
           <li>Alojamientos con parking fiable o concertado.</li>
+          <li>Scala dei Turchi: reservar pass por franja horaria.</li>
           <li>Decidir Etna Norte vs Sur.</li>
-          <li>Comprobar acceso real de Scala dei Turchi y Vendicari la semana del viaje.</li>
+          <li>Comprobar horarios reales de Neapolis, Valle y Vendicari la semana del viaje.</li>
         </ul>
       </section>
     </div>
