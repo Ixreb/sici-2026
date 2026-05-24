@@ -85,7 +85,7 @@ export const additions = [
   },
   {
     name: "Scala dei Turchi",
-    why: "En 2026 visitable con pass por franja. Fija el día 6 en ruta Palazzo → Trapani, ~1 h 30.",
+    why: "Mayo 2026: NO hay reservas online, compra in situ con pago digital (Blue Pass 6 €). Max 1.800/día. Llegar 16:30-17:00 en franja tarde (15:00-20:00) el día 6 para asegurar entrada.",
     type: "Paisaje",
   },
   {
@@ -119,6 +119,31 @@ export const additions = [
     type: "Naturaleza",
   },
   {
+    name: "Torre Salsa (playa virgen)",
+    why: "Mejor playa virgen del sur: acantilados blancos, dunas, agua turquesa. Parada del día 4 antes de Agrigento. Pista tierra 3 km + 20 min caminando.",
+    type: "Playa",
+  },
+  {
+    name: "Plemmirio (Capo Murro di Porco)",
+    why: "Reserva marina con la mejor agua azul de la costa jónica. Tarde opcional del día 2 tras Ortigia. 20 min caminando desde parking.",
+    type: "Costa",
+  },
+  {
+    name: "Marianelli en Vendicari",
+    why: "Joya oculta de Vendicari: laguna esmeralda casi sin gente. 15 min caminata desde parking informal SS115. Día 3.",
+    type: "Playa",
+  },
+  {
+    name: "Savoca + Forza d'Agrò",
+    why: "Donde se rodaron las escenas sicilianas de El Padrino I (no Corleone). Bar Vitelli + pueblos medievales sobre el mar. Día 13 opcional en bajada del Etna; elegir UNO de los dos.",
+    type: "Pueblo",
+  },
+  {
+    name: "Aci Castello + Aci Trezza",
+    why: "Cierre marino del día 14 antes del aeropuerto: castillo normando sobre lava negra + Faraglioni dei Ciclopi (Scogli de la Odisea). 15 km del aeropuerto.",
+    type: "Mar",
+  },
+  {
     name: "Gole dell'Alcantara",
     why: "Plan B con calor o complemento a Taormina. Gargantas de basalto a 25 min.",
     type: "Naturaleza",
@@ -136,7 +161,7 @@ export const dayMetrics = {
   1: { driveKm: 72, walkKm: 3, peajeEuro: 0 },
   2: { driveKm: 28, walkKm: 9, peajeEuro: 0 }, // Neapolis-Ortigia-(Plemmirio opcional)
   3: { driveKm: 195, walkKm: 7, peajeEuro: 0 }, // Siracusa-Noto-Vendicari-Marzamemi-Ragusa
-  4: { driveKm: 215, walkKm: 6, peajeEuro: 0 }, // Ragusa-Modica-Eraclea Minoa-Agrigento (+50 vs sin Eraclea)
+  4: { driveKm: 215, walkKm: 6, peajeEuro: 0 }, // Ragusa-Modica-Torre Salsa-Agrigento (~210-215 reales)
   5: { driveKm: 180, walkKm: 6, peajeEuro: 0 }, // Agrigento-Templos-Casale-Palazzo (arco)
   6: { driveKm: 200, walkKm: 5, peajeEuro: 0 }, // Palazzo-Scala-Trapani
   7: { driveKm: 0, walkKm: 6, peajeEuro: 0 },
@@ -189,7 +214,7 @@ export const days = [
     drive: "~15 min a Neapolis · Ortigia a pie · 20 min a Plemmirio si se va",
     pace: "Equilibrado",
     focusZones: ["Sureste"],
-    focusPlaceIds: ["neapolis", "ortigia-lungomare", "templo-apolo", "mercado-ortigia", "fuente-diana", "piazza-duomo-siracusa", "fonte-aretusa", "castello-maniace", "plemmirio-capo-murro"],
+    focusPlaceIds: ["neapolis", "ortigia-lungomare", "templo-apolo", "mercado-ortigia", "fuente-diana", "piazza-duomo-siracusa", "fonte-aretusa", "castello-maniace", "catacumbas-san-juan", "plemmirio-capo-murro"],
     morning: ["Neapolis al abrir 8:30 (2 h)", "Teatro griego", "Orecchio di Dionisio", "Anfiteatro romano"],
     afternoon: ["Mover coche fuera de ZTL", "Ortigia a pie: Templo Apolo, Mercado, Fuente Diana, Piazza Duomo, Fonte Aretusa, Lungomare", "Castello Maniace solo por fuera (interior no compensa)", "Si quedan ganas y energía: Plemmirio (Capo Murro) para baño en agua cristalina"],
     mustDo: ["Neapolis temprano", "Piazza Duomo + Fonte Aretusa", "Lungomare de Ortigia"],
@@ -412,7 +437,7 @@ export const days = [
     pace: "Flexible",
     focusZones: ["Palermo"],
     focusPlaceIds: ["palermo", "cappella-palatina", "catacombe-cappuccini", "mondello"],
-    morning: ["Cappella Palatina (OBLIGATORIA, reserva online)", "Palacio Normando", "Quattro Canti", "Piazza Pretoria", "Martorana"],
+    morning: ["Cappella Palatina (slot reservado federicosecondo.org)", "Palazzo dei Normanni", "Quattro Canti", "Piazza Pretoria", "Martorana"],
     afternoon: ["Catacombe dei Cappuccini", "Mercado de Ballarò o Capo", "Teatro Massimo por fuera"],
     mustDo: ["Cappella Palatina", "Centro histórico", "Mercado"],
     optional: ["Catacombe (impactante, no para todos)", "Mondello solo si os pide mar"],
@@ -476,7 +501,7 @@ export const days = [
     parking: "Etna parking propio. Isola Bella: dejar coche en Giardini Naxos + taxi/bus. Taormina: Parcheggio Lumbi (965 plazas + navette gratuita cada 15 min a Piazza San Pancrazio) o Porta Catania.",
     booking: "Excursión 4x4 al Etna (cráteres altos ~3.000m) requiere guía AGAM autorizado, reservar antes en Linguaglossa.",
     planB: "Si el Etna se complica (meteo), Alcantara + Taormina larga.",
-    tags: ["Volcán", "Icono"],
+    tags: ["Volcán", "Mar", "Cine"],
   },
   {
     id: 14,
@@ -521,19 +546,31 @@ export const criticalLogistics = [
     title: "Favignana",
     type: "Reserva",
     priority: "Alta",
-    body: "Comprar ferry con antelación (Liberty Lines / Siremar). No llevar coche. Alquilar bici eléctrica al llegar.",
+    body: "Reservar ferry Liberty Lines online (libertylines.it) y bici eléctrica con antelación: los viernes de verano se agotan.",
   },
   {
     title: "Cappella Palatina",
     type: "Reserva",
     priority: "Alta",
-    body: "Reservar franja horaria online. Cierra antes los domingos y festivos religiosos.",
+    body: "Lun-Sáb 9:30-17:00 (último ingreso 16:30), CERRADO domingos. Reserva online en federicosecondo.org hasta 10 días antes. RESTAURACIÓN en curso 2025-2026: algunas zonas pueden estar veladas con andamios.",
   },
   {
     title: "Monreale",
     type: "Horario",
     priority: "Media",
-    body: "Catedral cierra al mediodía (aprox. 12:45-14:30). Llegar antes de las 12 o pasadas las 15.",
+    body: "Catedral cierra al mediodía 13:00-14:00. Llegar antes de las 12:30 o pasadas las 14:00. Domingos solo abre 14:00-17:00.",
+  },
+  {
+    title: "Ortigia (ZTL Siracusa)",
+    type: "Parking",
+    priority: "Alta",
+    body: "ZTL ACTIVA lun-sáb 11:00-15:30 y 17:00-02:00, domingos 10:00-02:00. Llegada sábado 17:00 cae dentro: aparcar Von Platen o Elorina con navette gratuita, o usar pase del hotel.",
+  },
+  {
+    title: "Ragusa Ibla (ZTL)",
+    type: "Parking",
+    priority: "Media",
+    body: "ZTL activa 24h en el casco. Aparcar abajo (Pulizia / Crispi) y subir, o pase del hotel.",
   },
   {
     title: "Palermo",
@@ -549,20 +586,26 @@ export const criticalLogistics = [
   },
   {
     title: "Etna",
-    type: "Decisión",
+    type: "Verificación",
     priority: "Media",
-    body: "Decidir Norte (Piano Provenzana, recomendado desde Giardini Naxos) vs Sur (Sapienza). Si jeep/teleférico, reservar.",
+    body: "Etna Norte (Piano Provenzana) ya decidido. Verificar boletín INGV (ct.ingv.it) 2-3 días antes del 2 jul: en nivel verde acceso libre a 1.800m; a cráteres altos solo con guía AGAM (Linguaglossa).",
   },
   {
     title: "Scala dei Turchi",
-    type: "Reserva",
+    type: "Compra in situ",
     priority: "Alta",
-    body: "En 2026 hay acceso controlado con pass y franja horaria. Reservar para el día 5 por la tarde; si no, belvedere.",
+    body: "Desde mayo 2026 NO hay reservas online: compra in situ con pago digital (Blue Pass 6 €). Max 1.800/día. Llegar 16:30-17:00 en verano para asegurar entrada antes de aforo lleno.",
   },
   {
     title: "Palazzo Adriano",
-    type: "Ruta",
+    type: "Pernocta",
     priority: "Media",
-    body: "Viable el día 6 solo como parada breve camino a Trapani. Si el día se atasca, elegir Palazzo o Selinunte, no ambos.",
+    body: "PERNOCTA del día 5 al 6 (Cinema Paradiso). Museo Cinema Paradiso gratis pero confirmar horario por tel (+39 091 834 9901) la víspera. Pocas opciones de cena, preguntar al check-in.",
+  },
+  {
+    title: "Teatro Antico Taormina",
+    type: "Verificación",
+    priority: "Media",
+    body: "Taormina Film Festival 2026 (10-14 jun) ya pasó. Pero verificar eventos puntuales el 2 jul antes de viajar; si hay, visita teatro por la mañana (9:00) en vez de tarde.",
   },
 ];
