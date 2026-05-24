@@ -80,11 +80,23 @@ export function typeIcon(tipo) {
 //
 // Strategy: explicit aliases first, then substring matching against the
 // day's focusPlaceIds (longest name first).
+// IMPORTANT: alias matching is by substring. Order matters because longer/more
+// specific keys must come BEFORE shorter ones that could trigger first.
+// `null` means "intentionally not a pin" (suppresses false positives).
 const AGENDA_ALIASES = {
+  // Palermo specific "not-pin" cases must come FIRST so they short-circuit before
+  // generic words like "teatro" or "mercado" trigger wrong matches.
+  "teatro massimo": null,
+  "mercado de ballaro": null,
+  "mercado de ballaro o capo": null,
+  "mercado del capo": null,
+  "ballaro": null,
+  "quattro canti": null,
+  "piazza pretoria": null,
+  "martorana": null,
   // Ortigia
   "lungomare": "ortigia-lungomare",
   "mercado de ortigia": "mercado-ortigia",
-  "mercado": "mercado-ortigia",
   "fonte aretusa": "fonte-aretusa",
   "fuente aretusa": "fonte-aretusa",
   // Neapolis
@@ -92,14 +104,13 @@ const AGENDA_ALIASES = {
   "orecchio di dionisio": "neapolis",
   "anfiteatro romano": "neapolis",
   // Sureste
-  "plemmirio": "pillirina",
+  "capo murro": "plemmirio-capo-murro",
+  "plemmirio": "plemmirio-capo-murro",
   // Valle templos
   "templo de la concordia": "valle-templos",
   "templo de juno": "valle-templos",
   "templo de hercules": "valle-templos",
   "concordia": "valle-templos",
-  // Selinunte
-  "cochecillo electrico": "selinunte",
   // Erice
   "funivia": "trapani-erice-cableway",
   "teleferico": "trapani-erice-cableway",
@@ -110,21 +121,15 @@ const AGENDA_ALIASES = {
   "saline": "saline-marsala",
   "salinas": "saline-marsala",
   "molinos": "saline-marsala",
-  // Segesta
+  // Segesta — keys "templo"/"teatro" must stay AFTER Palermo "teatro massimo": null
   "templo": "segesta-templo",
   "teatro": "segesta-teatro",
-  // Palermo
+  // Palermo (pinned)
   "palatina": "cappella-palatina",
   "palacio normando": "cappella-palatina",
   "palazzo dei normanni": "cappella-palatina",
   "capuchinos": "catacombe-cappuccini",
   "capuccini": "catacombe-cappuccini",
-  "ballaro": null,
-  "capo": null,
-  "quattro canti": null,
-  "piazza pretoria": null,
-  "martorana": null,
-  "teatro massimo": null,
   // Etna
   "rifugio sapienza": "etna-sur",
   "piano provenzana": "etna-norte",

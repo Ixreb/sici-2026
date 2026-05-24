@@ -1,5 +1,5 @@
 import { places } from "./data/places.js";
-import { trip, bases, additions, criticalLogistics, days, dayMetrics, fuelAssumptions } from "./data/trip.js";
+import { trip, bases, additions, criticalLogistics, pendingTasks, days, dayMetrics, fuelAssumptions } from "./data/trip.js";
 import { state } from "./src/state.js";
 import {
   initRender,
@@ -17,6 +17,7 @@ import {
   renderViewSwitch,
   renderOpTabs,
   renderTodayButton,
+  renderPendingTasks,
 } from "./src/render.js";
 import { initMap } from "./src/map.js";
 import { bindEvents, placeMapInActiveSlot } from "./src/actions.js";
@@ -47,6 +48,7 @@ initRender({
   bases,
   additions,
   critical: criticalLogistics,
+  pending: pendingTasks,
   metrics: dayMetrics,
   fuel: fuelAssumptions,
   trip,
@@ -64,6 +66,7 @@ renderDayList();
 renderDayDetail();
 renderAdditions();
 renderCriticalLogistics();
+renderPendingTasks();
 renderJourneySummary();
 renderOperational();
 

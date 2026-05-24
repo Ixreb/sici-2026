@@ -16,6 +16,7 @@ let daysRef = [];
 let basesRef = [];
 let additionsRef = [];
 let criticalRef = [];
+let pendingRef = [];
 let metricsRef = {};
 let fuelRef = {};
 let tripRef = {};
@@ -28,6 +29,7 @@ export function initRender(refs) {
   basesRef = refs.bases;
   additionsRef = refs.additions;
   criticalRef = refs.critical;
+  pendingRef = refs.pending || [];
   metricsRef = refs.metrics;
   fuelRef = refs.fuel;
   tripRef = refs.trip;
@@ -38,6 +40,7 @@ export function initRender(refs) {
   els.dayDetail = document.getElementById("dayDetail");
   els.additionList = document.getElementById("additionList");
   els.criticalLogistics = document.getElementById("criticalLogistics");
+  els.pendingTasks = document.getElementById("pendingTasks");
   els.journeySummary = document.getElementById("journeySummary");
   els.placeList = document.getElementById("placeList");
   els.placeCount = document.getElementById("placeCount");
@@ -209,6 +212,12 @@ function renderOpPoints(day) {
 
 function renderOpMore(day) {
   const totals = getJourneyTotals();
+  const groupedPending = {};
+  pendingRef.forEach((task) => {
+    if (!groupedPending[task.category]) groupedPending[task.category] = [];
+    groupedPending[task.category].push(task);
+  });
+
   els.opMoreContent.innerHTML = `
     <p class="op-section-intro">
       Información del <strong>viaje completo</strong> (no del día). Útil como referencia rápida.
@@ -228,6 +237,37 @@ function renderOpMore(day) {
           )
           .join("")}
       </div>
+    </article>
+    <article class="op-card">
+      <h3>Pendientes antes del viaje</h3>
+      ${Object.entries(groupedPending)
+        .map(
+          ([category, tasks]) => `
+            <div class="op-pending-group">
+              <p class="op-pending-category">${escapeHtml(category)}</p>
+              <ul class="op-pending-list">
+                ${tasks
+                  .map((task) => {
+                    const done = isVisited(task.id);
+                    return `
+                      <li class="op-pending-item ${done ? "is-done" : ""}">
+                        <button class="op-pending-check js-toggle-visit" type="button" data-place-id="${escapeHtml(task.id)}" aria-pressed="${done}">
+                          ${done ? "✓" : "○"}
+                        </button>
+                        <div>
+                          <strong>${escapeHtml(task.title)}</strong>
+                          ${task.when ? ` <span class="op-pending-when">${escapeHtml(task.when)}</span>` : ""}
+                          <p>${escapeHtml(task.detail)}</p>
+                        </div>
+                      </li>
+                    `;
+                  })
+                  .join("")}
+              </ul>
+            </div>
+          `
+        )
+        .join("")}
     </article>
     <article class="op-card">
       <h3>Reservas críticas y alertas</h3>
@@ -500,29 +540,31 @@ function renderOverview() {
       <section class="detail-section">
         <h3>Días sensibles</h3>
         <ul>
-          <li>21 junio: Neapolis temprano + Ortigia; no convertirlo en día de playa.</li>
-          <li>24 junio: Villa del Casale + Scala dei Turchi con pass reservado.</li>
-          <li>25 junio: Valle + Palazzo Adriano; Selinunte solo como alternativa.</li>
-          <li>1 julio: 4-5 h de coche. Tindari es la parada que justifica el trayecto.</li>
-          <li>2 julio: Etna sensato + Taormina. No exprimir.</li>
+          <li>21 junio (día 2): Neapolis al abrir 8:30 + Ortigia + Plemmirio opcional.</li>
+          <li>24 junio (día 5): Templos al abrir + Casale mediodía → Palazzo Adriano (arco interior).</li>
+          <li>25 junio (día 6): Palazzo + Museo Cinema Paradiso + Scala dei Turchi tarde → Trapani.</li>
+          <li>1 julio (día 12): 320 km, el día más largo. Cefalù compacto, NO bañarse aquí; baño = Isola Bella día siguiente.</li>
+          <li>2 julio (día 13): Etna Norte + Isola Bella + Taormina. No exprimir.</li>
         </ul>
       </section>
       <section class="detail-section">
         <h3>Alertas operativas</h3>
         <ul>
-          <li>Parking claro en Ortigia, Palermo y Taormina es crítico.</li>
-          <li>Scala dei Turchi necesita pass por franja; Cappella Palatina conviene reservar online.</li>
-          <li>Ferry de Favignana también.</li>
-          <li>Monreale cierra al mediodía: encajar bien la hora.</li>
+          <li>Parking + ZTL claros en Ortigia, Ragusa Ibla, Palermo y Taormina.</li>
+          <li>Scala dei Turchi: compra IN SITU con pago digital (no online desde mayo 2026), Blue Pass 6 €.</li>
+          <li>Cappella Palatina: reservar online en federicosecondo.org; restauración 2025-2026 puede velar zonas.</li>
+          <li>Ferry Favignana + bici eléctrica: reservar online con antelación.</li>
+          <li>Monreale cierra 13:00-14:00; cuadrar con Segesta.</li>
         </ul>
       </section>
       <section class="detail-section">
         <h3>Antes de cerrar reservas</h3>
         <ul>
-          <li>Alojamientos con parking fiable o concertado.</li>
-          <li>Scala dei Turchi: reservar pass por franja horaria.</li>
-          <li>Decidir Etna Norte vs Sur.</li>
-          <li>Comprobar horarios reales de Neapolis, Valle y Vendicari la semana del viaje.</li>
+          <li>Alojamientos con parking + pase ZTL en Ortigia y Ragusa Ibla.</li>
+          <li>Ferry Liberty Lines + bici eléctrica de Favignana online.</li>
+          <li>Cappella Palatina slot online (hasta 10 días antes).</li>
+          <li>Hotel en Palazzo Adriano (pocas opciones, anticiparse).</li>
+          <li>Verificar boletín INGV del Etna 2-3 días antes del día 13.</li>
         </ul>
       </section>
     </div>
@@ -620,6 +662,47 @@ export function renderCriticalLogistics() {
         .join("")}
     </div>
   `;
+}
+
+// Group pending tasks by category and render in planning view.
+export function renderPendingTasks() {
+  if (!els.pendingTasks) return;
+  const grouped = {};
+  pendingRef.forEach((task) => {
+    if (!grouped[task.category]) grouped[task.category] = [];
+    grouped[task.category].push(task);
+  });
+
+  els.pendingTasks.innerHTML = Object.entries(grouped)
+    .map(
+      ([category, tasks]) => `
+        <article class="pending-group">
+          <h3 class="pending-group-title">${escapeHtml(category)}</h3>
+          <ul class="pending-list">
+            ${tasks
+              .map((task) => {
+                const done = isVisited(task.id);
+                return `
+                  <li class="pending-item ${done ? "is-done" : ""}">
+                    <button class="pending-check js-toggle-visit" type="button" data-place-id="${escapeHtml(task.id)}" aria-pressed="${done}" title="${done ? "Marcar pendiente" : "Marcar hecho"}">
+                      ${done ? "✓" : "○"}
+                    </button>
+                    <div class="pending-body">
+                      <div class="pending-head">
+                        <strong>${escapeHtml(task.title)}</strong>
+                        ${task.when ? `<span class="pending-when">${escapeHtml(task.when)}</span>` : ""}
+                      </div>
+                      <p class="pending-detail">${escapeHtml(task.detail)}</p>
+                    </div>
+                  </li>
+                `;
+              })
+              .join("")}
+          </ul>
+        </article>
+      `
+    )
+    .join("");
 }
 
 export function renderPlaces() {

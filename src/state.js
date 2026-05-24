@@ -25,13 +25,28 @@ function writeJson(key, value) {
   }
 }
 
+// Whitelist accepted values for enum-like state pulled from localStorage:
+// if a previous app version persisted a now-invalid value, we must reset.
+const VALID_VIEW_MODES = ["planning", "operational"];
+const VALID_OP_TABS = ["plan", "points", "more"];
+const VALID_SIDE_TABS = ["map", "places", "extras"];
+
+function pickValid(raw, allowed, fallback) {
+  return allowed.includes(raw) ? raw : fallback;
+}
+
+const rawViewMode = readJson(STORAGE_KEYS.viewMode, null);
+const rawOpTab = readJson(STORAGE_KEYS.opTab, "plan");
+const rawSideTab = readJson(STORAGE_KEYS.sideTab, "map");
+
 export const state = {
   selectedDayId: readJson(STORAGE_KEYS.selectedDay, 1),
-  activeSideTab: readJson(STORAGE_KEYS.sideTab, "map"),
+  activeSideTab: pickValid(rawSideTab, VALID_SIDE_TABS, "map"),
   visited: new Set(readJson(STORAGE_KEYS.visited, [])),
   showDescartados: readJson(STORAGE_KEYS.showDescartados, false),
-  viewMode: readJson(STORAGE_KEYS.viewMode, null), // null = auto-detect on first load
-  opTab: readJson(STORAGE_KEYS.opTab, "plan"),
+  // null kept on purpose so app.js auto-detects on first load
+  viewMode: rawViewMode === null ? null : pickValid(rawViewMode, VALID_VIEW_MODES, null),
+  opTab: pickValid(rawOpTab, VALID_OP_TABS, "plan"),
   search: "",
   type: "all",
   priority: "all",

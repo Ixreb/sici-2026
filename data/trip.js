@@ -163,7 +163,7 @@ export const dayMetrics = {
   3: { driveKm: 195, walkKm: 7, peajeEuro: 0 }, // Siracusa-Noto-Vendicari-Marzamemi-Ragusa
   4: { driveKm: 215, walkKm: 6, peajeEuro: 0 }, // Ragusa-Modica-Torre Salsa-Agrigento (~210-215 reales)
   5: { driveKm: 180, walkKm: 6, peajeEuro: 0 }, // Agrigento-Templos-Casale-Palazzo (arco)
-  6: { driveKm: 200, walkKm: 5, peajeEuro: 0 }, // Palazzo-Scala-Trapani
+  6: { driveKm: 230, walkKm: 5, peajeEuro: 0 }, // Palazzo-Scala-Trapani reales
   7: { driveKm: 0, walkKm: 6, peajeEuro: 0 },
   8: { driveKm: 90, walkKm: 8, peajeEuro: 0 },
   9: { driveKm: 80, walkKm: 5, peajeEuro: 0 },
@@ -526,6 +526,152 @@ export const days = [
     booking: "Revisar condiciones de devolución del coche con antelación.",
     planB: "Si vais justos de tiempo o cansados, solo Aci Castello (más rápido) + directo aeropuerto.",
     tags: ["Mar", "Cierre", "Volcán"],
+  },
+];
+
+// Pre-trip checklist: reservas, confirmaciones, equipaje.
+// Agrupado por categoría para la UI.
+export const pendingTasks = [
+  // ===== RESERVAS CON ANTELACIÓN (semanas antes) =====
+  {
+    id: "ferry-favignana",
+    category: "Reservas urgentes",
+    title: "Ferry Trapani-Favignana",
+    detail: "Liberty Lines (libertylines.it). Sin coche, solo pasajeros. ~€11-14/persona ida. Reservar primer barco mañana del 26 jun y vuelta de tarde.",
+    when: "2-3 semanas antes",
+  },
+  {
+    id: "bici-favignana",
+    category: "Reservas urgentes",
+    title: "Bici eléctrica en Favignana",
+    detail: "Barracuda o similar (busca online en Favignana). €15-25/día. Los viernes de verano se agotan.",
+    when: "2-3 semanas antes",
+  },
+  {
+    id: "hotel-palazzo",
+    category: "Reservas urgentes",
+    title: "Hotel Palazzo Adriano (24 jun)",
+    detail: "Pueblo pequeño con ~10-15 opciones (Booking). Casa Paradiso, Affittacamere La Cartiera o Albergo del Viale son las más recomendadas. Confirmar parking.",
+    when: "Ya, cuanto antes",
+  },
+  {
+    id: "cena-ragusa-ibla",
+    category: "Reservas urgentes",
+    title: "Cena Ragusa Ibla (22 jun noche)",
+    detail: "Ragusa Ibla iluminada es plan de cena. Reservar restaurante con vistas o terraza con antelación (Duomo, Locanda Don Serafino, etc.).",
+    when: "1-2 semanas antes",
+  },
+  {
+    id: "hoteles-parking",
+    category: "Reservas urgentes",
+    title: "Hoteles con parking confirmado",
+    detail: "Confirmar parking incluido o concertado en cada base. Ortigia (con pase ZTL), Ragusa Ibla (con pase ZTL casco), Agrigento, Trapani, Palermo (€18-25/día), Giardini Naxos.",
+    when: "Al reservar cada hotel",
+  },
+
+  // ===== RESERVAS 1-2 SEMANAS ANTES =====
+  {
+    id: "cappella-palatina-slot",
+    category: "Reservas con tiempo",
+    title: "Cappella Palatina slot (30 jun)",
+    detail: "federicosecondo.org permite reserva online hasta 10 días antes. Slot martes 30 jun para evitar cola. Precio ~19 € (incluye Palazzo dei Normanni).",
+    when: "10-12 días antes",
+  },
+  {
+    id: "valle-templos",
+    category: "Reservas con tiempo",
+    title: "Valle dei Templi entrada online",
+    detail: "lavalledeitempli.it ahorra cola en taquilla. ~13.50 €. Día 5 al abrir 8:30.",
+    when: "1-2 semanas antes",
+  },
+  {
+    id: "casale-online",
+    category: "Reservas con tiempo",
+    title: "Villa Romana del Casale online",
+    detail: "Compra online ahorra cola en verano. 17 € hasta 30 jun 2026. Día 5 a las 13:00.",
+    when: "1-2 semanas antes",
+  },
+  {
+    id: "neapolis-online",
+    category: "Reservas con tiempo",
+    title: "Parque Neapolis Siracusa",
+    detail: "parchiarcheologici.regione.sicilia.it. Entrada online ahorra cola al abrir. Día 2 a las 8:30.",
+    when: "1-2 semanas antes",
+  },
+
+  // ===== CONFIRMACIÓN VÍSPERA O DÍAS ANTES =====
+  {
+    id: "museo-cinema-paradiso",
+    category: "Confirmar la víspera",
+    title: "Museo Cinema Paradiso abierto el 25 jun",
+    detail: "Tel +39 091 834 9901. Horario verano típico 10:00-13:00 / 16:00-19:00. Confirmar el día anterior por teléfono o vía hotel de Palazzo.",
+    when: "Víspera",
+  },
+  {
+    id: "ingv-etna",
+    category: "Confirmar la víspera",
+    title: "Boletín INGV del Etna",
+    detail: "ct.ingv.it actualiza el estado del volcán. Nivel verde = acceso libre Piano Provenzana. Verificar 2-3 días antes del jueves 2 jul.",
+    when: "2-3 días antes del día 13",
+  },
+  {
+    id: "teatro-taormina",
+    category: "Confirmar la víspera",
+    title: "Eventos Teatro Antico Taormina el 2 jul",
+    detail: "Programación en aditusculture.com / parchiarcheologici.regione.sicilia.it. Si hay evento, visita teatro por la mañana 9:00 en lugar de tarde.",
+    when: "Semana del viaje",
+  },
+  {
+    id: "scala-aforo",
+    category: "Confirmar la víspera",
+    title: "Acceso Scala dei Turchi día 6",
+    detail: "Mayo 2026: NO hay reservas online, compra in situ con pago digital. Verificar que el sistema sigue así la semana del viaje. Llegar 16:30-17:00 para asegurar entrada.",
+    when: "Semana del viaje",
+  },
+  {
+    id: "restauracion-palatina",
+    category: "Confirmar la víspera",
+    title: "Restauración Cappella Palatina",
+    detail: "Restauración 2025-2026 puede tener zonas veladas con andamios. Confirmar qué zonas son visitables vía Fondazione Federico II.",
+    when: "Semana del viaje",
+  },
+
+  // ===== EQUIPAJE ESPECÍFICO =====
+  {
+    id: "escarpines",
+    category: "Equipaje",
+    title: "Escarpines de neopreno (x2)",
+    detail: "Imprescindibles para Cala Rossa Favignana (roca plana), Zingaro (calas pedregosas), Aci Castello (lava negra), Plemmirio (rocas).",
+  },
+  {
+    id: "sombrilla-plegable",
+    category: "Equipaje",
+    title: "Sombrilla plegable de playa",
+    detail: "Vendicari y Torre Salsa NO tienen sombra natural ni servicios. Una sombrilla de 40 cm plegada (~600 g) marca la diferencia con embarazo en verano.",
+  },
+  {
+    id: "chaqueta-fina",
+    category: "Equipaje",
+    title: "Chaqueta fina de viento",
+    detail: "Etna 1.800m (Piano Provenzana) puede estar a 18-20°C con viento aunque abajo haga 34°C. También Erice puede tener niebla y viento.",
+  },
+  {
+    id: "agua-gorra",
+    category: "Equipaje",
+    title: "Botellas reutilizables + gorras",
+    detail: "2L por persona en días de calor. Botella térmica para Casale, Templos, Zingaro. Gorra y protector solar SPF 50+.",
+  },
+  {
+    id: "calzado-comodo",
+    category: "Equipaje",
+    title: "Calzado cómodo para empedrado",
+    detail: "Ragusa Ibla, Modica, Erice y Palazzo Adriano tienen escaleras y empedrado siciliano. Suela buena, no chanclas.",
+  },
+  {
+    id: "documentos",
+    category: "Equipaje",
+    title: "Documentos + seguro",
+    detail: "DNI/pasaporte, carnet conducir + permiso internacional si aplica, seguro de viaje con cobertura para embarazo, tarjeta sanitaria europea, datos del seguro del coche de alquiler.",
   },
 ];
 

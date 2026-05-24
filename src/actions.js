@@ -17,6 +17,7 @@ import {
   renderViewSwitch,
   renderOpTabs,
   renderTodayButton,
+  renderPendingTasks,
 } from "./render.js";
 import { refreshMap, invalidateMapSize, focusPlace, focusBase, focusDay, focusRoute, placeMapInSlot } from "./map.js";
 import { getTodayDayId } from "./utils.js";
@@ -146,6 +147,7 @@ export function bindEvents({ days, trip }) {
       renderDayDetail();
       renderPlaces();
       renderOperational();
+      renderPendingTasks();
       refreshMap();
       return;
     }
@@ -220,6 +222,11 @@ export function setViewMode(mode) {
   state.viewMode = mode;
   persistViewMode();
   renderViewSwitch();
+  // Re-render operational so the day header reflects the latest selectedDayId
+  // even if it changed via overviewButton without going through selectDay.
+  if (mode === "operational") {
+    renderOperational();
+  }
   placeMapInActiveSlot();
   // Scroll to top on view change for a clean transition
   window.scrollTo({ top: 0, behavior: "smooth" });
