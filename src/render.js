@@ -458,8 +458,8 @@ function renderOverview() {
     <div class="fact-grid">
       <article class="fact-card">
         <span class="fact-label">Bases</span>
-        <strong>5 paradas</strong>
-        <p>Siracusa, Agrigento, Trapani, Palermo y Giardini Naxos.</p>
+        <strong>${basesRef.length} paradas</strong>
+        <p>${basesRef.map((b) => b.area.split(" ")[0].replace(/[/,]/g, "")).join(" · ")}</p>
       </article>
       <article class="fact-card">
         <span class="fact-label">Coche</span>

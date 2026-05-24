@@ -1,8 +1,11 @@
-// Service Worker for offline trip planner
-// App shell is precached on install. Map tiles are cached on the fly so
-// regions you've already viewed work offline during the trip.
+// Service Worker for offline trip planner.
+// Strategy:
+//   - App shell (HTML/CSS/JS): network-first with cache fallback. Lets
+//     edits propagate without forcing the user to unregister the SW.
+//   - Map tiles: cache-first (heavy, immutable enough, prioritize speed
+//     and offline).
 
-const APP_CACHE = "sicilia-app-v7";
+const APP_CACHE = "sicilia-app-v8";
 const TILE_CACHE = "sicilia-tiles-v1";
 
 const APP_ASSETS = [
@@ -36,9 +39,8 @@ self.addEventListener("activate", (event) => {
           .filter((k) => k !== APP_CACHE && k !== TILE_CACHE)
           .map((k) => caches.delete(k))
       )
-    )
+    ).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
 self.addEventListener("fetch", (event) => {
@@ -47,20 +49,36 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(req.url);
   const isTile = url.hostname.includes("tile.openstreetmap.org");
-  const cacheName = isTile ? TILE_CACHE : APP_CACHE;
 
-  event.respondWith(
-    caches.match(req).then((cached) => {
-      const network = fetch(req)
-        .then((resp) => {
-          if (resp && resp.status === 200 && (resp.type === "basic" || resp.type === "cors")) {
+  if (isTile) {
+    // Tiles: cache-first (offline-friendly, fast on revisit).
+    event.respondWith(
+      caches.match(req).then((cached) => {
+        if (cached) return cached;
+        return fetch(req).then((resp) => {
+          if (resp && resp.status === 200) {
             const clone = resp.clone();
-            caches.open(cacheName).then((c) => c.put(req, clone)).catch(() => {});
+            caches.open(TILE_CACHE).then((c) => c.put(req, clone)).catch(() => {});
           }
           return resp;
-        })
-        .catch(() => cached);
-      return cached || network;
-    })
+        });
+      })
+    );
+    return;
+  }
+
+  // App shell: network-first, fallback to cache when offline.
+  // This way edits to data/trip.js, src/*, etc. propagate on the next reload
+  // without users having to manually unregister the worker.
+  event.respondWith(
+    fetch(req)
+      .then((resp) => {
+        if (resp && resp.status === 200 && (resp.type === "basic" || resp.type === "cors")) {
+          const clone = resp.clone();
+          caches.open(APP_CACHE).then((c) => c.put(req, clone)).catch(() => {});
+        }
+        return resp;
+      })
+      .catch(() => caches.match(req))
   );
 });
