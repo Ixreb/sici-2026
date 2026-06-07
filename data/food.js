@@ -12,12 +12,14 @@ export const foodTips = [
   "Mercados (Ortigia, Ballarò/Capo en Palermo, Pescheria en Catania): el mejor street food y a precio local. Lleva efectivo.",
   "Pescado fresco 'al peso': pregunta SIEMPRE el precio por etto (100 g) antes de pedir; es donde se dispara la cuenta.",
   "El 'coperto' (1,5-3 €/persona) es normal. Sin alcohol: acqua, spremuta d'arancia, latte di mandorla o chinotto; la granita además hidrata.",
+  "Las 'joyas caseras' marcadas (💎) son trattorias de gestión familiar —a veces de un matrimonio— donde comen los locales: comida casera, barata y sin postureo. Suelen ser pequeñas: reserva o llega pronto.",
 ];
 
 export const foodZones = [
   {
     zona: "Siracusa · Ortigia",
     dias: "Días 1-2",
+    joya: { nombre: "Trattoria Do Scogghiu (Via Scinà 11, Ortigia)", por_que: "Familiar desde 1975 (de padre a hijo), en un callejón fuera del eje turístico. Carta del día según el mercado; ambiente muy casero.", precio: "~20 €/persona" },
     platos: [
       "Pasta con le sarde (sardina, hinojo, pasas, piñones) — ~10-13 €",
       "Sarde a beccafico o caponata (para empezar) — ~6-10 €",
@@ -36,6 +38,7 @@ export const foodZones = [
   {
     zona: "Noto · Marzamemi",
     dias: "Día 3",
+    joya: { nombre: "Trattoria del Carmine (Via Ducezio 1, Noto)", por_que: "En una calle paralela al Corso (no en la plaza turística). Abierta en 1968, hoy la llevan las hijas del fundador; tagliatelle 'alla capricciosa' de receta secreta.", precio: "~15-20 €/persona" },
     platos: [
       "GRANITA de Noto (almendra, mandarino, mora): el desayuno estrella del viaje — ~2,5-4 €",
       "Ravioli de ricotta al ragù de cerdo (Noto) — ~10-12 €",
@@ -54,6 +57,7 @@ export const foodZones = [
   {
     zona: "Ragusa Ibla · Modica",
     dias: "Días 3-4",
+    joya: { nombre: "Trattoria Da Fabio (Modica Alta)", por_que: "Lo lleva un matrimonio: él en la sala, ella en los fogones. Todo casero (pan, pasta, cannoli), recetas 'de la nonna'. Local pequeño: reservar.", precio: "~20-24 €/persona" },
     platos: [
       "Scacce ragusane (focaccia fina enrollada y rellena) — ~3-5 €",
       "Lolli con le fave o pasta fresca iblea; caciocavallo ragusano — ~9-12 €",
@@ -72,6 +76,7 @@ export const foodZones = [
   {
     zona: "Agrigento · San Leone",
     dias: "Días 4-5",
+    joya: { nombre: "Trattoria Concordia (Via Porcello 8, casco)", por_que: "Familiar, en un callejón de piedra del casco antiguo (fuera de lo turístico). Te reciben 'como en casa'; pasta con le sarde y pulpo a la brasa. Pequeña: reservar.", precio: "~20-30 €/persona" },
     platos: [
       "Pasta cô niuru di siccia (tinta de sepia) o con tenerumi — ~9-13 €",
       "Frittura di paranza / calamari fritti — ~10-14 €",
@@ -89,6 +94,7 @@ export const foodZones = [
   {
     zona: "Trapani · Erice · Favignana",
     dias: "Días 6-8",
+    joya: { nombre: "'A Nassa (centro de Trapani)", por_que: "Trattoria familiar de fritura de pescado a precios contenidos (raro en el centro de Trapani). Para el plan 'matrimonio cocinando': Trattoria Diegolina (Diego y Lina, en Guarrato, a 20 min); de pizza, la histórica Pizzeria Calvino (1946).", precio: "~15-20 €/persona" },
     platos: [
       "Cous cous di pesce trapanés (la estrella local) — ~13-18 €",
       "Busiate al pesto trapanese (almendra, tomate, ajo, albahaca) — ~9-13 €",
@@ -109,6 +115,7 @@ export const foodZones = [
   {
     zona: "Palermo",
     dias: "Días 9-10",
+    joya: { nombre: "Osteria Nonna Dora (Piazza Colonna 7)", por_que: "Family-run, comida casera y raciones generosas a precio sorprendente (pasta con le sarde ~6 €). Muy demandada: reservar. De barrio: Trattoria al Vecchio Club Rosanero (entre Vucciria y Capo).", precio: "~15-20 €/persona" },
     platos: [
       "Pane câ meusa (pan con bazo) — ~3-4 €",
       "Panelle e crocchè (tortita de garbanzo + croqueta de patata) — ~1,5-3,5 €",
@@ -128,6 +135,7 @@ export const foodZones = [
   {
     zona: "Cefalù",
     dias: "Día 11",
+    joya: { nombre: "Ristorante La Brace (Via XXV Novembre 10)", por_que: "Lo lleva un matrimonio (uno cocina, otro sirve), íntimo y de lo más barato de Cefalù. Especialidad de carne (raro aquí, pueblo de pescado). Reservar: siempre lleno.", precio: "~20-25 €/persona" },
     platos: [
       "Coppo de fritura (calamar/gambas) o pane e panelle — ~3-6 €",
       "Pasta con le sarde o involtini di pesce spada — ~10-14 €",
@@ -145,6 +153,7 @@ export const foodZones = [
   {
     zona: "Catania · Taormina",
     dias: "Días 11-13",
+    joya: { nombre: "Nuova Trattoria del Forestiero (Via Coppola 24)", por_que: "La cocina la Nonna Rosanna (~75 años) con recetas de su bisabuela, desde hace más de 50 años, fuera del circuito turístico. Pasta alla Norma memorable. Ve pronto: prepara cada plato ella misma.", precio: "~10-20 €/persona" },
     platos: [
       "Pasta alla Norma (tomate, berenjena frita, ricotta salada) — ~8-12 €",
       "Arancino (masculino aquí; al ragú o alla catanese) — ~2-3,5 €",

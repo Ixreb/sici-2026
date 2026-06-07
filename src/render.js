@@ -899,6 +899,12 @@ function foodHtml() {
             <strong>${escapeHtml(z.zona)}</strong>
             <span class="badge badge-medium">${escapeHtml(z.dias)}</span>
           </div>
+          ${z.joya ? `
+            <div class="food-joya">
+              <p class="food-joya-title">💎 Joya casera · gestión familiar</p>
+              <p class="food-joya-name">${escapeHtml(z.joya.nombre)}</p>
+              <p class="food-joya-why">${escapeHtml(z.joya.por_que)}${z.joya.precio ? ` · ${escapeHtml(z.joya.precio)}` : ""}</p>
+            </div>` : ""}
           ${z.platos && z.platos.length ? `
             <div class="food-block">
               <p class="food-label">Qué pedir</p>

@@ -2691,3 +2691,34 @@ a.phone-value:hover {
   font-size: 0.84rem;
   line-height: 1.45;
 }
+
+.food-joya {
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(100, 122, 88, 0.35);
+  background: rgba(100, 122, 88, 0.12);
+}
+
+.food-joya-title {
+  margin: 0 0 3px;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: #4a5d3d;
+}
+
+.food-joya-name {
+  margin: 0 0 3px;
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+.food-joya-why {
+  margin: 0;
+  font-size: 0.84rem;
+  color: var(--ink);
+  line-height: 1.45;
+}
