@@ -1397,6 +1397,68 @@ select {
   margin-left: 6px;
 }
 
+/* ============== TIPS (consejos) ============== */
+.tips-section {
+  display: grid;
+  gap: 8px;
+}
+
+.tip-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.7);
+  overflow: hidden;
+}
+
+.tip-summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  cursor: pointer;
+  font-weight: 700;
+  list-style: none;
+  user-select: none;
+}
+
+.tip-summary::-webkit-details-marker { display: none; }
+
+.tip-summary::after {
+  content: "+";
+  margin-left: auto;
+  font-size: 1.3rem;
+  color: var(--accent);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.tip-card[open] .tip-summary::after { content: "–"; }
+
+.tip-card[open] .tip-summary {
+  border-bottom: 1px solid var(--line);
+}
+
+.tip-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.tip-tema {
+  font-size: 0.98rem;
+}
+
+.tip-list {
+  margin: 0;
+  padding: 12px 16px 14px 32px;
+  display: grid;
+  gap: 8px;
+  color: var(--ink);
+  line-height: 1.55;
+  font-size: 0.9rem;
+}
+
+.tip-list li::marker { color: var(--accent); }
+
 /* ============== TOPBAR ============== */
 .topbar {
   position: sticky;

@@ -17,6 +17,7 @@ let basesRef = [];
 let additionsRef = [];
 let criticalRef = [];
 let pendingRef = [];
+let tipsRef = [];
 let metricsRef = {};
 let fuelRef = {};
 let tripRef = {};
@@ -30,6 +31,7 @@ export function initRender(refs) {
   additionsRef = refs.additions;
   criticalRef = refs.critical;
   pendingRef = refs.pending || [];
+  tipsRef = refs.tips || [];
   metricsRef = refs.metrics;
   fuelRef = refs.fuel;
   tripRef = refs.trip;
@@ -41,6 +43,7 @@ export function initRender(refs) {
   els.additionList = document.getElementById("additionList");
   els.criticalLogistics = document.getElementById("criticalLogistics");
   els.pendingTasks = document.getElementById("pendingTasks");
+  els.tipsSection = document.getElementById("tipsSection");
   els.journeySummary = document.getElementById("journeySummary");
   els.placeList = document.getElementById("placeList");
   els.placeCount = document.getElementById("placeCount");
@@ -475,7 +478,7 @@ export function renderDayDetail() {
         <p class="detail-copy">${escapeHtml(day.planB)}</p>
       </section>
       <section class="detail-section detail-section-wide">
-        <h3>Puntos del día (clic = marcar visitado)</h3>
+        <h3>Puntos del día (clic = ver en el mapa)</h3>
         <div class="detail-chip-list">
           ${placeButtons}
         </div>
@@ -662,6 +665,26 @@ export function renderCriticalLogistics() {
         .join("")}
     </div>
   `;
+}
+
+// Render the Sicily tips/recommendations as collapsible cards.
+export function renderTips() {
+  if (!els.tipsSection) return;
+  els.tipsSection.innerHTML = tipsRef
+    .map(
+      (t) => `
+        <details class="tip-card">
+          <summary class="tip-summary">
+            <span class="tip-icon" aria-hidden="true">${escapeHtml(t.icon || "💡")}</span>
+            <span class="tip-tema">${escapeHtml(t.tema)}</span>
+          </summary>
+          <ul class="tip-list">
+            ${t.consejos.map((c) => `<li>${escapeHtml(c)}</li>`).join("")}
+          </ul>
+        </details>
+      `
+    )
+    .join("");
 }
 
 // Group pending tasks by category and render in planning view.

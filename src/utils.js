@@ -109,8 +109,12 @@ const AGENDA_ALIASES = {
   // Valle templos
   "templo de la concordia": "valle-templos",
   "templo de juno": "valle-templos",
+  "templo de hera": "valle-templos",
   "templo de hercules": "valle-templos",
   "concordia": "valle-templos",
+  // Taormina (antes que el genérico "teatro")
+  "teatro greco": "taormina-teatro",
+  "teatro antico": "taormina-teatro",
   // Erice
   "funivia": "trapani-erice-cableway",
   "teleferico": "trapani-erice-cableway",
@@ -147,11 +151,16 @@ function norm(value) {
 
 export function resolveAgendaPlace(text, day, places) {
   const normalized = norm(text);
+  const dayIds = day && day.focusPlaceIds ? day.focusPlaceIds : [];
 
-  // 1) explicit aliases (null means "intentionally not a pin")
+  // 1) explicit aliases (null means "intentionally not a pin").
+  // A non-null alias only wins if the target place belongs to THIS day's pins.
+  // This prevents generic words like "teatro"/"templo" from resolving
+  // "Teatro Greco" (Taormina) or "Templo de Hera" (Valle) to Segesta.
   for (const [alias, pid] of Object.entries(AGENDA_ALIASES)) {
     if (normalized.includes(alias)) {
       if (pid === null) return null;
+      if (!dayIds.includes(pid)) continue; // alias target not in this day → skip
       const hit = places.find((p) => p.id === pid);
       if (hit) return hit;
     }

@@ -75,7 +75,7 @@ export const bases = [
 export const additions = [
   {
     name: "Villa Romana del Casale",
-    why: "UNESCO con los mejores mosaicos romanos. Día 5 en arco Agrigento → Casale → Palazzo Adriano sin backtracking.",
+    why: "UNESCO con los mejores mosaicos romanos. Día 4 DE PASO (Ragusa → Casale → Agrigento), entrando al fresco de la mañana.",
     type: "Arqueología",
   },
   {
@@ -110,7 +110,7 @@ export const additions = [
   },
   {
     name: "Torre Salsa (playa virgen)",
-    why: "Mejor playa virgen del sur: acantilados blancos, dunas, agua turquesa. Parada del día 4 antes de Agrigento. Pista tierra 3 km + 20 min caminando.",
+    why: "Mejor playa virgen del sur: acantilados blancos, dunas, agua turquesa. Mañana del día 5 (descanso/playa antes de Templos al atardecer). Pista tierra 3 km + 20 min caminando.",
     type: "Playa",
   },
   {
@@ -148,20 +148,22 @@ export const additions = [
 // Day-level metrics (km coche, km a pie estimados, peajes aproximados en €)
 // Peajes solo en A18 (Messina-Catania) y A20 (Messina-Palermo). El resto es gratis.
 export const dayMetrics = {
-  1: { driveKm: 72, walkKm: 3, peajeEuro: 0 }, // Catania aeropuerto → Siracusa
+  // Km verificados con rutas reales (jun 2026). Peajes: A18 (Catania-Messina) y
+  // A20 (Messina-Palermo, incluye Cefalù) son de pago; A19 y A29 gratis.
+  1: { driveKm: 63, walkKm: 3, peajeEuro: 0 }, // Catania aeropuerto → Siracusa (A18 sur)
   2: { driveKm: 28, walkKm: 9, peajeEuro: 0 }, // Neapolis + Ortigia + Plemmirio opcional
-  3: { driveKm: 150, walkKm: 7, peajeEuro: 0 }, // Siracusa-Noto-Vendicari-Marzamemi-Modica-Ragusa
-  4: { driveKm: 260, walkKm: 6, peajeEuro: 0 }, // Ragusa-Casale-Agrigento + Scala atardecer
-  5: { driveKm: 30, walkKm: 6, peajeEuro: 0 }, // Mañana suave + Templos atardecer (Agrigento)
+  3: { driveKm: 160, walkKm: 7, peajeEuro: 0 }, // Siracusa-Noto-Vendicari-Marzamemi-Modica-Ragusa
+  4: { driveKm: 260, walkKm: 6, peajeEuro: 0 }, // Ragusa-Casale-Agrigento + Scala atardecer (día con más coche)
+  5: { driveKm: 50, walkKm: 6, peajeEuro: 0 }, // Torre Salsa (ida y vuelta) + Valle dei Templi
   6: { driveKm: 185, walkKm: 6, peajeEuro: 0 }, // Agrigento-Selinunte-Palazzo Adriano
-  7: { driveKm: 160, walkKm: 5, peajeEuro: 0 }, // Palazzo-Segesta-Trapani + Erice
+  7: { driveKm: 135, walkKm: 5, peajeEuro: 0 }, // Palazzo-Segesta-Trapani + Erice (funivia)
   8: { driveKm: 0, walkKm: 7, peajeEuro: 0 }, // Favignana (ferry, sin coche)
-  9: { driveKm: 130, walkKm: 8, peajeEuro: 0 }, // Zingaro+Scopello → Palermo
+  9: { driveKm: 130, walkKm: 8, peajeEuro: 0 }, // Zingaro+Scopello → Palermo (A29 gratis)
   10: { driveKm: 30, walkKm: 9, peajeEuro: 0 }, // Palermo a pie + Monreale
-  11: { driveKm: 235, walkKm: 5, peajeEuro: 0 }, // Palermo-Cefalù-Catania (A19 sin peaje)
-  12: { driveKm: 190, walkKm: 6, peajeEuro: 3 }, // Catania-Etna Norte-Taormina-Isola Bella (triángulo)
-  13: { driveKm: 20, walkKm: 5, peajeEuro: 0 }, // Catania ciudad + playa
-  14: { driveKm: 30, walkKm: 3, peajeEuro: 0 }, // Catania / Aci Trezza → aeropuerto
+  11: { driveKm: 250, walkKm: 5, peajeEuro: 3 }, // Palermo-Cefalù (A20, peaje) - Catania (A19 gratis)
+  12: { driveKm: 160, walkKm: 6, peajeEuro: 2 }, // Catania-Etna Norte-Taormina-Catania (A18 tramo)
+  13: { driveKm: 28, walkKm: 5, peajeEuro: 0 }, // Catania ciudad + Aci Castello/Trezza
+  14: { driveKm: 10, walkKm: 3, peajeEuro: 0 }, // Catania → aeropuerto (a 8 km del centro)
 };
 
 // Coche: Fiat 500 a todo riesgo
@@ -560,22 +562,22 @@ export const pendingTasks = [
   {
     id: "cappella-palatina-slot",
     category: "Reservas con tiempo",
-    title: "Cappella Palatina slot (30 jun)",
-    detail: "federicosecondo.org permite reserva online hasta 10 días antes. Slot martes 30 jun para evitar cola. Precio ~19 € (incluye Palazzo dei Normanni).",
+    title: "Cappella Palatina slot (lun 29 jun)",
+    detail: "federicosecondo.org, reserva online hasta 10 días antes. Día 10 (lunes 29 jun, abierta 8:30-17:00). ~19 € (incluye Palazzo dei Normanni). RESTAURACIÓN 2025-26: confirmar zonas visitables y último acceso (~16:00 en jun).",
     when: "10-12 días antes",
   },
   {
     id: "valle-templos",
     category: "Reservas con tiempo",
     title: "Valle dei Templi entrada online",
-    detail: "lavalledeitempli.it ahorra cola en taquilla. ~13.50 €. Día 5 al abrir 8:30.",
+    detail: "lavalledeitempli.it ahorra cola. ~12 € (precio oficial 2026). Día 5 al ATARDECER (17:00-20:00, luz dorada).",
     when: "1-2 semanas antes",
   },
   {
     id: "casale-online",
     category: "Reservas con tiempo",
     title: "Villa Romana del Casale online",
-    detail: "Compra online ahorra cola en verano. 17 € hasta 30 jun 2026. Día 5 a las 13:00.",
+    detail: "Compra online ahorra cola en verano. 17 € hasta 30 jun 2026. Día 4 por la mañana (~11:00, de paso Ragusa→Agrigento).",
     when: "1-2 semanas antes",
   },
   {
@@ -721,7 +723,7 @@ export const criticalLogistics = [
     title: "Etna",
     type: "Verificación",
     priority: "Media",
-    body: "Etna Norte (Piano Provenzana) ya decidido. Verificar boletín INGV (ct.ingv.it) 2-3 días antes del 2 jul: en nivel verde acceso libre a 1.800m; a cráteres altos solo con guía AGAM (Linguaglossa).",
+    body: "Etna Norte (Piano Provenzana) ya decidido. Verificar boletín INGV (ct.ingv.it) 2-3 días antes del 1 jul: en nivel verde acceso libre a 1.800m. Tours 4x4 a cráteres (69-120 €) NO recomendados con embarazo de 5 meses (altitud 3.000m); quedarse en Piano Provenzana.",
   },
   {
     title: "Scala dei Turchi",
