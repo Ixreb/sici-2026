@@ -20,6 +20,7 @@ let pendingRef = [];
 let tipsRef = [];
 let staysRef = [];
 let carRef = null;
+let flightsRef = null;
 let phonesRef = [];
 let budgetRef = {};
 let foodTipsRef = [];
@@ -40,6 +41,7 @@ export function initRender(refs) {
   tipsRef = refs.tips || [];
   staysRef = refs.stays || [];
   carRef = refs.car || null;
+  flightsRef = refs.flights || null;
   phonesRef = refs.phones || [];
   budgetRef = refs.budget || {};
   foodTipsRef = refs.foodTips || [];
@@ -264,7 +266,7 @@ function renderOpMore(day) {
           .join("")}
       </div>
     </article>
-    ${opCollapsible("🛏️", "Alojamientos y coche", staysListHtml())}
+    ${opCollapsible("🛏️", "Alojamientos, coche y vuelos", staysListHtml())}
     ${opCollapsible("💡", "Consejos de Sicilia", tipsCompactHtml())}
     ${opCollapsible("🍴", "Comer por zonas", foodHtml())}
     ${opCollapsible("☎️", "Teléfonos útiles", phonesHtml())}
@@ -646,7 +648,17 @@ export function renderJourneySummary() {
   const totals = getJourneyTotals();
   const entradas = budgetRef.entradasPax2 || 0;
   const transporte = budgetRef.transportePax2 || 0;
-  const totalRuta = entradas + transporte + totals.fuelCostEuro + totals.peajeEuro;
+  const gas = totals.fuelCostEuro;
+  const peaje = totals.peajeEuro;
+  const enRuta = entradas + transporte + gas + peaje;
+
+  const vuelos = flightsRef && flightsRef.total ? flightsRef.total : 0;
+  const coche = carRef && carRef.precio ? carRef.precio : 0;
+  const staysConPrecio = staysRef.filter((s) => s.precio);
+  const alojamiento = staysConPrecio.reduce((acc, s) => acc + s.precio, 0);
+  const grandTotal = Math.round(vuelos + coche + alojamiento + enRuta);
+  const faltan = staysRef.length - staysConPrecio.length;
+
   els.journeySummary.innerHTML = `
     <div class="fact-grid">
       <article class="fact-card">
@@ -661,32 +673,35 @@ export function renderJourneySummary() {
       </article>
       <article class="fact-card">
         <span class="fact-label">Gasolina (Fiat 500)</span>
-        <strong>~${totals.fuelCostEuro} €</strong>
+        <strong>~${gas} €</strong>
         <p>${totals.fuelLiters} L estimados a ${fuelRef.pricePerLiter.toFixed(2)} €/L.</p>
       </article>
       <article class="fact-card">
         <span class="fact-label">Peajes</span>
-        <strong>~${totals.peajeEuro} €</strong>
+        <strong>~${peaje} €</strong>
         <p>Navegador con peajes OFF. Solo el día 12 (A18 Taormina↔Catania) compensa activarlos.</p>
       </article>
     </div>
     <div class="budget-block">
       <div class="budget-head">
-        <span class="fact-label">Presupuesto orientativo en ruta · 2 personas</span>
-        <strong class="budget-total">~${totalRuta} €</strong>
+        <span class="fact-label">Presupuesto del viaje · 2 personas (totales)</span>
+        <strong class="budget-total">~${grandTotal.toLocaleString("es-ES")} €</strong>
       </div>
+      <p class="budget-group-title">Ya reservado / pagado</p>
+      <ul class="budget-lines">
+        <li><span>Vuelos (Isaac + María, i/v)</span><strong>${eur(vuelos)}</strong></li>
+        <li><span>Coche de alquiler (sin gasolina ni peajes)</span><strong>${eur(coche)}</strong></li>
+        <li><span>Alojamiento (${staysConPrecio.length} de ${staysRef.length} bases)</span><strong>${eur(alojamiento)}</strong></li>
+      </ul>
+      <p class="budget-group-title">En ruta · estimado</p>
       <ul class="budget-lines">
         <li><span>Entradas (yacimientos + monumentos)</span><strong>~${entradas} €</strong></li>
         <li><span>Transportes (ferry + bici Favignana, funivias, Isola Bella)</span><strong>~${transporte} €</strong></li>
-        <li><span>Gasolina (Fiat 500)</span><strong>~${totals.fuelCostEuro} €</strong></li>
-        <li><span>Peajes (solo día 12, A18)</span><strong>~${totals.peajeEuro} €</strong></li>
+        <li><span>Gasolina (Fiat 500)</span><strong>~${gas} €</strong></li>
+        <li><span>Peajes (solo día 12, A18)</span><strong>~${peaje} €</strong></li>
       </ul>
-      ${budgetRef.note ? `<p class="budget-note">${escapeHtml(budgetRef.note)}</p>` : ""}
+      <p class="budget-note">${faltan > 0 ? `Faltan por registrar ${faltan} alojamientos (precio aún no añadido). ` : ""}No incluye comidas ni parking diario. Importes totales de cada concepto (lo pagáis a medias).</p>
     </div>
-    <p class="summary-note">
-      No incluido: alojamiento, comidas, parking diario (15-25 € en Palermo y Taormina) y excursiones opcionales 4x4 del Etna.
-      Cifras orientativas para dos personas.
-    </p>
   `;
 }
 
@@ -711,6 +726,11 @@ export function renderCriticalLogistics() {
   `;
 }
 
+// Format an amount in euros (es-ES style: comma decimals).
+function eur(n) {
+  return Number(n).toFixed(2).replace(".", ",") + " €";
+}
+
 // Build the accommodations + rental car list (shared by planning panel and mobile).
 function staysListHtml() {
   const carHtml = carRef
@@ -726,6 +746,7 @@ function staysListHtml() {
           <dt>Devolución</dt><dd>${escapeHtml(carRef.devolucion)}</dd>
           <dt>Proveedor</dt><dd>${escapeHtml(carRef.proveedor)}</dd>
           <dt>Conductor</dt><dd>${escapeHtml(carRef.conductor)}</dd>
+          ${carRef.precio ? `<dt>Precio</dt><dd>${eur(carRef.precio)} (total, sin gasolina ni peajes)</dd>` : ""}
         </dl>
         ${carRef.avisos && carRef.avisos.length ? `<ul class="stay-avisos">${carRef.avisos.map((a) => `<li>${escapeHtml(a)}</li>`).join("")}</ul>` : ""}
       </article>
@@ -746,6 +767,7 @@ function staysListHtml() {
           </div>
           <p class="stay-meta">${escapeHtml(s.base)} · ${escapeHtml(s.dias)} · ${escapeHtml(s.fechas)}</p>
           <dl class="stay-info">
+            ${s.precio ? `<dt>Precio</dt><dd>${eur(s.precio)} (total)</dd>` : ""}
             ${s.checkin ? `<dt>Check-in</dt><dd>${escapeHtml(s.checkin)}</dd>` : ""}
             ${s.checkout ? `<dt>Check-out</dt><dd>${escapeHtml(s.checkout)}</dd>` : ""}
             ${s.direccion ? `<dt>Dirección</dt><dd>${escapeHtml(s.direccion)}</dd>` : ""}
@@ -758,7 +780,22 @@ function staysListHtml() {
     })
     .join("");
 
-  return carHtml + staysHtml;
+  const flightsHtml =
+    flightsRef && flightsRef.total
+      ? `
+      <article class="stay-card stay-flights">
+        <div class="stay-head">
+          <strong>✈️ Vuelos</strong>
+          <span class="badge badge-medium">${eur(flightsRef.total)}</span>
+        </div>
+        <ul class="stay-flights-list">
+          ${flightsRef.legs.map((l) => `<li><span>${escapeHtml(l.label)}</span><strong>${eur(l.total)}</strong></li>`).join("")}
+        </ul>
+        <p class="stay-nota">Total de los vuelos de los dos (ida y vuelta). Se paga a medias.</p>
+      </article>`
+      : "";
+
+  return carHtml + flightsHtml + staysHtml;
 }
 
 // Render accommodations + rental car (planning view).

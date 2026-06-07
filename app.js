@@ -1,7 +1,7 @@
 import { places } from "./data/places.js";
 import { trip, bases, additions, criticalLogistics, pendingTasks, days, dayMetrics, fuelAssumptions, budgetEstimate, usefulPhones } from "./data/trip.js";
 import { tips } from "./data/tips.js";
-import { stays, car } from "./data/stays.js";
+import { stays, car, flights } from "./data/stays.js";
 import { foodTips, foodZones } from "./data/food.js";
 import { state } from "./src/state.js";
 import {
@@ -65,6 +65,7 @@ initRender({
   tips,
   stays,
   car,
+  flights,
   phones: usefulPhones,
   budget: budgetEstimate,
   foodTips,

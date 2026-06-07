@@ -5,6 +5,7 @@ export const car = {
   proveedor: "Drivalia (vía Booking)",
   modelo: "Fiat 500 (o similar)",
   detalles: "4 plazas · Manual · Kilometraje ilimitado",
+  precio: 374.73, // total del alquiler (gasolina y peajes aparte)
   recogida: "Sáb 20 jun · 18:00 · Catania Fontanarossa Airport",
   devolucion: "Vie 3 jul · 18:00 · Catania Fontanarossa Airport",
   conductor: "Isaac Ramos Escribano · +34 687 222 210",
@@ -12,6 +13,16 @@ export const car = {
     "Recogida a las 18:00: con aterrizaje 16:10 + maletas + mostrador, salís de Catania hacia las 18:00-18:30 y llegáis a Siracusa ~19:30.",
     "Manual: confirmado coche de cambio manual.",
     "Llevar al mostrador: carnet de conducir, tarjeta de crédito del titular y el voucher de Booking.",
+  ],
+};
+
+// Vuelos (totales reales; se pagan a medias). María vuelve vía París.
+export const flights = {
+  total: 197.05,
+  legs: [
+    { label: "Isaac (ida y vuelta)", total: 125.81 },
+    { label: "María · Sevilla → Catania", total: 33.09 },
+    { label: "María · Catania → París", total: 38.15 },
   ],
 };
 
@@ -44,6 +55,7 @@ export const stays = [
     dias: "Días 4-5",
     nombre: "Sicily Dreams Luxury",
     fechas: "23 → 25 jun 2026 (2 noches)",
+    precio: 126.00,
     checkin: "13:00 - 22:00",
     checkout: "7:00 - 11:00",
     direccion: "Via Garibaldi 2, 92100 Agrigento",
@@ -90,6 +102,7 @@ export const stays = [
     dias: "Días 11-13",
     nombre: "Aitnè - Holiday Apartments",
     fechas: "30 jun → 3 jul 2026 (3 noches)",
+    precio: 197.81,
     checkin: "15:30 - 00:00",
     checkout: "00:00 - 10:00",
     direccion: "Via Giovanni Gentile 8, 95121 Catania",
