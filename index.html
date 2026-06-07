@@ -35,6 +35,7 @@
         <div class="view-switch" role="tablist" aria-label="Cambiar vista">
           <button class="view-switch-button" data-view="planning" role="tab" type="button">Planner</button>
           <button class="view-switch-button" data-view="operational" role="tab" type="button">Día</button>
+          <button class="view-switch-button" data-view="comida" role="tab" type="button">Comida</button>
         </div>
       </div>
     </div>
@@ -173,17 +174,6 @@
           <section class="panel">
             <div class="panel-head">
               <div>
-                <p class="section-kicker">Comer</p>
-                <h2>Comer bien por zonas</h2>
-              </div>
-              <p class="panel-note">Platos, mercados y sitios con buena relación calidad-precio, más desayunos y meriendas.</p>
-            </div>
-            <div id="foodSection" class="food-section"></div>
-          </section>
-
-          <section class="panel">
-            <div class="panel-head">
-              <div>
                 <p class="section-kicker">Contactos</p>
                 <h2>Teléfonos útiles</h2>
               </div>
@@ -302,11 +292,26 @@
     </main>
   </div>
 
+  <!-- ============= COMIDA VIEW (guía gastronómica) ============= -->
+  <div class="comida-shell">
+    <div class="page-shell">
+      <header class="comida-hero">
+        <p class="eyebrow">Comer bien · calidad-precio</p>
+        <h1>Comida por zonas</h1>
+        <p class="comida-hero-text">
+          Sitios investigados (trattorias familiares, mercados y street food), platos recomendados,
+          desayunos y meriendas. Toca un sitio para abrirlo en Google Maps y ver nota, reseñas y ubicación.
+        </p>
+      </header>
+      <div id="foodSection" class="food-section"></div>
+    </div>
+  </div>
+
   <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin=""
   ></script>
-  <script type="module" src="./app.js?v=24"></script>
+  <script type="module" src="./app.js?v=25"></script>
 </body>
 </html>

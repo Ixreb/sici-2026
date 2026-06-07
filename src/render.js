@@ -96,6 +96,7 @@ export function renderViewSwitch() {
   });
   document.body.classList.toggle("view-planning", state.viewMode === "planning");
   document.body.classList.toggle("view-operational", state.viewMode === "operational");
+  document.body.classList.toggle("view-comida", state.viewMode === "comida");
 }
 
 export function renderTodayButton() {
@@ -269,7 +270,6 @@ function renderOpMore(day) {
     </article>
     ${opCollapsible("🛏️", "Alojamientos, coche y vuelos", staysListHtml())}
     ${opCollapsible("💡", "Consejos de Sicilia", tipsCompactHtml())}
-    ${opCollapsible("🍴", "Comer por zonas", foodHtml())}
     ${opCollapsible("☎️", "Teléfonos útiles", phonesHtml())}
     <article class="op-card">
       <h3>Pendientes antes del viaje</h3>
@@ -908,8 +908,9 @@ function foodHtml() {
           ${z.joya ? `
             <div class="food-joya">
               <p class="food-joya-title">💎 Joya casera · gestión familiar</p>
-              <p class="food-joya-name">${escapeHtml(z.joya.nombre)}</p>
-              <p class="food-joya-why">${escapeHtml(z.joya.por_que)}${z.joya.precio ? ` · ${escapeHtml(z.joya.precio)}` : ""}</p>
+              <p class="food-joya-name">${escapeHtml(z.joya.nombre)}${z.joya.rating ? ` · ⭐ ${escapeHtml(z.joya.rating)}` : ""}</p>
+              <p class="food-joya-why">${escapeHtml(z.joya.por_que)}${z.joya.precio ? ` (${escapeHtml(z.joya.precio)})` : ""}</p>
+              ${z.joya.maps ? `<a class="food-maps-link" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(z.joya.maps)}" target="_blank" rel="noopener noreferrer">📍 Ver en Google Maps</a>` : ""}
             </div>` : ""}
           ${z.platos && z.platos.length ? `
             <div class="food-block">
@@ -918,7 +919,7 @@ function foodHtml() {
             </div>` : ""}
           ${z.sitios && z.sitios.length ? `
             <div class="food-block">
-              <p class="food-label">Dónde · calidad-precio</p>
+              <p class="food-label">Dónde comer / cenar · calidad-precio</p>
               <ul class="food-sitios">${z.sitios
                 .map(
                   (s) => `
@@ -927,7 +928,10 @@ function foodHtml() {
                         <span class="food-sitio-name">${escapeHtml(s.nombre)}</span>
                         <span class="food-sitio-precio">${escapeHtml(s.precio)}</span>
                       </div>
-                      <span class="food-sitio-meta">${escapeHtml(s.tipo)} · ${escapeHtml(s.plato)}</span>
+                      <span class="food-sitio-meta">${escapeHtml(s.tipo)}${s.rating ? ` · ⭐ ${escapeHtml(s.rating)}` : ""}</span>
+                      ${s.platos && s.platos.length ? `<span class="food-sitio-platos">${s.platos.map((p) => escapeHtml(p)).join(" · ")}</span>` : s.plato ? `<span class="food-sitio-platos">${escapeHtml(s.plato)}</span>` : ""}
+                      ${s.nota ? `<span class="food-sitio-nota">${escapeHtml(s.nota)}</span>` : ""}
+                      ${s.maps ? `<a class="food-maps-link" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.maps)}" target="_blank" rel="noopener noreferrer">📍 Ver en Google Maps</a>` : ""}
                     </li>`
                 )
                 .join("")}</ul>
@@ -966,7 +970,7 @@ function dayFoodZonesHtml(day) {
       (z) => `
       <div class="day-food-zone">
         <p class="day-food-zona">${escapeHtml(z.zona)}</p>
-        ${z.joya ? `<p class="day-food-joya">💎 <strong>${escapeHtml(z.joya.nombre)}</strong> — ${escapeHtml(z.joya.por_que)}${z.joya.precio ? ` (${escapeHtml(z.joya.precio)})` : ""}</p>` : ""}
+        ${z.joya ? `<p class="day-food-joya">💎 <strong>${escapeHtml(z.joya.nombre)}</strong> — ${escapeHtml(z.joya.por_que)}${z.joya.precio ? ` (${escapeHtml(z.joya.precio)})` : ""}${z.joya.maps ? ` <a class="food-maps-link" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(z.joya.maps)}" target="_blank" rel="noopener noreferrer">📍 Maps</a>` : ""}</p>` : ""}
         ${z.desayuno ? `<p class="day-food-line">☕ ${escapeHtml(z.desayuno)}</p>` : ""}
         ${z.merienda ? `<p class="day-food-line">🍦 ${escapeHtml(z.merienda)}</p>` : ""}
       </div>`

@@ -27,7 +27,7 @@ function writeJson(key, value) {
 
 // Whitelist accepted values for enum-like state pulled from localStorage:
 // if a previous app version persisted a now-invalid value, we must reset.
-const VALID_VIEW_MODES = ["planning", "operational"];
+const VALID_VIEW_MODES = ["planning", "operational", "comida"];
 const VALID_OP_TABS = ["plan", "points", "more"];
 const VALID_SIDE_TABS = ["map", "places", "extras"];
 
