@@ -2237,3 +2237,265 @@ select {
     font-size: 1.4rem;
   }
 }
+
+/* ============== PHONES (teléfonos útiles) ============== */
+.phones-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.phone-group {
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.phone-cat {
+  margin: 0 0 8px;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.phone-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.phone-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 7px 0;
+  border-bottom: 1px dashed rgba(31, 42, 44, 0.1);
+  font-size: 0.88rem;
+}
+
+.phone-item:last-child {
+  border-bottom: 0;
+}
+
+.phone-label {
+  color: var(--ink);
+  line-height: 1.35;
+  min-width: 0;
+}
+
+.phone-value {
+  flex-shrink: 0;
+  font-weight: 800;
+  color: var(--accent);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+a.phone-value:hover {
+  text-decoration: underline;
+}
+
+.phone-value-text {
+  color: var(--muted);
+  font-weight: 700;
+  white-space: normal;
+  text-align: right;
+  font-size: 0.82rem;
+}
+
+/* ============== BUDGET (presupuesto en resumen) ============== */
+.budget-block {
+  margin-top: 16px;
+  padding: 16px 18px;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(22, 105, 122, 0.18);
+  background: rgba(22, 105, 122, 0.06);
+}
+
+.budget-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.budget-head .fact-label {
+  margin-bottom: 0;
+}
+
+.budget-total {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.budget-lines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.budget-lines li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 7px 0;
+  border-bottom: 1px dashed rgba(31, 42, 44, 0.1);
+  color: var(--ink);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.budget-lines li:last-child {
+  border-bottom: 0;
+}
+
+.budget-lines li strong {
+  flex-shrink: 0;
+  font-weight: 800;
+}
+
+.budget-note {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+/* ============== OP: dónde duermes hoy ============== */
+.op-stay-card {
+  background: rgba(22, 105, 122, 0.06);
+  border-color: rgba(22, 105, 122, 0.2);
+}
+
+.op-stay-card-flight {
+  background: rgba(207, 107, 45, 0.08);
+  border-color: rgba(207, 107, 45, 0.22);
+}
+
+.op-stay-name {
+  margin: 0 0 2px !important;
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.op-stay-sub {
+  margin: 0 0 8px !important;
+  font-size: 0.82rem;
+  color: var(--muted) !important;
+}
+
+.op-stay-info {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 3px 12px;
+  margin: 0 0 10px;
+  font-size: 0.86rem;
+}
+
+.op-stay-info dt {
+  font-weight: 800;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.68rem;
+  padding-top: 3px;
+}
+
+.op-stay-info dd {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.op-stay-info dd a {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.op-stay-nota {
+  margin: 0 0 10px !important;
+  font-size: 0.84rem;
+  color: var(--muted) !important;
+  line-height: 1.45;
+}
+
+/* ============== OP: collapsibles (Viaje tab) ============== */
+.op-collapsible {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.78);
+  overflow: hidden;
+}
+
+.op-collapsible-summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 0.95rem;
+  list-style: none;
+  user-select: none;
+}
+
+.op-collapsible-summary::-webkit-details-marker { display: none; }
+
+.op-collapsible-summary::after {
+  content: "+";
+  margin-left: auto;
+  font-size: 1.4rem;
+  color: var(--accent);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.op-collapsible[open] .op-collapsible-summary::after { content: "–"; }
+
+.op-collapsible[open] .op-collapsible-summary {
+  border-bottom: 1px solid var(--line);
+}
+
+.op-collapsible-icon {
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.op-collapsible-body {
+  padding: 12px 14px;
+  display: grid;
+  gap: 12px;
+}
+
+.op-tip-block {
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.op-tip-tema {
+  margin: 0 0 6px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.op-tip-block .op-list {
+  font-size: 0.86rem;
+}

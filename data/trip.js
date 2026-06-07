@@ -145,12 +145,16 @@ export const additions = [
   },
 ];
 
-// Day-level metrics (km coche, km a pie estimados, peajes aproximados en €)
-// Peajes solo en A18 (Messina-Catania) y A20 (Messina-Palermo). El resto es gratis.
+// Day-level metrics (km coche, km a pie estimados, peajes aproximados en €).
+// ESTRATEGIA DE PEAJES: viajamos con el navegador con PEAJES DESACTIVADOS.
+// Casi toda la ruta va por autopista/autovía GRATIS (A19 Palermo-Catania,
+// A29 Palermo-Trapani, autovía Catania-Siracusa) o por secundarias, así que no se nota.
+// Solo el DÍA 12 (Etna + Taormina) compensa ACTIVAR peajes puntualmente: la A18
+// Taormina↔Catania ahorra ~30-40 min frente a la SS114 costera, saturada en verano.
 export const dayMetrics = {
-  // Km verificados con rutas reales (jun 2026). Peajes: A18 (Catania-Messina) y
-  // A20 (Messina-Palermo, incluye Cefalù) son de pago; A19 y A29 gratis.
-  1: { driveKm: 63, walkKm: 3, peajeEuro: 0 }, // Catania aeropuerto → Siracusa (A18 sur)
+  // Km verificados con rutas reales (jun 2026). A18 (Catania-Messina) y
+  // A20 (Messina-Palermo) son de pago; A19, A29 y la autovía Catania-Siracusa, gratis.
+  1: { driveKm: 63, walkKm: 3, peajeEuro: 0 }, // Catania aeropuerto → Siracusa (autovía GRATIS)
   2: { driveKm: 28, walkKm: 9, peajeEuro: 0 }, // Neapolis + Ortigia + Plemmirio opcional
   3: { driveKm: 160, walkKm: 7, peajeEuro: 0 }, // Siracusa-Noto-Vendicari-Marzamemi-Modica-Ragusa
   4: { driveKm: 260, walkKm: 6, peajeEuro: 0 }, // Ragusa-Casale-Agrigento + Scala atardecer (día con más coche)
@@ -158,10 +162,10 @@ export const dayMetrics = {
   6: { driveKm: 185, walkKm: 6, peajeEuro: 0 }, // Agrigento-Selinunte-Palazzo Adriano
   7: { driveKm: 135, walkKm: 5, peajeEuro: 0 }, // Palazzo-Segesta-Trapani + Erice (funivia)
   8: { driveKm: 0, walkKm: 7, peajeEuro: 0 }, // Favignana (ferry, sin coche)
-  9: { driveKm: 130, walkKm: 8, peajeEuro: 0 }, // Zingaro+Scopello → Palermo (A29 gratis)
+  9: { driveKm: 130, walkKm: 8, peajeEuro: 0 }, // Zingaro+Scopello → Palermo (A29 GRATIS)
   10: { driveKm: 30, walkKm: 9, peajeEuro: 0 }, // Palermo a pie + Monreale
-  11: { driveKm: 250, walkKm: 5, peajeEuro: 3 }, // Palermo-Cefalù (A20, peaje) - Catania (A19 gratis)
-  12: { driveKm: 160, walkKm: 6, peajeEuro: 2 }, // Catania-Etna Norte-Taormina-Catania (A18 tramo)
+  11: { driveKm: 250, walkKm: 5, peajeEuro: 0 }, // Palermo-Cefalù-Catania: A19 GRATIS; a Cefalù sin peaje relevante (peajes OFF)
+  12: { driveKm: 180, walkKm: 6, peajeEuro: 4 }, // ÚNICO día con peaje recomendado: A18 Taormina↔Catania (ahorra ~40-50 min vs SS114). Triángulo Catania-Piano Provenzana-Taormina-Catania ~180 km
   13: { driveKm: 28, walkKm: 5, peajeEuro: 0 }, // Catania ciudad + Aci Castello/Trezza
   14: { driveKm: 10, walkKm: 3, peajeEuro: 0 }, // Catania → aeropuerto (a 8 km del centro)
 };
@@ -172,6 +176,33 @@ export const fuelAssumptions = {
   pricePerLiter: 1.95,
   note: "Fiat 500 gasolina. Precio italiano autostrada junio 2026 estimado.",
 };
+
+// Presupuesto orientativo para 2 personas (sin alojamiento, comida ni parking).
+// Gasolina y peajes se calculan aparte desde dayMetrics.
+export const budgetEstimate = {
+  entradasPax2: 280, // yacimientos y monumentos imprescindibles (2 pax)
+  transportePax2: 145, // ferry + 2 bici Favignana, funivia Erice, funivia Mazzarò/Isola Bella (2 pax)
+  note: "Estimación para 2 personas (1 bici por persona en Favignana). NO incluye alojamiento, comidas ni parking diario. Tours opcionales del Etna (4x4) aparte.",
+};
+
+// Teléfonos útiles. value numérico → enlace de llamada.
+export const usefulPhones = [
+  { label: "Emergencias (número único)", value: "112", tel: true, cat: "Emergencias" },
+  { label: "Emergencia médica / ambulancia", value: "118", tel: true, cat: "Emergencias" },
+  { label: "Policía (Carabinieri)", value: "112", tel: true, cat: "Emergencias" },
+  { label: "Bomberos", value: "115", tel: true, cat: "Emergencias" },
+  { label: "Guardia médica no urgente (116117 en activación en Sicilia; si no, 118)", value: "116117", tel: true, cat: "Emergencias" },
+  { label: "Coche · Drivalia (Catania Aeropuerto)", value: "Ver voucher Booking", cat: "Reservas" },
+  { label: "Host Ragusa · Le Scale Sul Barocco", value: "+39 339 449 7274", tel: true, cat: "Reservas" },
+  { label: "Host Agrigento · Sicily Dreams", value: "+39 340 342 7938", tel: true, cat: "Reservas" },
+  { label: "Host Trapani · Residence Prato", value: "+39 378 432 2038", tel: true, cat: "Reservas" },
+  { label: "Museo Cinema Paradiso (Palazzo Adriano)", value: "+39 091 834 9933", tel: true, cat: "Reservas" },
+  { label: "Hospital Siracusa · Umberto I (centralino · maternidad)", value: "+39 0931 724111", tel: true, cat: "Hospitales (maternidad)" },
+  { label: "Hospital Agrigento · San Giovanni di Dio (centralino)", value: "+39 0922 442111", tel: true, cat: "Hospitales (maternidad)" },
+  { label: "Hospital Trapani · Sant'Antonio Abate (en Erice · centralino)", value: "+39 0923 809111", tel: true, cat: "Hospitales (maternidad)" },
+  { label: "Hospital Palermo · Civico (centralino)", value: "+39 091 6661111", tel: true, cat: "Hospitales (maternidad)" },
+  { label: "Hospital Catania · San Marco / maternidad (centralino)", value: "+39 095 4794141", tel: true, cat: "Hospitales (maternidad)" },
+];
 
 export const days = [
   {
@@ -240,7 +271,7 @@ export const days = [
       "Marianelli: 15 min caminando desde parking informal SS115. Joya oculta sin gente. Alternativa más rápida: playa principal de Vendicari.",
       "Calamosche: 25 min caminando al sol, opcional si os apetece más caminata.",
       "Llevar sombrilla plegable de playa: Vendicari no tiene sombra natural ni servicios.",
-      "ZTL Ragusa Ibla 24h: aparcar abajo (Pulizia / Crispi) y subir andando o pase del hotel.",
+      "ZTL Ragusa Ibla: 24h solo en las calles centrales (Piazza Duomo/Pola); el resto se activa sobre todo viernes y festivos por la noche. Aparcar abajo (Pulizia/Crispi) y subir andando, o pase del hotel. Reconfirmar la víspera.",
       "Ragusa Ibla iluminada de noche es una de las imágenes más bonitas del barroco siciliano.",
     ],
     parking: "Noto: parking fuera del meollo. Vendicari: parking de la reserva. Modica: aparcar fuera del núcleo. Ragusa Ibla: parking abajo (Pulizia / Crispi).",
@@ -366,7 +397,7 @@ export const days = [
       "Sábado: la isla se llena, coger el primer ferry y reservar la bici online.",
     ],
     parking: "Coche parado en Trapani (parking del puerto o del hotel).",
-    booking: "Ferry Liberty Lines con antelación (libertylines.it, ~€11-14/persona ida). Reservar bici eléctrica online antes (los fines de semana de verano se agotan).",
+    booking: "Ferry Liberty Lines con antelación (libertylines.it, ~12-16 €/persona ida). Reservar bici eléctrica online antes (los fines de semana de verano se agotan).",
     planB: "Si el mar empeora (raro en junio), cambiar Favignana por tarde de Trapani + Marsala.",
     tags: ["Isla", "Ferry", "Playa fuerte"],
   },
@@ -409,8 +440,8 @@ export const days = [
     mustDo: ["Monreale", "Cappella Palatina", "Casco histórico + mercado"],
     optional: ["Catacombe (impactante, no para todos)", "Teatro Massimo por fuera"],
     notes: [
-      "Monreale cierra 13:00-14:00: ir a primera hora (abre 9:00). Es un salto corto desde Palermo (~12 km).",
-      "Cappella Palatina lunes 9:30-17:00 (cerrada domingos). Reservar slot online en federicosecondo.org. RESTAURACIÓN 2025-2026: confirmar zonas visitables.",
+      "Monreale: catedral 9:00-13:00 y 14:30-16:30 (el claustro no cierra a mediodía, 9:00-19:00). Ir a primera hora. Salto corto desde Palermo (~12 km).",
+      "Cappella Palatina lunes 8:30-16:30 (abre TODOS los días; dom y festivos 8:30-12:30). Reservar slot online en federicosecondo.org. RESTAURACIÓN 2025-2026: Sala di Re Ruggero y Torre Pisana no visitables.",
       "Catacombe dei Cappuccini: 9:00-12:30 / 15:00-17:30, 8.000 momias en cripta.",
       "El coche se queda en el garaje todo el día.",
     ],
@@ -436,7 +467,7 @@ export const days = [
     notes: [
       "Día de transición más largo del viaje: Palermo mañana + Cefalù tarde + ~2 h a Catania. Salir de Cefalù con margen para no llegar muy tarde.",
       "Cefalù como parada de 2 h: catedral + paseo. La playa urbana se masifica; baño corto si acaso.",
-      "A19 Palermo-Catania es autopista GRATUITA (sin peaje).",
+      "PEAJES: hoy se quedan APAGADOS (como siempre). La A19 Palermo-Catania es GRATIS y a Cefalù se llega sin peaje relevante por la salida de Buonfornello/SS113. No se pierde tiempo apreciable.",
       "Catania 3 noches: a partir de aquí, aeropuerto a 20 min para el vuelo final.",
     ],
     parking: "Palermo: garaje hasta el check-out. Cefalù: aparcar a la entrada y caminar. Catania: parking del hotel.",
@@ -460,6 +491,7 @@ export const days = [
     optional: ["Savoca o Forza d'Agrò (El Padrino real, de camino al bajar del Etna)", "Gole dell'Alcantara para refrescarse"],
     notes: [
       "Triángulo limpio sin rebote: Catania → Etna Norte → Taormina/Isola Bella → Catania. Taormina queda de camino al bajar del volcán.",
+      "⚠️ PEAJES: ES EL ÚNICO DÍA EN QUE CONVIENE ACTIVARLOS en el navegador. La A18 Taormina↔Catania (y el tramo hacia Fiumefreddo/Linguaglossa) ahorra ~30-40 min por trayecto frente a la SS114 costera, que en verano se satura de tráfico y semáforos. Coste ~4 € ida y vuelta, bien gastados. Al volver a casa, peajes OFF de nuevo.",
       "Etna estado mayo 2026: nivel VERDE (erupción de enero ya terminada). Verificar boletín INGV (ct.ingv.it) 2-3 días antes. A cráteres altos (~3.000m) solo con guía AGAM.",
       "Isola Bella: aforo controlado, ir antes de las 14h. Llevar escarpines (guijarro). Dejar el coche arriba y bajar en cable car o a pie, no meterse en coche a Mazzarò.",
       "Teatro Antico Taormina: verificar si hay evento el 1 jul (a veces cierran la visita diurna). Si lo hay, verlo por la mañana no aplica aquí — priorizar Corso + miradores.",
@@ -526,14 +558,14 @@ export const pendingTasks = [
     id: "ferry-favignana",
     category: "Reservas urgentes",
     title: "Ferry Trapani-Favignana",
-    detail: "Liberty Lines (libertylines.it). Sin coche, solo pasajeros. ~€11-14/persona ida. Reservar primer barco mañana del 26 jun y vuelta de tarde.",
+    detail: "Liberty Lines (libertylines.it). Sin coche, solo pasajeros. ~12-16 €/persona ida. Reservar primer barco la mañana del sábado 27 jun (día de Favignana) y vuelta de tarde.",
     when: "2-3 semanas antes",
   },
   {
     id: "bici-favignana",
     category: "Reservas urgentes",
     title: "Bici eléctrica en Favignana",
-    detail: "Barracuda o similar (busca online en Favignana). €15-25/día. Los viernes de verano se agotan.",
+    detail: "Barracuda o similar (busca online en Favignana). ~10-15 €/día (e-bike en junio). Los fines de semana de verano se agotan; vuestro día es sábado 27 jun.",
     when: "2-3 semanas antes",
   },
   {
@@ -563,7 +595,7 @@ export const pendingTasks = [
     id: "cappella-palatina-slot",
     category: "Reservas con tiempo",
     title: "Cappella Palatina slot (lun 29 jun)",
-    detail: "federicosecondo.org, reserva online hasta 10 días antes. Día 10 (lunes 29 jun, abierta 8:30-17:00). ~19 € (incluye Palazzo dei Normanni). RESTAURACIÓN 2025-26: confirmar zonas visitables y último acceso (~16:00 en jun).",
+    detail: "federicosecondo.org, reserva online hasta 10 días antes. Día 10 (lunes 29 jun, abierta 8:30-16:30; lunes = tarifa 19 € con Apartamentos Reales). RESTAURACIÓN 2025-26: Sala di Re Ruggero y Torre Pisana no visitables.",
     when: "10-12 días antes",
   },
   {
@@ -681,19 +713,19 @@ export const criticalLogistics = [
     title: "Favignana",
     type: "Reserva",
     priority: "Alta",
-    body: "Reservar ferry Liberty Lines online (libertylines.it) y bici eléctrica con antelación: los viernes de verano se agotan.",
+    body: "Reservar ferry Liberty Lines online (libertylines.it) y bici eléctrica con antelación: los fines de semana de verano se agotan (vuestro día de Favignana es sábado 27 jun).",
   },
   {
     title: "Cappella Palatina",
     type: "Reserva",
     priority: "Alta",
-    body: "Lun-Sáb 9:30-17:00 (último ingreso 16:30), CERRADO domingos. Reserva online en federicosecondo.org hasta 10 días antes. RESTAURACIÓN en curso 2025-2026: algunas zonas pueden estar veladas con andamios.",
+    body: "Abierta TODOS los días: lun-sáb 8:30-16:30 (último ingreso), dom y festivos 8:30-12:30. Reserva online en federicosecondo.org hasta 10 días antes. RESTAURACIÓN 2025-2026: Sala di Re Ruggero y Torre Pisana NO visitables.",
   },
   {
     title: "Monreale",
     type: "Horario",
     priority: "Media",
-    body: "Catedral cierra al mediodía 13:00-14:00. Llegar antes de las 12:30 o pasadas las 14:00. Domingos solo abre 14:00-17:00.",
+    body: "Catedral 9:00-13:00 y 14:30-16:30 (el claustro abre 9:00-19:00 entre semana). Domingos catedral solo 14:30-16:30. Llegar antes de 12:45 o pasadas las 14:30.",
   },
   {
     title: "Ortigia (ZTL Siracusa)",
@@ -705,7 +737,7 @@ export const criticalLogistics = [
     title: "Ragusa Ibla (ZTL)",
     type: "Parking",
     priority: "Media",
-    body: "ZTL activa 24h en el casco. Aparcar abajo (Pulizia / Crispi) y subir, o pase del hotel.",
+    body: "ZTL 24h solo en las calles centrales (Piazza Duomo/Pola); el resto se activa sobre todo viernes y festivos por la noche. Aparcar abajo (Pulizia/Crispi) y subir, o pase del hotel. Reconfirmar la víspera.",
   },
   {
     title: "Palermo",

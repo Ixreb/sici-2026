@@ -1,5 +1,5 @@
 import { places } from "./data/places.js";
-import { trip, bases, additions, criticalLogistics, pendingTasks, days, dayMetrics, fuelAssumptions } from "./data/trip.js";
+import { trip, bases, additions, criticalLogistics, pendingTasks, days, dayMetrics, fuelAssumptions, budgetEstimate, usefulPhones } from "./data/trip.js";
 import { tips } from "./data/tips.js";
 import { stays, car } from "./data/stays.js";
 import { state } from "./src/state.js";
@@ -22,6 +22,7 @@ import {
   renderPendingTasks,
   renderTips,
   renderStays,
+  renderPhones,
 } from "./src/render.js";
 import { initMap } from "./src/map.js";
 import { bindEvents, placeMapInActiveSlot } from "./src/actions.js";
@@ -62,6 +63,8 @@ initRender({
   tips,
   stays,
   car,
+  phones: usefulPhones,
+  budget: budgetEstimate,
   metrics: dayMetrics,
   fuel: fuelAssumptions,
   trip,
@@ -82,6 +85,7 @@ renderCriticalLogistics();
 renderPendingTasks();
 renderTips();
 renderStays();
+renderPhones();
 renderJourneySummary();
 renderOperational();
 

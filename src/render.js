@@ -20,6 +20,8 @@ let pendingRef = [];
 let tipsRef = [];
 let staysRef = [];
 let carRef = null;
+let phonesRef = [];
+let budgetRef = {};
 let metricsRef = {};
 let fuelRef = {};
 let tripRef = {};
@@ -36,6 +38,8 @@ export function initRender(refs) {
   tipsRef = refs.tips || [];
   staysRef = refs.stays || [];
   carRef = refs.car || null;
+  phonesRef = refs.phones || [];
+  budgetRef = refs.budget || {};
   metricsRef = refs.metrics;
   fuelRef = refs.fuel;
   tripRef = refs.trip;
@@ -49,6 +53,7 @@ export function initRender(refs) {
   els.pendingTasks = document.getElementById("pendingTasks");
   els.tipsSection = document.getElementById("tipsSection");
   els.staysSection = document.getElementById("staysSection");
+  els.phonesSection = document.getElementById("phonesSection");
   els.journeySummary = document.getElementById("journeySummary");
   els.placeList = document.getElementById("placeList");
   els.placeCount = document.getElementById("placeCount");
@@ -163,6 +168,7 @@ function renderOpPlan(day) {
         ${agenda(day.optional)}
       </article>
     ` : ""}
+    ${renderOpDayStay(day)}
     <article class="op-card op-card-soft op-logistics">
       <h3>Logística del día</h3>
       <dl class="op-logistics-list">
@@ -222,6 +228,11 @@ function renderOpPoints(day) {
 
 function renderOpMore(day) {
   const totals = getJourneyTotals();
+  const presupuesto =
+    (budgetRef.entradasPax2 || 0) +
+    (budgetRef.transportePax2 || 0) +
+    totals.fuelCostEuro +
+    totals.peajeEuro;
   const groupedPending = {};
   pendingRef.forEach((task) => {
     if (!groupedPending[task.category]) groupedPending[task.category] = [];
@@ -248,6 +259,9 @@ function renderOpMore(day) {
           .join("")}
       </div>
     </article>
+    ${opCollapsible("🛏️", "Alojamientos y coche", staysListHtml())}
+    ${opCollapsible("💡", "Consejos de Sicilia", tipsCompactHtml())}
+    ${opCollapsible("☎️", "Teléfonos útiles", phonesHtml())}
     <article class="op-card">
       <h3>Pendientes antes del viaje</h3>
       ${Object.entries(groupedPending)
@@ -294,8 +308,9 @@ function renderOpMore(day) {
     <article class="op-card op-card-soft">
       <h3>Totales del viaje completo</h3>
       <p><strong>~${totals.driveKm} km</strong> en coche · <strong>~${totals.walkKm} km</strong> a pie</p>
-      <p>Gasolina (Fiat 500): ~${totals.fuelCostEuro} € · Peajes opcionales: ~${totals.peajeEuro} €</p>
-      <p class="op-card-fineprint">Suma de los 14 días. No incluye parking, ferries ni teleféricos.</p>
+      <p>Gasolina (Fiat 500): ~${totals.fuelCostEuro} € · Peajes (solo día 12, A18): ~${totals.peajeEuro} €</p>
+      <p>Presupuesto orientativo en ruta (2 pers.): <strong>~${presupuesto} €</strong> · entradas + transportes + gasolina + peajes</p>
+      <p class="op-card-fineprint">Suma de los 14 días. No incluye alojamiento, comidas, parking diario ni excursiones del Etna.</p>
     </article>
   `;
 }
@@ -430,7 +445,9 @@ export function renderDayDetail() {
     { label: "Conducción", value: day.drive },
     { label: "Km en coche", value: `~${metrics.driveKm} km` },
     { label: "Km a pie", value: `~${metrics.walkKm} km` },
-    metrics.peajeEuro ? { label: "Peajes (si A20/A18)", value: `~${metrics.peajeEuro} €` } : { label: "Peajes", value: "0 €" },
+    metrics.peajeEuro
+      ? { label: "Peajes (A18 recomendado)", value: `~${metrics.peajeEuro} €` }
+      : { label: "Peajes", value: "0 € · navegador off" },
   ];
 
   els.dayDetail.innerHTML = `
@@ -522,9 +539,9 @@ function renderOverview() {
         <p>${fuelRef.litersPer100Km} L/100 km · ${fuelRef.pricePerLiter.toFixed(2)} €/L.</p>
       </article>
       <article class="fact-card">
-        <span class="fact-label">Peajes (opcionales)</span>
+        <span class="fact-label">Peajes</span>
         <strong>~${totals.peajeEuro} €</strong>
-        <p>Solo A18 y A20 (Messina). Evitables casi en su totalidad.</p>
+        <p>Navegador con peajes OFF. Solo el día 12 (A18) compensa activarlos.</p>
       </article>
     </div>
     <div class="detail-toolbar">
@@ -621,6 +638,9 @@ export function renderAdditions() {
 
 export function renderJourneySummary() {
   const totals = getJourneyTotals();
+  const entradas = budgetRef.entradasPax2 || 0;
+  const transporte = budgetRef.transportePax2 || 0;
+  const totalRuta = entradas + transporte + totals.fuelCostEuro + totals.peajeEuro;
   els.journeySummary.innerHTML = `
     <div class="fact-grid">
       <article class="fact-card">
@@ -639,14 +659,27 @@ export function renderJourneySummary() {
         <p>${totals.fuelLiters} L estimados a ${fuelRef.pricePerLiter.toFixed(2)} €/L.</p>
       </article>
       <article class="fact-card">
-        <span class="fact-label">Peajes (si usáis A20/A18)</span>
+        <span class="fact-label">Peajes</span>
         <strong>~${totals.peajeEuro} €</strong>
-        <p>Evitables tirando por carreteras secundarias en los días 12 y 14.</p>
+        <p>Navegador con peajes OFF. Solo el día 12 (A18 Taormina↔Catania) compensa activarlos.</p>
       </article>
     </div>
+    <div class="budget-block">
+      <div class="budget-head">
+        <span class="fact-label">Presupuesto orientativo en ruta · 2 personas</span>
+        <strong class="budget-total">~${totalRuta} €</strong>
+      </div>
+      <ul class="budget-lines">
+        <li><span>Entradas (yacimientos + monumentos)</span><strong>~${entradas} €</strong></li>
+        <li><span>Transportes (ferry + bici Favignana, funivias, Isola Bella)</span><strong>~${transporte} €</strong></li>
+        <li><span>Gasolina (Fiat 500)</span><strong>~${totals.fuelCostEuro} €</strong></li>
+        <li><span>Peajes (solo día 12, A18)</span><strong>~${totals.peajeEuro} €</strong></li>
+      </ul>
+      ${budgetRef.note ? `<p class="budget-note">${escapeHtml(budgetRef.note)}</p>` : ""}
+    </div>
     <p class="summary-note">
-      No incluido: parking diario (15-25 € en Palermo y Taormina), ferry de Favignana (~25-35 €/persona ida y vuelta),
-      teleférico de Erice y excursiones del Etna. Cifras orientativas.
+      No incluido: alojamiento, comidas, parking diario (15-25 € en Palermo y Taormina) y excursiones opcionales 4x4 del Etna.
+      Cifras orientativas para dos personas.
     </p>
   `;
 }
@@ -672,9 +705,8 @@ export function renderCriticalLogistics() {
   `;
 }
 
-// Render accommodations + rental car.
-export function renderStays() {
-  if (!els.staysSection) return;
+// Build the accommodations + rental car list (shared by planning panel and mobile).
+function staysListHtml() {
   const carHtml = carRef
     ? `
       <article class="stay-card stay-car">
@@ -699,6 +731,7 @@ export function renderStays() {
       const dirUrl = s.direccion
         ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.direccion)}`
         : null;
+      const tel = s.telefono ? s.telefono.replace(/\s+/g, "") : null;
       return `
         <article class="stay-card ${s.confirmado ? "" : "stay-pending"}">
           <div class="stay-head">
@@ -710,7 +743,7 @@ export function renderStays() {
             ${s.checkin ? `<dt>Check-in</dt><dd>${escapeHtml(s.checkin)}</dd>` : ""}
             ${s.checkout ? `<dt>Check-out</dt><dd>${escapeHtml(s.checkout)}</dd>` : ""}
             ${s.direccion ? `<dt>Dirección</dt><dd>${escapeHtml(s.direccion)}</dd>` : ""}
-            ${s.telefono ? `<dt>Teléfono</dt><dd>${escapeHtml(s.telefono)}</dd>` : ""}
+            ${s.telefono ? `<dt>Teléfono</dt><dd><a class="text-link" href="tel:${escapeHtml(tel)}">${escapeHtml(s.telefono)}</a></dd>` : ""}
           </dl>
           ${s.nota ? `<p class="stay-nota">${escapeHtml(s.nota)}</p>` : ""}
           ${dirUrl ? `<a class="text-link" href="${escapeHtml(dirUrl)}" target="_blank" rel="noopener noreferrer">Cómo llegar</a>` : ""}
@@ -719,7 +752,119 @@ export function renderStays() {
     })
     .join("");
 
-  els.staysSection.innerHTML = carHtml + staysHtml;
+  return carHtml + staysHtml;
+}
+
+// Render accommodations + rental car (planning view).
+export function renderStays() {
+  if (!els.staysSection) return;
+  els.staysSection.innerHTML = staysListHtml();
+}
+
+// Does an accommodation cover this day id? Parses stay.dias ("Días 1-2", "Día 3").
+function stayCoversDay(stay, dayId) {
+  const nums = (String(stay.dias).match(/\d+/g) || []).map(Number);
+  if (!nums.length) return false;
+  if (nums.length === 1) return nums[0] === dayId;
+  return dayId >= nums[0] && dayId <= nums[nums.length - 1];
+}
+
+// "Dónde duermes hoy" card for the operational Plan tab.
+function renderOpDayStay(day) {
+  const stay = staysRef.find((s) => stayCoversDay(s, day.id));
+  if (stay) {
+    const dirUrl = stay.direccion
+      ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(stay.direccion)}`
+      : null;
+    const tel = stay.telefono ? stay.telefono.replace(/\s+/g, "") : null;
+    return `
+      <article class="op-card op-stay-card">
+        <h3>🛏️ Dónde duermes hoy</h3>
+        <p class="op-stay-name">${escapeHtml(stay.nombre)}</p>
+        <p class="op-stay-sub">${escapeHtml(stay.base)} · ${escapeHtml(stay.fechas)}</p>
+        <dl class="op-stay-info">
+          ${stay.checkin ? `<dt>Check-in</dt><dd>${escapeHtml(stay.checkin)}</dd>` : ""}
+          ${stay.checkout ? `<dt>Check-out</dt><dd>${escapeHtml(stay.checkout)}</dd>` : ""}
+          ${stay.direccion ? `<dt>Dirección</dt><dd>${escapeHtml(stay.direccion)}</dd>` : ""}
+          ${stay.telefono ? `<dt>Teléfono</dt><dd><a href="tel:${escapeHtml(tel)}">${escapeHtml(stay.telefono)}</a></dd>` : ""}
+        </dl>
+        ${stay.nota ? `<p class="op-stay-nota">${escapeHtml(stay.nota)}</p>` : ""}
+        ${dirUrl ? `<a class="op-link op-link-primary" href="${escapeHtml(dirUrl)}" target="_blank" rel="noopener noreferrer">Cómo llegar</a>` : ""}
+      </article>
+    `;
+  }
+  const prev = staysRef.find((s) => stayCoversDay(s, day.id - 1));
+  return `
+    <article class="op-card op-stay-card op-stay-card-flight">
+      <h3>🛏️ Alojamiento de hoy</h3>
+      <p>Hoy es día de vuelo: no hay noche de hotel.${prev ? ` Check-out de <strong>${escapeHtml(prev.nombre)}</strong> (${escapeHtml(prev.base)}) por la mañana${prev.checkout ? ` (ventana ${escapeHtml(prev.checkout)})` : ""} antes de ir al aeropuerto.` : ""}</p>
+    </article>
+  `;
+}
+
+// Phone directory grouped by category (shared by planning panel and mobile).
+function phonesHtml() {
+  const grouped = {};
+  phonesRef.forEach((p) => {
+    if (!grouped[p.cat]) grouped[p.cat] = [];
+    grouped[p.cat].push(p);
+  });
+  return Object.entries(grouped)
+    .map(
+      ([cat, items]) => `
+        <div class="phone-group">
+          <p class="phone-cat">${escapeHtml(cat)}</p>
+          <ul class="phone-list">
+            ${items
+              .map((p) => {
+                const num = p.value.replace(/[^\d+]/g, "");
+                const value =
+                  p.tel && num
+                    ? `<a class="phone-value" href="tel:${escapeHtml(num)}">${escapeHtml(p.value)}</a>`
+                    : `<span class="phone-value phone-value-text">${escapeHtml(p.value)}</span>`;
+                return `<li class="phone-item"><span class="phone-label">${escapeHtml(p.label)}</span>${value}</li>`;
+              })
+              .join("")}
+          </ul>
+        </div>
+      `
+    )
+    .join("");
+}
+
+// Render the useful-phones panel (planning view).
+export function renderPhones() {
+  if (!els.phonesSection) return;
+  els.phonesSection.innerHTML = phonesHtml();
+}
+
+// Compact tips list (flat) for the operational "Viaje" tab collapsible.
+function tipsCompactHtml() {
+  return tipsRef
+    .map(
+      (t) => `
+        <div class="op-tip-block">
+          <p class="op-tip-tema"><span aria-hidden="true">${escapeHtml(t.icon || "💡")}</span> ${escapeHtml(t.tema)}</p>
+          <ul class="op-list">
+            ${t.consejos.map((c) => `<li>${escapeHtml(c)}</li>`).join("")}
+          </ul>
+        </div>
+      `
+    )
+    .join("");
+}
+
+// Generic collapsible block for the operational "Viaje" tab.
+function opCollapsible(icon, title, innerHtml) {
+  return `
+    <details class="op-collapsible">
+      <summary class="op-collapsible-summary">
+        <span class="op-collapsible-icon" aria-hidden="true">${icon}</span>
+        <span>${escapeHtml(title)}</span>
+      </summary>
+      <div class="op-collapsible-body">${innerHtml}</div>
+    </details>
+  `;
 }
 
 // Render the Sicily tips/recommendations as collapsible cards.

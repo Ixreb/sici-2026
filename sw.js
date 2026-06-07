@@ -5,7 +5,7 @@
 //   - Map tiles: cache-first (heavy, immutable enough, prioritize speed
 //     and offline).
 
-const APP_CACHE = "sicilia-app-v17";
+const APP_CACHE = "sicilia-app-v19";
 const TILE_CACHE = "sicilia-tiles-v1";
 
 const APP_ASSETS = [
@@ -27,8 +27,18 @@ const APP_ASSETS = [
 ];
 
 self.addEventListener("install", (event) => {
+  // Fetch with cache:"reload" so install never seeds the cache with a stale
+  // copy from the browser HTTP cache.
   event.waitUntil(
-    caches.open(APP_CACHE).then((cache) => cache.addAll(APP_ASSETS).catch(() => {}))
+    caches.open(APP_CACHE).then((cache) =>
+      Promise.all(
+        APP_ASSETS.map((url) =>
+          fetch(url, { cache: "reload" })
+            .then((resp) => (resp && resp.ok ? cache.put(url, resp) : null))
+            .catch(() => null)
+        )
+      )
+    )
   );
   self.skipWaiting();
 });
@@ -69,11 +79,12 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // App shell: network-first, fallback to cache when offline.
-  // This way edits to data/trip.js, src/*, etc. propagate on the next reload
-  // without users having to manually unregister the worker.
+  // App shell: network-first with HTTP cache BYPASSED ({cache:"no-store"}),
+  // fallback to the SW cache when offline. Bypassing the browser HTTP cache is
+  // what makes edits to data/trip.js, src/*, etc. always propagate on reload:
+  // a plain fetch(req) could otherwise be answered from a stale HTTP cache entry.
   event.respondWith(
-    fetch(req)
+    fetch(req.url, { cache: "no-store" })
       .then((resp) => {
         if (resp && resp.status === 200 && (resp.type === "basic" || resp.type === "cors")) {
           const clone = resp.clone();
