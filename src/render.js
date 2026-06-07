@@ -18,6 +18,8 @@ let additionsRef = [];
 let criticalRef = [];
 let pendingRef = [];
 let tipsRef = [];
+let staysRef = [];
+let carRef = null;
 let metricsRef = {};
 let fuelRef = {};
 let tripRef = {};
@@ -32,6 +34,8 @@ export function initRender(refs) {
   criticalRef = refs.critical;
   pendingRef = refs.pending || [];
   tipsRef = refs.tips || [];
+  staysRef = refs.stays || [];
+  carRef = refs.car || null;
   metricsRef = refs.metrics;
   fuelRef = refs.fuel;
   tripRef = refs.trip;
@@ -44,6 +48,7 @@ export function initRender(refs) {
   els.criticalLogistics = document.getElementById("criticalLogistics");
   els.pendingTasks = document.getElementById("pendingTasks");
   els.tipsSection = document.getElementById("tipsSection");
+  els.staysSection = document.getElementById("staysSection");
   els.journeySummary = document.getElementById("journeySummary");
   els.placeList = document.getElementById("placeList");
   els.placeCount = document.getElementById("placeCount");
@@ -665,6 +670,56 @@ export function renderCriticalLogistics() {
         .join("")}
     </div>
   `;
+}
+
+// Render accommodations + rental car.
+export function renderStays() {
+  if (!els.staysSection) return;
+  const carHtml = carRef
+    ? `
+      <article class="stay-card stay-car">
+        <div class="stay-head">
+          <strong>🚗 ${escapeHtml(carRef.modelo)}</strong>
+          <span class="badge badge-medium">Coche</span>
+        </div>
+        <p class="stay-meta">${escapeHtml(carRef.detalles)}</p>
+        <dl class="stay-info">
+          <dt>Recogida</dt><dd>${escapeHtml(carRef.recogida)}</dd>
+          <dt>Devolución</dt><dd>${escapeHtml(carRef.devolucion)}</dd>
+          <dt>Proveedor</dt><dd>${escapeHtml(carRef.proveedor)}</dd>
+          <dt>Conductor</dt><dd>${escapeHtml(carRef.conductor)}</dd>
+        </dl>
+        ${carRef.avisos && carRef.avisos.length ? `<ul class="stay-avisos">${carRef.avisos.map((a) => `<li>${escapeHtml(a)}</li>`).join("")}</ul>` : ""}
+      </article>
+    `
+    : "";
+
+  const staysHtml = staysRef
+    .map((s) => {
+      const dirUrl = s.direccion
+        ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.direccion)}`
+        : null;
+      return `
+        <article class="stay-card ${s.confirmado ? "" : "stay-pending"}">
+          <div class="stay-head">
+            <strong>${escapeHtml(s.nombre)}</strong>
+            <span class="badge ${s.confirmado ? "badge-high" : "badge-low"}">${s.confirmado ? "Confirmado" : "Pendiente"}</span>
+          </div>
+          <p class="stay-meta">${escapeHtml(s.base)} · ${escapeHtml(s.dias)} · ${escapeHtml(s.fechas)}</p>
+          <dl class="stay-info">
+            ${s.checkin ? `<dt>Check-in</dt><dd>${escapeHtml(s.checkin)}</dd>` : ""}
+            ${s.checkout ? `<dt>Check-out</dt><dd>${escapeHtml(s.checkout)}</dd>` : ""}
+            ${s.direccion ? `<dt>Dirección</dt><dd>${escapeHtml(s.direccion)}</dd>` : ""}
+            ${s.telefono ? `<dt>Teléfono</dt><dd>${escapeHtml(s.telefono)}</dd>` : ""}
+          </dl>
+          ${s.nota ? `<p class="stay-nota">${escapeHtml(s.nota)}</p>` : ""}
+          ${dirUrl ? `<a class="text-link" href="${escapeHtml(dirUrl)}" target="_blank" rel="noopener noreferrer">Cómo llegar</a>` : ""}
+        </article>
+      `;
+    })
+    .join("");
+
+  els.staysSection.innerHTML = carHtml + staysHtml;
 }
 
 // Render the Sicily tips/recommendations as collapsible cards.
