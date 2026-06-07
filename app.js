@@ -33,6 +33,12 @@ if (state.viewMode === null) {
   state.viewMode = getDefaultViewMode(days, trip);
 }
 
+// Operational view is day-focused: it must never start with a null day
+// (which would break the prev/next arrows). Fall back to today or day 1.
+if (state.viewMode === "operational" && state.selectedDayId === null) {
+  state.selectedDayId = getTodayDayId(days, trip) ?? days[0].id;
+}
+
 // If we're within trip dates AND the user hasn't manually chosen a day this session,
 // surface today. We respect the persisted day if it's reasonable, but on a "first open today"
 // the user expects to see today.

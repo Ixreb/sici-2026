@@ -100,14 +100,20 @@ export function bindEvents({ days, trip }) {
     btn.addEventListener("click", () => setOpTab(btn.dataset.opTab));
   });
 
-  // Day prev/next (operational view)
+  // Day prev/next (operational view).
+  // Robust to selectedDayId === null (overview mode): fall back to the first day
+  // so the arrows always work even after "Ver resumen de ruta".
   els.opPrevDay.addEventListener("click", () => {
-    const idx = daysRef.findIndex((d) => d.id === state.selectedDayId);
+    const currentId = state.selectedDayId ?? daysRef[0].id;
+    const idx = daysRef.findIndex((d) => d.id === currentId);
     if (idx > 0) selectDay(daysRef[idx - 1].id);
+    else if (idx === -1) selectDay(daysRef[0].id);
   });
   els.opNextDay.addEventListener("click", () => {
-    const idx = daysRef.findIndex((d) => d.id === state.selectedDayId);
+    const currentId = state.selectedDayId ?? daysRef[0].id;
+    const idx = daysRef.findIndex((d) => d.id === currentId);
     if (idx >= 0 && idx < daysRef.length - 1) selectDay(daysRef[idx + 1].id);
+    else if (idx === -1) selectDay(daysRef[0].id);
   });
 
   // Today button

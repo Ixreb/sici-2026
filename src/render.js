@@ -111,6 +111,8 @@ export function renderOperational() {
     <p class="op-day-summary">${escapeHtml(day.summary)}</p>
   `;
 
+  // Disabled state based on the day actually shown (day), so it stays consistent
+  // with the prev/next handlers even when selectedDayId is null.
   els.opPrevDay.disabled = day.id === daysRef[0].id;
   els.opNextDay.disabled = day.id === daysRef[daysRef.length - 1].id;
 
@@ -524,37 +526,35 @@ function renderOverview() {
     </div>
     <div class="detail-grid">
       <section class="detail-section">
-        <h3>Cambios clave vs. el primer borrador</h3>
+        <h3>Estructura del viaje</h3>
         <ul>
-          <li>Neapolis y Ortigia se juntan el día 2 para liberar una jornada útil.</li>
-          <li>Ragusa y Modica pasan al día 3, ya sin cargar el traslado al sur.</li>
-          <li>Villa Romana del Casale y Scala dei Turchi quedan fijadas el día 5.</li>
-          <li>Palazzo Adriano entra el día 6 como parada interior compacta hacia Trapani.</li>
-          <li>Selinunte queda como alternativa si se descarta Palazzo Adriano.</li>
-          <li>Cappella Palatina pasa a obligatoria + Cappuccini se incorpora a Palermo.</li>
-          <li>Tindari + Laguna Marinello rompe el día 12 (Palermo → Giardini).</li>
-          <li>Etna Norte (Piano Provenzana) recomendado sobre Etna Sur.</li>
-          <li>Salinas: Marsala mejor que Trapani; añade Mozia.</li>
+          <li>Siracusa 2 noches: Neapolis, Ortigia y el sureste (Noto, Vendicari).</li>
+          <li>Ragusa 1 noche: barroco + Modica de paso, cena en Ibla iluminada.</li>
+          <li>Agrigento 2 noches: Casale de paso al llegar, y dos atardeceres (Scala y Templos).</li>
+          <li>Palazzo Adriano 1 noche: Selinunte de camino + Cinema Paradiso.</li>
+          <li>Trapani 2 noches: Segesta+Erice de paso, Favignana, Zingaro al salir.</li>
+          <li>Palermo 2 noches: Monreale, Cappella Palatina, Cappuccini.</li>
+          <li>Catania 3 noches: Cefalù, Etna Norte, Taormina, Isola Bella y cierre relajado.</li>
         </ul>
       </section>
       <section class="detail-section">
         <h3>Días sensibles</h3>
         <ul>
-          <li>21 junio (día 2): Neapolis al abrir 8:30 + Ortigia + Plemmirio opcional.</li>
-          <li>24 junio (día 5): Templos al abrir + Casale mediodía → Palazzo Adriano (arco interior).</li>
-          <li>25 junio (día 6): Palazzo + Museo Cinema Paradiso + Scala dei Turchi tarde → Trapani.</li>
-          <li>1 julio (día 12): 320 km, el día más largo. Cefalù compacto, NO bañarse aquí; baño = Isola Bella día siguiente.</li>
-          <li>2 julio (día 13): Etna Norte + Isola Bella + Taormina. No exprimir.</li>
+          <li>23 junio (día 4): Ragusa + Casale de paso + Scala atardecer. El día con más coche (~260 km).</li>
+          <li>24 junio (día 5): mañana de playa + Valle dei Templi al atardecer (luz dorada).</li>
+          <li>25 junio (día 6): Selinunte mañana → Palazzo Adriano (Cinema Paradiso).</li>
+          <li>30 junio (día 11): Palermo mañana + Cefalù + ~2 h a Catania. Día de transición largo.</li>
+          <li>1 julio (día 12): Etna Norte + Taormina + Isola Bella en triángulo desde Catania.</li>
         </ul>
       </section>
       <section class="detail-section">
         <h3>Alertas operativas</h3>
         <ul>
-          <li>Parking + ZTL claros en Ortigia, Ragusa Ibla, Palermo y Taormina.</li>
-          <li>Scala dei Turchi: compra IN SITU con pago digital (no online desde mayo 2026), Blue Pass 6 €.</li>
-          <li>Cappella Palatina: reservar online en federicosecondo.org; restauración 2025-2026 puede velar zonas.</li>
+          <li>Parking + ZTL claros en Ortigia, Ragusa Ibla y Palermo.</li>
+          <li>Scala dei Turchi: compra IN SITU con pago digital (no online desde mayo 2026), 6 €, al atardecer.</li>
+          <li>Cappella Palatina: reservar online en federicosecondo.org; cerrada domingos; restauración 2025-2026.</li>
           <li>Ferry Favignana + bici eléctrica: reservar online con antelación.</li>
-          <li>Monreale cierra 13:00-14:00; cuadrar con Segesta.</li>
+          <li>Monreale cierra 13:00-14:00; ir a primera hora el día de Palermo.</li>
         </ul>
       </section>
       <section class="detail-section">
@@ -564,7 +564,7 @@ function renderOverview() {
           <li>Ferry Liberty Lines + bici eléctrica de Favignana online.</li>
           <li>Cappella Palatina slot online (hasta 10 días antes).</li>
           <li>Hotel en Palazzo Adriano (pocas opciones, anticiparse).</li>
-          <li>Verificar boletín INGV del Etna 2-3 días antes del día 13.</li>
+          <li>Verificar boletín INGV del Etna 2-3 días antes del día 12.</li>
         </ul>
       </section>
     </div>
