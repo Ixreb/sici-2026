@@ -2722,3 +2722,33 @@ a.phone-value:hover {
   color: var(--ink);
   line-height: 1.45;
 }
+
+/* Comer hoy (plan diario: Día tab + detalle de día) */
+.op-food-card {
+  background: rgba(100, 122, 88, 0.08);
+  border-color: rgba(100, 122, 88, 0.22);
+}
+
+.day-food-zone { margin: 0 0 10px; }
+.day-food-zone:last-child { margin-bottom: 0; }
+
+.day-food-zone p {
+  margin: 0 0 3px;
+  line-height: 1.45;
+}
+
+.day-food-zone .day-food-zona {
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: var(--accent);
+}
+
+.day-food-zone .day-food-joya {
+  font-size: 0.86rem;
+  color: var(--ink);
+}
+
+.day-food-zone .day-food-line {
+  font-size: 0.84rem;
+  color: var(--muted);
+}

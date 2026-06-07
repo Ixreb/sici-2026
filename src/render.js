@@ -176,6 +176,7 @@ function renderOpPlan(day) {
       </article>
     ` : ""}
     ${renderOpDayStay(day)}
+    ${renderOpDayFood(day)}
     <article class="op-card op-card-soft op-logistics">
       <h3>Logística del día</h3>
       <dl class="op-logistics-list">
@@ -507,6 +508,11 @@ export function renderDayDetail() {
         <h3>Plan B</h3>
         <p class="detail-copy">${escapeHtml(day.planB)}</p>
       </section>
+      ${foodZonesForDay(day.id).length ? `
+      <section class="detail-section detail-section-wide">
+        <h3>Comer hoy · calidad-precio</h3>
+        ${dayFoodZonesHtml(day)}
+      </section>` : ""}
       <section class="detail-section detail-section-wide">
         <h3>Puntos del día (clic = ver en el mapa)</h3>
         <div class="detail-chip-list">
@@ -941,6 +947,44 @@ function foodHtml() {
 export function renderFood() {
   if (!els.foodSection) return;
   els.foodSection.innerHTML = foodHtml();
+}
+
+// Food zones whose day range covers this day id (a day can touch >1 zone).
+function foodZonesForDay(dayId) {
+  return foodZonesRef.filter((z) => {
+    const nums = (String(z.dias).match(/\d+/g) || []).map(Number);
+    if (!nums.length) return false;
+    if (nums.length === 1) return nums[0] === dayId;
+    return dayId >= nums[0] && dayId <= nums[nums.length - 1];
+  });
+}
+
+// Compact "where to eat today" content (shared by Día tab and Planner detail).
+function dayFoodZonesHtml(day) {
+  return foodZonesForDay(day.id)
+    .map(
+      (z) => `
+      <div class="day-food-zone">
+        <p class="day-food-zona">${escapeHtml(z.zona)}</p>
+        ${z.joya ? `<p class="day-food-joya">💎 <strong>${escapeHtml(z.joya.nombre)}</strong> — ${escapeHtml(z.joya.por_que)}${z.joya.precio ? ` (${escapeHtml(z.joya.precio)})` : ""}</p>` : ""}
+        ${z.desayuno ? `<p class="day-food-line">☕ ${escapeHtml(z.desayuno)}</p>` : ""}
+        ${z.merienda ? `<p class="day-food-line">🍦 ${escapeHtml(z.merienda)}</p>` : ""}
+      </div>`
+    )
+    .join("");
+}
+
+// "Comer hoy" card for the operational Plan tab.
+function renderOpDayFood(day) {
+  const inner = dayFoodZonesHtml(day);
+  if (!inner) return "";
+  return `
+    <article class="op-card op-food-card">
+      <h3>🍴 Comer hoy</h3>
+      ${inner}
+      <p class="op-card-fineprint">Más sitios y platos en Viaje → Comer por zonas.</p>
+    </article>
+  `;
 }
 
 // Compact tips list (flat) for the operational "Viaje" tab collapsible.
