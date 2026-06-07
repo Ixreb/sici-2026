@@ -22,6 +22,8 @@ let staysRef = [];
 let carRef = null;
 let phonesRef = [];
 let budgetRef = {};
+let foodTipsRef = [];
+let foodZonesRef = [];
 let metricsRef = {};
 let fuelRef = {};
 let tripRef = {};
@@ -40,6 +42,8 @@ export function initRender(refs) {
   carRef = refs.car || null;
   phonesRef = refs.phones || [];
   budgetRef = refs.budget || {};
+  foodTipsRef = refs.foodTips || [];
+  foodZonesRef = refs.foodZones || [];
   metricsRef = refs.metrics;
   fuelRef = refs.fuel;
   tripRef = refs.trip;
@@ -54,6 +58,7 @@ export function initRender(refs) {
   els.tipsSection = document.getElementById("tipsSection");
   els.staysSection = document.getElementById("staysSection");
   els.phonesSection = document.getElementById("phonesSection");
+  els.foodSection = document.getElementById("foodSection");
   els.journeySummary = document.getElementById("journeySummary");
   els.placeList = document.getElementById("placeList");
   els.placeCount = document.getElementById("placeCount");
@@ -261,6 +266,7 @@ function renderOpMore(day) {
     </article>
     ${opCollapsible("🛏️", "Alojamientos y coche", staysListHtml())}
     ${opCollapsible("💡", "Consejos de Sicilia", tipsCompactHtml())}
+    ${opCollapsible("🍴", "Comer por zonas", foodHtml())}
     ${opCollapsible("☎️", "Teléfonos útiles", phonesHtml())}
     <article class="op-card">
       <h3>Pendientes antes del viaje</h3>
@@ -836,6 +842,62 @@ function phonesHtml() {
 export function renderPhones() {
   if (!els.phonesSection) return;
   els.phonesSection.innerHTML = phonesHtml();
+}
+
+// Build the "comer por zonas" content (shared by planning panel and mobile).
+function foodHtml() {
+  const intro = foodTipsRef.length
+    ? `
+      <div class="food-intro">
+        <p class="food-intro-title">Reglas para comer bien sin pasarse</p>
+        <ul>${foodTipsRef.map((t) => `<li>${escapeHtml(t)}</li>`).join("")}</ul>
+      </div>`
+    : "";
+
+  const zones = foodZonesRef
+    .map(
+      (z) => `
+        <article class="food-card">
+          <div class="food-zone-head">
+            <strong>${escapeHtml(z.zona)}</strong>
+            <span class="badge badge-medium">${escapeHtml(z.dias)}</span>
+          </div>
+          ${z.platos && z.platos.length ? `
+            <div class="food-block">
+              <p class="food-label">Qué pedir</p>
+              <ul class="food-platos">${z.platos.map((p) => `<li>${escapeHtml(p)}</li>`).join("")}</ul>
+            </div>` : ""}
+          ${z.sitios && z.sitios.length ? `
+            <div class="food-block">
+              <p class="food-label">Dónde · calidad-precio</p>
+              <ul class="food-sitios">${z.sitios
+                .map(
+                  (s) => `
+                    <li class="food-sitio">
+                      <div class="food-sitio-top">
+                        <span class="food-sitio-name">${escapeHtml(s.nombre)}</span>
+                        <span class="food-sitio-precio">${escapeHtml(s.precio)}</span>
+                      </div>
+                      <span class="food-sitio-meta">${escapeHtml(s.tipo)} · ${escapeHtml(s.plato)}</span>
+                    </li>`
+                )
+                .join("")}</ul>
+            </div>` : ""}
+          ${z.mercado ? `<p class="food-line"><span>🛒 Mercado / street food:</span> ${escapeHtml(z.mercado)}</p>` : ""}
+          ${z.desayuno ? `<p class="food-line"><span>☕ Desayuno:</span> ${escapeHtml(z.desayuno)}</p>` : ""}
+          ${z.merienda ? `<p class="food-line"><span>🍦 Merienda:</span> ${escapeHtml(z.merienda)}</p>` : ""}
+          ${z.aviso ? `<p class="food-aviso">⚠️ ${escapeHtml(z.aviso)}</p>` : ""}
+        </article>`
+    )
+    .join("");
+
+  return intro + `<div class="food-grid">${zones}</div>`;
+}
+
+// Render the "comer por zonas" panel (planning view).
+export function renderFood() {
+  if (!els.foodSection) return;
+  els.foodSection.innerHTML = foodHtml();
 }
 
 // Compact tips list (flat) for the operational "Viaje" tab collapsible.

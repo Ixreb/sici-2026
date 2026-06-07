@@ -5,7 +5,7 @@
 //   - Map tiles: cache-first (heavy, immutable enough, prioritize speed
 //     and offline).
 
-const APP_CACHE = "sicilia-app-v19";
+const APP_CACHE = "sicilia-app-v20";
 const TILE_CACHE = "sicilia-tiles-v1";
 
 const APP_ASSETS = [
@@ -17,6 +17,7 @@ const APP_ASSETS = [
   "./data/trip.js",
   "./data/tips.js",
   "./data/stays.js",
+  "./data/food.js",
   "./src/state.js",
   "./src/utils.js",
   "./src/render.js",

@@ -2499,3 +2499,152 @@ a.phone-value:hover {
 .op-tip-block .op-list {
   font-size: 0.86rem;
 }
+
+/* ============== COMER POR ZONAS ============== */
+.food-section {
+  display: grid;
+  gap: 16px;
+}
+
+.food-intro {
+  padding: 14px 16px;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(207, 107, 45, 0.22);
+  background: rgba(207, 107, 45, 0.08);
+}
+
+.food-intro-title {
+  margin: 0 0 8px;
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: var(--warm);
+}
+
+.food-intro ul {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+  color: var(--ink);
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+
+.food-intro li::marker { color: var(--warm); }
+
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 14px;
+}
+
+.food-card {
+  padding: 16px 18px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.7);
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.food-zone-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.food-zone-head strong {
+  font-size: 1.05rem;
+}
+
+.food-label {
+  margin: 0 0 4px;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.food-platos {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 4px;
+  color: var(--ink);
+  line-height: 1.45;
+  font-size: 0.88rem;
+}
+
+.food-platos li::marker { color: var(--olive); }
+
+.food-sitios {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.food-sitio {
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.food-sitio-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.food-sitio-name {
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+.food-sitio-precio {
+  flex-shrink: 0;
+  font-weight: 800;
+  font-size: 0.82rem;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.food-sitio-meta {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.food-line {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.food-line span {
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.food-aviso {
+  margin: 2px 0 0;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  background: rgba(147, 60, 36, 0.08);
+  border: 1px solid rgba(147, 60, 36, 0.18);
+  color: var(--danger);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
