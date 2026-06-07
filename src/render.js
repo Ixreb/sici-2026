@@ -60,7 +60,6 @@ export function initRender(refs) {
   els.tipsSection = document.getElementById("tipsSection");
   els.staysSection = document.getElementById("staysSection");
   els.phonesSection = document.getElementById("phonesSection");
-  els.foodSection = document.getElementById("foodSection");
   els.journeySummary = document.getElementById("journeySummary");
   els.placeList = document.getElementById("placeList");
   els.placeCount = document.getElementById("placeCount");
@@ -80,6 +79,7 @@ export function initRender(refs) {
   els.opPlanContent = document.getElementById("opPlanContent");
   els.opPointsContent = document.getElementById("opPointsContent");
   els.opMoreContent = document.getElementById("opMoreContent");
+  els.opComidaContent = document.getElementById("opComidaContent");
   els.opPrevDay = document.getElementById("opPrevDay");
   els.opNextDay = document.getElementById("opNextDay");
   els.todayButton = document.getElementById("todayButton");
@@ -96,7 +96,6 @@ export function renderViewSwitch() {
   });
   document.body.classList.toggle("view-planning", state.viewMode === "planning");
   document.body.classList.toggle("view-operational", state.viewMode === "operational");
-  document.body.classList.toggle("view-comida", state.viewMode === "comida");
 }
 
 export function renderTodayButton() {
@@ -148,6 +147,7 @@ export function renderOperational() {
   renderOpPlan(day);
   renderOpPoints(day);
   renderOpMore(day);
+  renderOpComida(day);
 }
 
 function renderOpPlan(day) {
@@ -177,7 +177,6 @@ function renderOpPlan(day) {
       </article>
     ` : ""}
     ${renderOpDayStay(day)}
-    ${renderOpDayFood(day)}
     <article class="op-card op-card-soft op-logistics">
       <h3>Logística del día</h3>
       <dl class="op-logistics-list">
@@ -888,18 +887,9 @@ export function renderPhones() {
 }
 
 // Build the "comer por zonas" content (shared by planning panel and mobile).
-function foodHtml() {
-  const intro = foodTipsRef.length
-    ? `
-      <div class="food-intro">
-        <p class="food-intro-title">Reglas para comer bien sin pasarse</p>
-        <ul>${foodTipsRef.map((t) => `<li>${escapeHtml(t)}</li>`).join("")}</ul>
-      </div>`
-    : "";
-
-  const zones = foodZonesRef
-    .map(
-      (z) => `
+// One zone's rich food card (joya, platos, sitios con Maps, mercado, desayuno...).
+function foodZoneCardHtml(z) {
+  return `
         <article class="food-card">
           <div class="food-zone-head">
             <strong>${escapeHtml(z.zona)}</strong>
@@ -940,17 +930,25 @@ function foodHtml() {
           ${z.desayuno ? `<p class="food-line"><span>☕ Desayuno:</span> ${escapeHtml(z.desayuno)}</p>` : ""}
           ${z.merienda ? `<p class="food-line"><span>🍦 Merienda:</span> ${escapeHtml(z.merienda)}</p>` : ""}
           ${z.aviso ? `<p class="food-aviso">⚠️ ${escapeHtml(z.aviso)}</p>` : ""}
-        </article>`
-    )
-    .join("");
-
-  return intro + `<div class="food-grid">${zones}</div>`;
+        </article>`;
 }
 
-// Render the "comer por zonas" panel (planning view).
-export function renderFood() {
-  if (!els.foodSection) return;
-  els.foodSection.innerHTML = foodHtml();
+// "Comida" tab (operational Día view): dónde comer en el día seleccionado.
+function renderOpComida(day) {
+  if (!els.opComidaContent) return;
+  let zones = foodZonesForDay(day.id);
+  let note = "";
+  if (!zones.length) {
+    zones = foodZonesForDay(day.id - 1);
+    note = "Hoy es día de vuelo: aprovecha para una última granita o arancino en Catania antes del aeropuerto.";
+  }
+  const intro = `<p class="op-section-intro">Dónde comer <strong>hoy</strong> (zona${zones.length > 1 ? "s" : ""} del día). Toca 📍 para abrir el sitio en Google Maps (nota, reseñas y ubicación).</p>`;
+  const noteHtml = note ? `<article class="op-card"><p>${escapeHtml(note)}</p></article>` : "";
+  const cards = zones.map(foodZoneCardHtml).join("");
+  const tips = foodTipsRef.length
+    ? `<details class="op-collapsible"><summary class="op-collapsible-summary"><span class="op-collapsible-icon" aria-hidden="true">💡</span><span>Reglas para comer bien sin pasarse</span></summary><div class="op-collapsible-body"><ul class="op-list">${foodTipsRef.map((t) => `<li>${escapeHtml(t)}</li>`).join("")}</ul></div></details>`
+    : "";
+  els.opComidaContent.innerHTML = intro + noteHtml + cards + tips;
 }
 
 // Food zones whose day range covers this day id (a day can touch >1 zone).
@@ -976,19 +974,6 @@ function dayFoodZonesHtml(day) {
       </div>`
     )
     .join("");
-}
-
-// "Comer hoy" card for the operational Plan tab.
-function renderOpDayFood(day) {
-  const inner = dayFoodZonesHtml(day);
-  if (!inner) return "";
-  return `
-    <article class="op-card op-food-card">
-      <h3>🍴 Comer hoy</h3>
-      ${inner}
-      <p class="op-card-fineprint">Más sitios y platos en Viaje → Comer por zonas.</p>
-    </article>
-  `;
 }
 
 // Compact tips list (flat) for the operational "Viaje" tab collapsible.

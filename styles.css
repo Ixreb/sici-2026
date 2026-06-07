@@ -1644,34 +1644,6 @@ select {
 /* ============== VIEW VISIBILITY ============== */
 .view-planning .op-shell { display: none; }
 .view-operational .planning-shell { display: none; }
-.comida-shell { display: none; }
-.view-comida .comida-shell { display: block; }
-.view-comida .planning-shell,
-.view-comida .op-shell { display: none; }
-
-/* ============== COMIDA VIEW ============== */
-.comida-hero {
-  padding: 28px 0 6px;
-}
-
-.comida-hero h1 {
-  margin: 0;
-  font-family: "Cormorant Garamond", serif;
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  font-size: clamp(2rem, 3.4vw, 3.2rem);
-}
-
-.comida-hero-text {
-  margin: 14px 0 0;
-  max-width: 70ch;
-  color: var(--muted);
-  line-height: 1.7;
-}
-
-.comida-shell .food-section {
-  margin-top: 18px;
-}
 
 /* ============== OPERATIONAL VIEW ============== */
 .op-shell {
@@ -1818,8 +1790,8 @@ select {
   top: calc(var(--topbar-h) + 92px);
   z-index: 20;
   display: flex;
-  gap: 6px;
-  padding: 6px;
+  gap: 4px;
+  padding: 5px;
   border-radius: 999px;
   background: rgba(255, 250, 242, 0.95);
   backdrop-filter: blur(10px);
@@ -1831,11 +1803,12 @@ select {
   border: 0;
   background: transparent;
   color: var(--muted);
-  padding: 9px 12px;
+  padding: 9px 6px;
   border-radius: 999px;
   font-weight: 700;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.84rem;
+  white-space: nowrap;
 }
 
 .op-tab.is-active {

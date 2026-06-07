@@ -24,7 +24,6 @@ import {
   renderTips,
   renderStays,
   renderPhones,
-  renderFood,
 } from "./src/render.js";
 import { initMap } from "./src/map.js";
 import { bindEvents, placeMapInActiveSlot } from "./src/actions.js";
@@ -91,7 +90,6 @@ renderPendingTasks();
 renderTips();
 renderStays();
 renderPhones();
-renderFood();
 renderJourneySummary();
 renderOperational();
 

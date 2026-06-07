@@ -35,7 +35,6 @@
         <div class="view-switch" role="tablist" aria-label="Cambiar vista">
           <button class="view-switch-button" data-view="planning" role="tab" type="button">Planner</button>
           <button class="view-switch-button" data-view="operational" role="tab" type="button">Día</button>
-          <button class="view-switch-button" data-view="comida" role="tab" type="button">Comida</button>
         </div>
       </div>
     </div>
@@ -284,27 +283,14 @@
         <button class="op-tab" data-op-tab="plan" role="tab" type="button">Plan del día</button>
         <button class="op-tab" data-op-tab="points" role="tab" type="button">Puntos</button>
         <button class="op-tab" data-op-tab="more" role="tab" type="button">Viaje</button>
+        <button class="op-tab" data-op-tab="comida" role="tab" type="button">Comida</button>
       </nav>
 
       <section class="op-tab-content" data-op-content="plan" id="opPlanContent"></section>
       <section class="op-tab-content" data-op-content="points" id="opPointsContent" hidden></section>
       <section class="op-tab-content" data-op-content="more" id="opMoreContent" hidden></section>
+      <section class="op-tab-content" data-op-content="comida" id="opComidaContent" hidden></section>
     </main>
-  </div>
-
-  <!-- ============= COMIDA VIEW (guía gastronómica) ============= -->
-  <div class="comida-shell">
-    <div class="page-shell">
-      <header class="comida-hero">
-        <p class="eyebrow">Comer bien · calidad-precio</p>
-        <h1>Comida por zonas</h1>
-        <p class="comida-hero-text">
-          Sitios investigados (trattorias familiares, mercados y street food), platos recomendados,
-          desayunos y meriendas. Toca un sitio para abrirlo en Google Maps y ver nota, reseñas y ubicación.
-        </p>
-      </header>
-      <div id="foodSection" class="food-section"></div>
-    </div>
   </div>
 
   <script
@@ -312,6 +298,6 @@
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin=""
   ></script>
-  <script type="module" src="./app.js?v=25"></script>
+  <script type="module" src="./app.js?v=26"></script>
 </body>
 </html>
