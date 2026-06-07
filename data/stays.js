@@ -9,7 +9,6 @@ export const car = {
   devolucion: "Vie 3 jul · 18:00 · Catania Fontanarossa Airport",
   conductor: "Isaac Ramos Escribano · +34 687 222 210",
   avisos: [
-    "OJO: la devolución figura a las 18:00 pero el vuelo es a las 16:55. Hay que devolver el coche ANTES del vuelo (sobre las 14:00-14:30). Confirmar con Drivalia si la franja de 18:00 es solo el límite del bono.",
     "Recogida a las 18:00: con aterrizaje 16:10 + maletas + mostrador, salís de Catania hacia las 18:00-18:30 y llegáis a Siracusa ~19:30.",
     "Manual: confirmado coche de cambio manual.",
     "Llevar al mostrador: carnet de conducir, tarjeta de crédito del titular y el voucher de Booking.",
