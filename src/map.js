@@ -1,5 +1,6 @@
 import { state, isVisited } from "./state.js";
 import { escapeHtml, getDirectionsUrl, getGoogleMapsUrl, markerColor } from "./utils.js";
+import { getFilteredPlaces } from "./render.js";
 
 let map = null;
 let markerLayer = null;
@@ -124,27 +125,6 @@ function renderRoute() {
     base._marker = marker;
   });
   map.fitBounds(route, { padding: [28, 28] });
-}
-
-function getFilteredPlaces() {
-  const selectedDay = daysRef.find((d) => d.id === state.selectedDayId);
-  return placesRef.filter((place) => {
-    if (place.descartar && !state.showDescartados) return false;
-    if (state.search) {
-      const haystack = `${place.name} ${place.address || ""} ${place.zona} ${place.tipo}`.toLowerCase();
-      if (!haystack.includes(state.search.toLowerCase())) return false;
-    }
-    if (state.type !== "all" && place.tipo !== state.type) return false;
-    if (state.priority !== "all" && place.prioridad !== state.priority) return false;
-    if (state.zone !== "all" && place.zona !== state.zone) return false;
-    if (selectedDay && selectedDay.focusPlaceIds && selectedDay.focusPlaceIds.length) {
-      // When a day is selected, show its places AND points in same zones (light context)
-      const inDay = selectedDay.focusPlaceIds.includes(place.id);
-      const inZone = selectedDay.focusZones.includes(place.zona);
-      if (!inDay && !inZone) return false;
-    }
-    return true;
-  });
 }
 
 function renderMarkers(filteredPlaces) {

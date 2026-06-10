@@ -158,7 +158,7 @@ export const dayMetrics = {
   2: { driveKm: 28, walkKm: 9, peajeEuro: 0 }, // Neapolis + Ortigia + Plemmirio opcional
   3: { driveKm: 160, walkKm: 7, peajeEuro: 0 }, // Siracusa-Noto-Vendicari-Marzamemi-Modica-Ragusa
   4: { driveKm: 260, walkKm: 6, peajeEuro: 0 }, // Ragusa-Casale-Agrigento + Scala atardecer (día con más coche)
-  5: { driveKm: 50, walkKm: 6, peajeEuro: 0 }, // Torre Salsa (ida y vuelta) + Valle dei Templi
+  5: { driveKm: 65, walkKm: 6, peajeEuro: 0 }, // Torre Salsa i/v ~56 km (28 km por trayecto) + Valle dei Templi
   6: { driveKm: 185, walkKm: 6, peajeEuro: 0 }, // Agrigento-Selinunte-Palazzo Adriano
   7: { driveKm: 135, walkKm: 5, peajeEuro: 0 }, // Palazzo-Segesta-Trapani + Erice (funivia)
   8: { driveKm: 0, walkKm: 7, peajeEuro: 0 }, // Favignana (ferry, sin coche)
@@ -289,7 +289,7 @@ export const days = [
     pace: "Cargado",
     focusZones: ["Sureste", "Interior", "Sur"],
     focusPlaceIds: ["ragusa-ibla", "duomo-san-giorgio-ragusa", "villa-romana-casale", "scala-turchi-ingresso", "scala-turchi-belvedere"],
-    morning: ["Desayuno + paseo matinal por Ragusa Ibla (Duomo San Giorgio, miradores)", "Salir ~9:00 hacia Villa Romana del Casale (1 h 50)"],
+    morning: ["Desayuno + paseo matinal por Ragusa Ibla (Duomo San Giorgio por fuera —abre a las 10:00—, miradores)", "Salir ~9:00 hacia Villa Romana del Casale (1 h 50)"],
     afternoon: ["Villa Romana del Casale: mosaicos UNESCO (~2 h, al fresco antes del calor de mediodía)", "Casale → Agrigento (1 h 45), check-in y descanso", "Scala dei Turchi al ATARDECER (compra in situ 6 €, marga sin sol vertical)", "Cena en Agrigento"],
     mustDo: ["Ragusa Ibla", "Villa del Casale (de paso)", "Scala dei Turchi atardecer"],
     optional: ["Belvedere Scala dei Turchi si el aforo del día está lleno"],
@@ -310,7 +310,7 @@ export const days = [
     title: "Mañana de playa + Valle dei Templi al atardecer",
     summary: "Día tranquilo en Agrigento: mañana de descanso o playa y los Templos con la luz dorada del atardecer.",
     base: "Agrigento / Realmonte",
-    drive: "~25 min a playa (Torre Salsa/San Leone) · 10 min a Templos",
+    drive: "San Leone a 10 min · Torre Salsa ~35-40 min · 10 min a Templos",
     pace: "Suave",
     focusZones: ["Sur"],
     focusPlaceIds: ["valle-templos", "torre-salsa", "eraclea-minoa"],
@@ -319,12 +319,12 @@ export const days = [
     mustDo: ["Valle dei Templi al atardecer", "Mañana de descanso/playa"],
     optional: ["Eraclea Minoa como playa con servicios (sombra de pinos) si Torre Salsa no apetece", "Templo de Hera al final del recorrido si queda energía"],
     notes: [
-      "Templos al ATARDECER: en verano abre hasta las 20:00 y la luz dorada sobre la Concordia es lo mejor. Mucho mejor que a mediodía (sin sombra, calor brutal).",
+      "Templos a ÚLTIMA HORA: entrar 17:30-18:00 (último acceso 19:00) y apurar hasta el cierre (20:00). La luz dorada sobre la Concordia es lo mejor; el sol se pone ~20:30 ya fuera del recinto. Mucho mejor que a mediodía (sin sombra, calor brutal).",
       "Esta es la mañana de descanso real del bloque sur: aprovechadla, los días 4 y 6 son más movidos.",
       "Torre Salsa: 8 km de costa virgen, agua turquesa, sin servicios (llevar agua y sombrilla). Acceso por pista de tierra (Fiat 500 sin problema).",
     ],
     parking: "Templos: parking Porta V o Tempio di Giunone. Torre Salsa: parking informal de tierra. San Leone: parking de playa.",
-    booking: "Valle Templi online ahorra cola (visitas nocturnas algunos días, consultar calendario).",
+    booking: "Valle Templi online ahorra cola (las nocturnas 'Valle Illuminata' empiezan en julio).",
     planB: "Si la mañana se hace corta, Templos también se puede empezar a media tarde sin prisa.",
     tags: ["Arqueología", "Playa", "Atardecer"],
   },
@@ -344,8 +344,8 @@ export const days = [
     optional: ["Cochecillo eléctrico en Selinunte (recomendado con calor)"],
     notes: [
       "Selinunte DE CAMINO: Agrigento → Selinunte → Palazzo es un triángulo hacia el oeste sin rebote. Selinunte por la mañana = fresco; es un parque enorme sin sombra.",
-      "Selinunte abre 9:00-19:00. Llegar al abrir aprovecha el fresco.",
-      "Museo Cinema Paradiso (Piazza Umberto I, antiguo Ayuntamiento): confirmar horario por tel (+39 091 834 9901) la víspera. Horario verano ~10:00-13:00 / 16:00-19:00. Gratis.",
+      "Selinunte abre a las 8:00 (último ingreso 19:00). Llegar al abrir aprovecha el fresco.",
+      "Museo Cinema Paradiso (Piazza Umberto I, antiguo Ayuntamiento): confirmar horario por tel (+39 091 834 9933) la víspera. Horario ~9:00-13:00 / 15:00-19:00. Gratis.",
       "Palazzo Adriano: pocas opciones de cena, conviene preguntar al check-in. La noche temática del viaje.",
     ],
     parking: "Selinunte: parking del parque arqueológico. Palazzo Adriano: aparcar cerca de Piazza Umberto I (calles tranquilas).",
@@ -494,7 +494,7 @@ export const days = [
       "⚠️ PEAJES: ES EL ÚNICO DÍA EN QUE CONVIENE ACTIVARLOS en el navegador. La A18 Taormina↔Catania (y el tramo hacia Fiumefreddo/Linguaglossa) ahorra ~30-40 min por trayecto frente a la SS114 costera, que en verano se satura de tráfico y semáforos. Coste ~4 € ida y vuelta, bien gastados. Al volver a casa, peajes OFF de nuevo.",
       "Etna estado mayo 2026: nivel VERDE (erupción de enero ya terminada). Verificar boletín INGV (ct.ingv.it) 2-3 días antes. A cráteres altos (~3.000m) solo con guía AGAM.",
       "Isola Bella: aforo controlado, ir antes de las 14h. Llevar escarpines (guijarro). Dejar el coche arriba y bajar en cable car o a pie, no meterse en coche a Mazzarò.",
-      "Teatro Antico Taormina: verificar si hay evento el 1 jul (a veces cierran la visita diurna). Si lo hay, verlo por la mañana no aplica aquí — priorizar Corso + miradores.",
+      "Teatro Antico Taormina: confirmado SIN evento el 1 jul (el primer concierto es el 4 jul) → visita diurna libre 9:00-24:00. Reverificar la víspera por si la programación cambia.",
     ],
     parking: "Etna: parking propio en Piano Provenzana. Taormina: Parcheggio Lumbi (965 plazas + navette cada 15 min) o Porta Catania. Isola Bella: dejar coche arriba y bajar.",
     booking: "Excursión 4x4 al Etna (cráteres altos) requiere guía AGAM, reservar en Linguaglossa.",
@@ -518,7 +518,7 @@ export const days = [
     notes: [
       "Día de descanso real antes del vuelo: nada ambicioso.",
       "Aci Castello y Aci Trezza están a ~20 min de Catania, son el cierre marino perfecto del viaje.",
-      "Aci Castello: el castillo cierra al mediodía (13:00-15:00). La cala de roca bajo el castillo se disfruta igual.",
+      "Aci Castello: el castillo cierra al mediodía (13:00-16:00). La cala de roca bajo el castillo se disfruta igual.",
     ],
     parking: "Catania: dejar el coche en el garaje y centro a pie. Aci Castello/Trezza: parking del paseo marítimo (llenarse en verano, llegar pronto).",
     booking: "Nada crítico. Día flexible.",
@@ -529,18 +529,19 @@ export const days = [
     id: 14,
     date: "Vie 3 julio",
     title: "Mañana tranquila en Catania → aeropuerto",
-    summary: "Cierre sin estrés: desayuno y paseo corto por Catania, devolver coche y vuelo a las 16:55. Aeropuerto a 20 min.",
-    base: "Vuelo (Catania 16:55)",
+    summary: "Cierre sin estrés: desayuno y paseo corto por Catania, devolver coche y vuelos de vuelta (Isaac 16:55 · María a París). Aeropuerto a 20 min.",
+    base: "Vuelos de vuelta (Catania)",
     drive: "~20 min hasta el aeropuerto",
     pace: "Muy suave",
     focusZones: ["Este"],
     focusPlaceIds: [],
     morning: ["Desayuno sin prisas", "Paseo corto por Catania (lo que quedara: Pescheria, Via Etnea, Duomo)", "Compras de última hora"],
-    afternoon: ["Salida al aeropuerto con margen (~13:30-14:00)", "Devolver coche", "Vuelo 16:55"],
+    afternoon: ["Salida al aeropuerto con margen (~13:30-14:00)", "Devolver coche", "Vuelos: Isaac 16:55 · María a París (confirmar hora)"],
     mustDo: ["Salir con margen", "Devolver coche sin prisas"],
     optional: ["Última granita siciliana antes de volar"],
     notes: [
       "Dormir en Catania la noche anterior hace este día totalmente relajado: el aeropuerto está a 20 min.",
+      "Los vuelos de vuelta son DISTINTOS: Isaac a las 16:55 y María a París. Confirmad la hora del de María y salid al aeropuerto según el MÁS TEMPRANO de los dos.",
       "Nada ambicioso: la prioridad es llegar al vuelo sin estrés.",
     ],
     parking: "Garaje del hotel hasta el check-out. Devolución del coche en el aeropuerto.",
@@ -565,29 +566,29 @@ export const pendingTasks = [
     id: "bici-favignana",
     category: "Reservas urgentes",
     title: "Bici eléctrica en Favignana",
-    detail: "Barracuda o similar (busca online en Favignana). ~10-15 €/día (e-bike en junio). Los fines de semana de verano se agotan; vuestro día es sábado 27 jun.",
+    detail: "Barracuda o similar (busca online en Favignana). ~15-25 €/día (e-bike). Los fines de semana de verano se agotan; vuestro día es sábado 27 jun.",
     when: "2-3 semanas antes",
   },
   {
     id: "hotel-palazzo",
-    category: "Reservas urgentes",
-    title: "Hotel Palazzo Adriano (24 jun)",
-    detail: "Pueblo pequeño con ~10-15 opciones (Booking). Casa Paradiso, Affittacamere La Cartiera o Albergo del Viale son las más recomendadas. Confirmar parking.",
-    when: "Ya, cuanto antes",
+    category: "Confirmar la víspera",
+    title: "Avisar llegada a Casetta in piazza (Palazzo Adriano)",
+    detail: "Alojamiento YA reservado (25→26 jun). El check-in es solo 15:00-18:00: avisar al host la hora de llegada (venís de Selinunte) y preguntar dónde aparcar y dónde cenar.",
+    when: "2-3 días antes",
   },
   {
     id: "cena-ragusa-ibla",
     category: "Reservas urgentes",
     title: "Cena Ragusa Ibla (22 jun noche)",
-    detail: "Ragusa Ibla iluminada es plan de cena. Reservar restaurante con vistas o terraza con antelación (Duomo, Locanda Don Serafino, etc.).",
+    detail: "Ragusa Ibla iluminada es plan de cena. Reservar con antelación: La Bettola o That's a Moro (calidad-precio verificada, ver pestaña Comida). La alta cocina de Ibla (Duomo, Don Serafino) son 100 €+ por persona.",
     when: "1-2 semanas antes",
   },
   {
     id: "hoteles-parking",
-    category: "Reservas urgentes",
-    title: "Hoteles con parking confirmado",
-    detail: "Confirmar parking incluido o concertado en cada base. Ortigia (con pase ZTL), Ragusa Ibla (con pase ZTL casco), Agrigento, Palazzo Adriano, Trapani, Palermo (€18-25/día), Catania.",
-    when: "Al reservar cada hotel",
+    category: "Reservas con tiempo",
+    title: "Parking / pase ZTL con cada host",
+    detail: "Los 7 alojamientos ya están reservados: queda confirmar parking con cada host. Ortigia (pase ZTL), Ragusa (ZTL Ibla), Agrigento, Palazzo Adriano, Trapani, Palermo (garaje 18-25 €/día), Catania.",
+    when: "1 semana antes",
   },
 
   // ===== RESERVAS 1-2 SEMANAS ANTES =====
@@ -602,7 +603,7 @@ export const pendingTasks = [
     id: "valle-templos",
     category: "Reservas con tiempo",
     title: "Valle dei Templi entrada online",
-    detail: "lavalledeitempli.it ahorra cola. ~12 € (precio oficial 2026). Día 5 al ATARDECER (17:00-20:00, luz dorada).",
+    detail: "lavalledeitempli.it ahorra cola. 14 € (oficial 2026). Día 5 a última hora: entrar 17:30-18:00, cierre 20:00 (luz dorada).",
     when: "1-2 semanas antes",
   },
   {
@@ -625,7 +626,7 @@ export const pendingTasks = [
     id: "museo-cinema-paradiso",
     category: "Confirmar la víspera",
     title: "Museo Cinema Paradiso abierto el 25 jun",
-    detail: "Tel +39 091 834 9901. Horario verano típico 10:00-13:00 / 16:00-19:00. Confirmar el día anterior por teléfono o vía hotel de Palazzo.",
+    detail: "Tel +39 091 834 9933. Horario típico 9:00-13:00 / 15:00-19:00. Confirmar el día anterior por teléfono o vía host de Palazzo.",
     when: "Víspera",
   },
   {
@@ -641,6 +642,13 @@ export const pendingTasks = [
     title: "Eventos Teatro Antico Taormina el 1 jul",
     detail: "Programación en aditusculture.com / parchiarcheologici.regione.sicilia.it. Si hay evento que cierre la visita diurna, priorizar Corso Umberto + miradores al atardecer.",
     when: "Semana del viaje",
+  },
+  {
+    id: "vuelo-maria",
+    category: "Confirmar la víspera",
+    title: "Hora del vuelo de María (Catania → París)",
+    detail: "El día 14 está planificado sobre el vuelo de Isaac (16:55). Los vuelos de vuelta son DISTINTOS: anotad la hora del de María y salid al aeropuerto según el MÁS TEMPRANO de los dos.",
+    when: "Antes del día 14",
   },
   {
     id: "scala-aforo",
@@ -767,7 +775,7 @@ export const criticalLogistics = [
     title: "Palazzo Adriano",
     type: "Pernocta",
     priority: "Media",
-    body: "PERNOCTA del día 6 al 7 (Cinema Paradiso). Se llega vía Selinunte. Museo Cinema Paradiso gratis pero confirmar horario por tel (+39 091 834 9901) la víspera. Pocas opciones de cena, preguntar al check-in.",
+    body: "PERNOCTA del día 6 al 7 (Cinema Paradiso). Se llega vía Selinunte. Museo Cinema Paradiso gratis pero confirmar horario por tel (+39 091 834 9933) la víspera. Pocas opciones de cena, preguntar al check-in.",
   },
   {
     title: "Teatro Antico Taormina",

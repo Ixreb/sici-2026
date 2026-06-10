@@ -1178,9 +1178,47 @@ select {
   }
 }
 
+/* Secciones solo-impresión (p. ej. guía de comida en el PDF) */
+.print-only {
+  display: none;
+}
+
 @media print {
   body {
     background: white;
+  }
+
+  .print-only {
+    display: block;
+  }
+
+  .food-print {
+    display: grid;
+    gap: 12px;
+  }
+
+  .food-print-rules {
+    margin: 0 0 12px;
+    padding-left: 18px;
+    line-height: 1.5;
+    font-size: 0.9rem;
+  }
+
+  .food-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    border: 1px solid #ddd;
+    background: white;
+  }
+
+  .food-sitio {
+    background: white;
+    border-color: #ddd;
+  }
+
+  /* Los enlaces a Google Maps no aportan en papel */
+  .food-maps-link {
+    display: none !important;
   }
 
   .topbar,
@@ -1787,7 +1825,8 @@ select {
 
 .op-tabs {
   position: sticky;
-  top: calc(var(--topbar-h) + 92px);
+  /* --op-header-h la fija JS midiendo la cabecera del día (altura variable). */
+  top: calc(var(--topbar-h) + var(--op-header-h, 100px));
   z-index: 20;
   display: flex;
   gap: 4px;
@@ -2210,10 +2249,6 @@ select {
     height: 280px;
   }
 
-  .op-tabs {
-    top: calc(var(--topbar-h) + 100px);
-  }
-
   .topbar-title {
     display: none;
   }
@@ -2550,40 +2585,6 @@ a.phone-value:hover {
   gap: 16px;
 }
 
-.food-intro {
-  padding: 14px 16px;
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(207, 107, 45, 0.22);
-  background: rgba(207, 107, 45, 0.08);
-}
-
-.food-intro-title {
-  margin: 0 0 8px;
-  font-size: 0.74rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  font-weight: 800;
-  color: var(--warm);
-}
-
-.food-intro ul {
-  margin: 0;
-  padding-left: 18px;
-  display: grid;
-  gap: 6px;
-  color: var(--ink);
-  line-height: 1.5;
-  font-size: 0.9rem;
-}
-
-.food-intro li::marker { color: var(--warm); }
-
-.food-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-  gap: 14px;
-}
-
 .food-card {
   padding: 16px 18px;
   border-radius: var(--radius-lg);
@@ -2750,12 +2751,7 @@ a.phone-value:hover {
   line-height: 1.45;
 }
 
-/* Comer hoy (plan diario: Día tab + detalle de día) */
-.op-food-card {
-  background: rgba(100, 122, 88, 0.08);
-  border-color: rgba(100, 122, 88, 0.22);
-}
-
+/* Comer hoy (detalle de día del Planner) */
 .day-food-zone { margin: 0 0 10px; }
 .day-food-zone:last-child { margin-bottom: 0; }
 

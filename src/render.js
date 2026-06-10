@@ -60,6 +60,7 @@ export function initRender(refs) {
   els.tipsSection = document.getElementById("tipsSection");
   els.staysSection = document.getElementById("staysSection");
   els.phonesSection = document.getElementById("phonesSection");
+  els.printFoodSection = document.getElementById("printFoodSection");
   els.journeySummary = document.getElementById("journeySummary");
   els.placeList = document.getElementById("placeList");
   els.placeCount = document.getElementById("placeCount");
@@ -362,7 +363,7 @@ export function renderStats() {
     { value: `${mustSee}`, label: "imprescindibles" },
     { value: `${secondary}`, label: "secundarios útiles" },
     { value: `${visited}`, label: "marcados como visitados" },
-    { value: "Trapani", label: "base equilibrada del noroeste" },
+    { value: `~${getJourneyTotals().driveKm} km`, label: "de ruta en coche" },
   ];
 
   els.statsGrid.innerHTML = stats
@@ -796,7 +797,7 @@ function staysListHtml() {
         <ul class="stay-flights-list">
           ${flightsRef.legs.map((l) => `<li><span>${escapeHtml(l.label)}</span><strong>${eur(l.total)}</strong></li>`).join("")}
         </ul>
-        <p class="stay-nota">Total de los vuelos de los dos (ida y vuelta). Se paga a medias.</p>
+        <p class="stay-nota">${escapeHtml(flightsRef.note || "Total de los vuelos de los dos (ida y vuelta). Se paga a medias.")}</p>
       </article>`
       : "";
 
@@ -929,8 +930,19 @@ function foodZoneCardHtml(z) {
           ${z.mercado ? `<p class="food-line"><span>🛒 Mercado / street food:</span> ${escapeHtml(z.mercado)}</p>` : ""}
           ${z.desayuno ? `<p class="food-line"><span>☕ Desayuno:</span> ${escapeHtml(z.desayuno)}</p>` : ""}
           ${z.merienda ? `<p class="food-line"><span>🍦 Merienda:</span> ${escapeHtml(z.merienda)}</p>` : ""}
+          ${z.nota ? `<p class="food-line"><span>📌 Nota:</span> ${escapeHtml(z.nota)}</p>` : ""}
           ${z.aviso ? `<p class="food-aviso">⚠️ ${escapeHtml(z.aviso)}</p>` : ""}
         </article>`;
+}
+
+// Full food guide rendered into a print-only section of the planning shell,
+// so "Imprimir / guardar PDF" includes the Comida content (hidden on screen).
+export function renderPrintFood() {
+  if (!els.printFoodSection) return;
+  const rules = foodTipsRef.length
+    ? `<ul class="food-print-rules">${foodTipsRef.map((t) => `<li>${escapeHtml(t)}</li>`).join("")}</ul>`
+    : "";
+  els.printFoodSection.innerHTML = rules + foodZonesRef.map(foodZoneCardHtml).join("");
 }
 
 // "Comida" tab (operational Día view): dónde comer en el día seleccionado.
@@ -1113,7 +1125,9 @@ function renderInfoRows(place) {
   return `<dl class="place-info">${rows.join("")}</dl>`;
 }
 
-function getFilteredPlaces() {
+// Shared by the place list AND the map markers (map.js imports this) so both
+// views always apply identical filtering.
+export function getFilteredPlaces() {
   const selectedDay = daysRef.find((d) => d.id === state.selectedDayId);
   return placesRef.filter((place) => {
     if (place.descartar && !state.showDescartados) return false;

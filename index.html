@@ -65,8 +65,8 @@
               <dd>20 junio · 16:10 · Catania</dd>
             </div>
             <div>
-              <dt>Vuelo vuelta</dt>
-              <dd>3 julio · 16:55 · Catania</dd>
+              <dt>Vuelos vuelta (distintos)</dt>
+              <dd>3 julio · Isaac 16:55 · María → París</dd>
             </div>
             <div>
               <dt>Duración</dt>
@@ -179,6 +179,19 @@
               <p class="panel-note">Emergencias, hosts y hospitales con maternidad. Toca un número para llamar.</p>
             </div>
             <div id="phonesSection" class="phones-section"></div>
+          </section>
+
+          <!-- Solo para impresión: la guía de comida vive en la pestaña Comida
+               (vista Día), pero el PDF debe incluirla. Oculta en pantalla. -->
+          <section class="panel print-only">
+            <div class="panel-head">
+              <div>
+                <p class="section-kicker">Comida</p>
+                <h2>Guía de comida por zonas</h2>
+              </div>
+              <p class="panel-note">Versión imprimible de la pestaña Comida (vista Día).</p>
+            </div>
+            <div id="printFoodSection" class="food-print"></div>
           </section>
         </section>
 
@@ -298,6 +311,6 @@
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin=""
   ></script>
-  <script type="module" src="./app.js?v=26"></script>
+  <script type="module" src="./app.js?v=27"></script>
 </body>
 </html>

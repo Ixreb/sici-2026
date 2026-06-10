@@ -95,8 +95,27 @@ export const foodZones = [
     aviso: "Evita los restaurantes con vistas a los Templos y la 1ª línea de San Leone (Il Pescatore es bueno pero ~35-55 €, capricho; pregunta el pescado al peso).",
   },
   {
+    zona: "Selinunte · Palazzo Adriano",
+    dias: "Día 6",
+    joya: { nombre: "Trattoria Casa Mia (Marinella di Selinunte)", por_que: "Pescado local frente al parque arqueológico, raciones generosas y precio honesto; la comida del día 6 resuelta. Servicio rápido aun lleno.", precio: "~10-20 €/pers.", rating: "4,6★ (417) TA · #1 de Marinella", maps: "Trattoria Casa Mia Marinella di Selinunte" },
+    platos: [
+      "Paccheri con pesto de calabacín y gambas (Marinella) — ~13-15 €",
+      "Pane cunzato + arancino al paso — ~6-8 €",
+      "Cena en Palazzo Adriano: cocina casera del interior (lo que haya)",
+    ],
+    sitios: [
+      { nombre: "Trattoria Casa Mia", tipo: "Trattoria de pescado (Marinella)", platos: ["Paccheri pesto de calabacín y gambas ~13-15 €", "Crudo del día (al peso: preguntar)"], precio: "~10-20 €", rating: "4,6★ (417) TA", nota: "Frente al parque arqueológico; la opción clara para comer el día 6.", maps: "Trattoria Casa Mia Marinella di Selinunte" },
+      { nombre: "Enoteca Siciliana", tipo: "Bottega · pane cunzato (Marinella)", platos: ["Pane cunzato ~5-8 €", "Tagliere de antipasti ~10-14 €"], precio: "~10-15 €", rating: "4,5★ (236) TA", nota: "A pasos del parque; rápida, honesta y barata, ideal de paso.", maps: "Enoteca Siciliana Marinella di Selinunte" },
+      { nombre: "Cena en Palazzo Adriano", tipo: "Pueblo pequeño (noche del día 6)", platos: ["Cocina casera local del interior"], precio: "~15-25 €", rating: "s/d", nota: "Pocas opciones: preguntad al host de Casetta in piazza al hacer el check-in — la recomendación local es la buena.", maps: "ristorante Palazzo Adriano" },
+    ],
+    mercado: "",
+    desayuno: "Desayunad en Agrigento antes de salir (Caffè Concordia); en Marinella, granita correcta en los bares del paseo — ~3-4 €.",
+    merienda: "Granita o gelato en la Piazza Umberto I de Palazzo Adriano al caer la tarde — ~2,5-3 €.",
+    aviso: "En Marinella evita los lidos «vista mare» del paseo con menú turístico; pregunta el precio del pescado al peso.",
+  },
+  {
     zona: "Trapani · Erice · Favignana",
-    dias: "Días 6-8",
+    dias: "Días 7-8",
     joya: { nombre: "'A Nassa (centro de Trapani)", por_que: "Trattoria familiar de fritura de pescado a precio contenido en pleno centro; la frittura «al metro» deja claro el precio y evita la trampa del «al etto».", precio: "~15-25 €/pers.", rating: "4,6★ (3.080) RG", maps: "A Nassa Seafood Via Serisso Trapani" },
     platos: [
       "Cous cous di pesce trapanés (la estrella)",
@@ -131,6 +150,7 @@ export const foodZones = [
       { nombre: "Osteria Nonna Dora", tipo: "Osteria siciliana", platos: ["Pasta alla Norma ~9 €", "Busiate al pesto de pistacho"], precio: "~20-25 €", rating: "4,2★ (935) TA", nota: "Tradicional y generosa; reservar.", maps: "Osteria Nonna Dora Palermo" },
     ],
     mercado: "Ballarò (mañana, el más local), Capo (mediodía, fritura) y Vucciria (noche). Stigghiola, sfincione, panelle. De pie por 5-7 €/persona; lleva efectivo.",
+    nota: "Día 9 a mediodía coméis de camino en Scopello/Castellammare (pane cunzato o pescado sencillo); estas direcciones de Palermo valen para la noche del 9 y todo el día 10.",
     desayuno: "Granita + brioche col tuppo en Tuppulia (de las mejores de la ciudad); o un iris (brioche frito de ricotta) — ~3-4 €.",
     merienda: "Cannolo relleno al momento en Pasticceria Cappello o I Segreti del Chiostro (Santa Caterina); cassata — ~2,5-4 €.",
     aviso: "En Ballarò/Capo evita los puestos del borde turístico (foto-menú). En Antica Focacceria San Francesco come en la barra, no en servicio de mesa. Ke Palle es bueno pero caro por estar en Via Maqueda. Cuidado con carteristas.",

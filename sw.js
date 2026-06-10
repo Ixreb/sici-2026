@@ -5,7 +5,7 @@
 //   - Map tiles: cache-first (heavy, immutable enough, prioritize speed
 //     and offline).
 
-const APP_CACHE = "sicilia-app-v23";
+const APP_CACHE = "sicilia-app-v24";
 const TILE_CACHE = "sicilia-tiles-v1";
 
 const APP_ASSETS = [
@@ -93,6 +93,8 @@ self.addEventListener("fetch", (event) => {
         }
         return resp;
       })
-      .catch(() => caches.match(req))
+      // ignoreSearch: app.js se pide con ?v=N pero el precache lo guarda sin
+      // query; sin esto, offline antes de la primera carga completa rompería.
+      .catch(() => caches.match(req, { ignoreSearch: true }))
   );
 });

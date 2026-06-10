@@ -16,7 +16,7 @@ export const car = {
   ],
 };
 
-// Vuelos (totales reales; se pagan a medias). María vuelve vía París.
+// Vuelos (totales reales; se pagan a medias). La vuelta es en vuelos DISTINTOS.
 export const flights = {
   total: 197.05,
   legs: [
@@ -24,6 +24,7 @@ export const flights = {
     { label: "María · Sevilla → Catania", total: 33.09 },
     { label: "María · Catania → París", total: 38.15 },
   ],
+  note: "OJO: la vuelta es en vuelos DISTINTOS — Isaac a las 16:55 y María a París (confirmar su hora). El día 14, salida al aeropuerto según el más temprano de los dos. Se paga a medias.",
 };
 
 export const stays = [
@@ -48,7 +49,7 @@ export const stays = [
     checkout: "hasta 10:30",
     direccion: "Corso Mazzini 6, 97100 Ragusa",
     telefono: "+39 339 449 7274",
-    nota: "En Ragusa (zona Corso Mazzini). ZTL de Ibla 24h: confirmar dónde aparcar con el host.",
+    nota: "En Ragusa (zona Corso Mazzini). ZTL de Ibla 24h solo en las calles centrales (Piazza Duomo/Pola): confirmar dónde aparcar con el host.",
     confirmado: true,
   },
   {

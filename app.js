@@ -24,6 +24,7 @@ import {
   renderTips,
   renderStays,
   renderPhones,
+  renderPrintFood,
 } from "./src/render.js";
 import { initMap } from "./src/map.js";
 import { bindEvents, placeMapInActiveSlot } from "./src/actions.js";
@@ -90,6 +91,7 @@ renderPendingTasks();
 renderTips();
 renderStays();
 renderPhones();
+renderPrintFood();
 renderJourneySummary();
 renderOperational();
 
@@ -99,6 +101,24 @@ initMap({ bases, places, days });
 renderPlaces();
 
 bindEvents({ days, trip });
+
+// La cabecera del día (sticky) cambia de altura según el título y el ancho;
+// las pestañas sticky deben pegarse justo debajo o se solapan.
+const opDayHeader = document.querySelector(".op-day-header");
+function syncOpHeaderHeight() {
+  if (opDayHeader) {
+    document.documentElement.style.setProperty("--op-header-h", `${opDayHeader.offsetHeight}px`);
+  }
+}
+if (opDayHeader && "ResizeObserver" in window) {
+  new ResizeObserver(syncOpHeaderHeight).observe(opDayHeader);
+}
+// Al cambiar de vista la cabecera pasa de display:none a visible; remedir
+// (algunos motores no disparan ResizeObserver en esa transición).
+document.querySelectorAll("[data-view]").forEach((btn) => {
+  btn.addEventListener("click", () => requestAnimationFrame(syncOpHeaderHeight));
+});
+syncOpHeaderHeight();
 
 // Service Worker (offline support during the trip)
 if ("serviceWorker" in navigator && location.protocol !== "file:") {
