@@ -32,6 +32,7 @@ export const stays = [
     dias: "Días 1-2",
     nombre: "Meravigghia Syracusae Home",
     fechas: "20 → 22 jun 2026 (2 noches)",
+    precio: 151.29,
     checkin: "14:00 - 21:00",
     checkout: "10:00 - 10:30",
     direccion: "Via Montegrappa 73/1, 96100 Siracusa",
