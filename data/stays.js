@@ -81,6 +81,7 @@ export const stays = [
     dias: "Días 7-8",
     nombre: "Residence Prato",
     fechas: "26 → 28 jun 2026 (2 noches)",
+    precio: 109.64,
     checkin: "15:00 - 20:00",
     checkout: "6:00 - 10:00",
     direccion: "Via Convento San Francesco di Paola 102, 91016 Trapani",
