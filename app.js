@@ -97,7 +97,7 @@ renderOperational();
 
 // Map slot must be in the visible view BEFORE Leaflet initializes.
 placeMapInActiveSlot();
-initMap({ bases, places, days });
+initMap({ bases, places, days, stays });
 renderPlaces();
 
 bindEvents({ days, trip });

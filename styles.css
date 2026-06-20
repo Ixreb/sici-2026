@@ -1525,6 +1525,29 @@ select {
 
 .stay-avisos li::marker { color: var(--danger); }
 
+.stay-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  margin-top: 4px;
+}
+
+/* Hotel pin (Leaflet divIcon). className reemplaza el cuadro blanco por defecto. */
+.stay-pin {
+  background: transparent;
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stay-pin-glyph {
+  font-size: 20px;
+  line-height: 1;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+}
+
 /* ============== TIPS (consejos) ============== */
 .tips-section {
   display: grid;

@@ -19,7 +19,7 @@ import {
   renderTodayButton,
   renderPendingTasks,
 } from "./render.js";
-import { refreshMap, invalidateMapSize, focusPlace, focusBase, focusDay, focusRoute, placeMapInSlot } from "./map.js";
+import { refreshMap, invalidateMapSize, focusPlace, focusBase, focusStay, focusDay, focusRoute, placeMapInSlot } from "./map.js";
 import { getTodayDayId } from "./utils.js";
 
 const els = {};
@@ -155,6 +155,17 @@ export function bindEvents({ days, trip }) {
       renderOperational();
       renderPendingTasks();
       refreshMap();
+      return;
+    }
+    const stayButton = e.target.closest(".js-focus-stay");
+    if (stayButton) {
+      if (state.viewMode === "operational") {
+        const mapSection = document.querySelector(".op-map-section");
+        if (mapSection) mapSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else {
+        setActiveSideTab("map", { scroll: true });
+      }
+      focusStay(stayButton.dataset.stayId);
       return;
     }
     const placeButton = e.target.closest(".js-focus-place");

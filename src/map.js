@@ -5,14 +5,17 @@ import { getFilteredPlaces } from "./render.js";
 let map = null;
 let markerLayer = null;
 let routeLayer = null;
+let staysLayer = null;
 let basesRef = [];
 let placesRef = [];
 let daysRef = [];
+let staysRef = [];
 
-export function initMap({ bases, places, days }) {
+export function initMap({ bases, places, days, stays }) {
   basesRef = bases;
   placesRef = places;
   daysRef = days;
+  staysRef = stays || [];
 
   const mapEl = document.getElementById("map");
   const fallback = document.getElementById("mapFallback");
@@ -29,8 +32,46 @@ export function initMap({ bases, places, days }) {
 
   markerLayer = L.layerGroup().addTo(map);
   routeLayer = L.layerGroup().addTo(map);
+  staysLayer = L.layerGroup().addTo(map);
   renderRoute();
+  renderStayPins();
   renderMarkers(getFilteredPlaces());
+}
+
+// Hotel pins (one per reserved accommodation with coords). Persistent layer
+// (not affected by place filters), distinct 🛏️ icon.
+function renderStayPins() {
+  if (!map || !staysLayer) return;
+  staysLayer.clearLayers();
+  staysRef.forEach((s) => {
+    if (typeof s.lat !== "number" || typeof s.lng !== "number") return;
+    const icon = L.divIcon({
+      className: "stay-pin",
+      html: '<span class="stay-pin-glyph">🛏️</span>',
+      iconSize: [26, 26],
+      iconAnchor: [13, 13],
+      popupAnchor: [0, -12],
+    });
+    const dir = `https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}`;
+    const popup = `
+      <div class="popup-title">🛏️ ${escapeHtml(s.nombre)}</div>
+      <div class="popup-meta">${escapeHtml(s.base)} · ${escapeHtml(s.fechas)}</div>
+      ${s.direccion ? `<div class="popup-info"><div class="popup-row"><span>${escapeHtml(s.direccion)}</span></div></div>` : ""}
+      <div class="popup-actions">
+        <a class="popup-action popup-action-primary" href="${escapeHtml(dir)}" target="_blank" rel="noopener noreferrer">Cómo llegar</a>
+      </div>`;
+    const marker = L.marker([s.lat, s.lng], { icon }).bindPopup(popup).addTo(staysLayer);
+    s._marker = marker;
+  });
+}
+
+export function focusStay(stayId) {
+  if (!map) return;
+  const s = staysRef.find((x) => x.id === stayId || x.base === stayId);
+  if (!s || typeof s.lat !== "number") return;
+  map.setView([s.lat, s.lng], 14, { animate: true });
+  if (s._marker) s._marker.openPopup();
+  pulseMap();
 }
 
 export function refreshMap() {

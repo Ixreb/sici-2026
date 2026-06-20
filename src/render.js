@@ -763,7 +763,11 @@ function staysListHtml() {
 
   const staysHtml = staysRef
     .map((s) => {
-      const dirUrl = s.direccion
+      const hasCoords = typeof s.lat === "number" && typeof s.lng === "number";
+      // Si hay coordenadas, "Cómo llegar" apunta al punto exacto; si no, a la dirección.
+      const comoLlegar = hasCoords
+        ? `https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}`
+        : s.direccion
         ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.direccion)}`
         : null;
       const tel = s.telefono ? s.telefono.replace(/\s+/g, "") : null;
@@ -779,10 +783,14 @@ function staysListHtml() {
             ${s.checkin ? `<dt>Check-in</dt><dd>${escapeHtml(s.checkin)}</dd>` : ""}
             ${s.checkout ? `<dt>Check-out</dt><dd>${escapeHtml(s.checkout)}</dd>` : ""}
             ${s.direccion ? `<dt>Dirección</dt><dd>${escapeHtml(s.direccion)}</dd>` : ""}
+            ${hasCoords ? `<dt>Coords</dt><dd>${s.lat.toFixed(5)}, ${s.lng.toFixed(5)}</dd>` : ""}
             ${s.telefono ? `<dt>Teléfono</dt><dd><a class="text-link" href="tel:${escapeHtml(tel)}">${escapeHtml(s.telefono)}</a></dd>` : ""}
           </dl>
           ${s.nota ? `<p class="stay-nota">${escapeHtml(s.nota)}</p>` : ""}
-          ${dirUrl ? `<a class="text-link" href="${escapeHtml(dirUrl)}" target="_blank" rel="noopener noreferrer">Cómo llegar</a>` : ""}
+          <div class="stay-actions">
+            ${hasCoords ? `<button class="text-button js-focus-stay" type="button" data-stay-id="${escapeHtml(s.base)}">Ver en el mapa</button>` : ""}
+            ${comoLlegar ? `<a class="text-link" href="${escapeHtml(comoLlegar)}" target="_blank" rel="noopener noreferrer">Cómo llegar</a>` : ""}
+          </div>
         </article>
       `;
     })
@@ -824,7 +832,10 @@ function stayCoversDay(stay, dayId) {
 function renderOpDayStay(day) {
   const stay = staysRef.find((s) => stayCoversDay(s, day.id));
   if (stay) {
-    const dirUrl = stay.direccion
+    const hasCoords = typeof stay.lat === "number" && typeof stay.lng === "number";
+    const comoLlegar = hasCoords
+      ? `https://www.google.com/maps/dir/?api=1&destination=${stay.lat},${stay.lng}`
+      : stay.direccion
       ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(stay.direccion)}`
       : null;
     const tel = stay.telefono ? stay.telefono.replace(/\s+/g, "") : null;
@@ -840,7 +851,10 @@ function renderOpDayStay(day) {
           ${stay.telefono ? `<dt>Teléfono</dt><dd><a href="tel:${escapeHtml(tel)}">${escapeHtml(stay.telefono)}</a></dd>` : ""}
         </dl>
         ${stay.nota ? `<p class="op-stay-nota">${escapeHtml(stay.nota)}</p>` : ""}
-        ${dirUrl ? `<a class="op-link op-link-primary" href="${escapeHtml(dirUrl)}" target="_blank" rel="noopener noreferrer">Cómo llegar</a>` : ""}
+        <div class="op-point-actions">
+          ${hasCoords ? `<button class="op-link js-focus-stay" type="button" data-stay-id="${escapeHtml(stay.base)}">Ver en mapa</button>` : ""}
+          ${comoLlegar ? `<a class="op-link op-link-primary" href="${escapeHtml(comoLlegar)}" target="_blank" rel="noopener noreferrer">Cómo llegar</a>` : ""}
+        </div>
       </article>
     `;
   }
