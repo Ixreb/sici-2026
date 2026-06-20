@@ -182,7 +182,8 @@ export const fuelAssumptions = {
 export const budgetEstimate = {
   entradasPax2: 280, // yacimientos y monumentos imprescindibles (2 pax)
   transportePax2: 145, // ferry + 2 bici Favignana, funivia Erice, funivia Mazzarò/Isola Bella (2 pax)
-  note: "Estimación para 2 personas (1 bici por persona en Favignana). NO incluye alojamiento, comidas ni parking diario. Tours opcionales del Etna (4x4) aparte.",
+  excursionesPax2: 90, // excursión en barco por Favignana (día 8, total 2 pax, ya pagada)
+  note: "Estimación para 2 personas. NO incluye alojamiento, comidas ni parking diario. Tours opcionales del Etna (4x4) aparte.",
 };
 
 // Teléfonos útiles. value numérico → enlace de llamada.
@@ -389,12 +390,12 @@ export const days = [
     focusPlaceIds: ["favignana", "cala-rossa-favignana"],
     morning: ["Ferry temprano desde Trapani", "Alquiler de bici eléctrica al desembarcar", "Cala Rossa + Bue Marino"],
     afternoon: ["Cala Azzurra", "Pueblo de Favignana sin prisa", "Ferry de vuelta a Trapani"],
-    mustDo: ["Ferry temprano", "Moverse en bici", "2-3 calas bien elegidas"],
+    mustDo: ["Ferry temprano", "Excursión en barco por las calas (reservada)", "Baño en agua turquesa"],
     optional: ["Más calas si os queda cuerpo"],
     notes: [
       "Cala Rossa es roca plana, no arena. ESCARPINES obligatorios.",
-      "No tiene sentido llevar el coche a la isla; la bici eléctrica es la forma de verla.",
-      "Sábado: la isla se llena, coger el primer ferry y reservar la bici online.",
+      "Excursión en barco RESERVADA (~90 € los dos): vuelta a la isla por mar con paradas de baño en las calas (Cala Rossa, Bue Marino, Cala Azzurra). Confirmar la hora de salida.",
+      "El coche se queda en Trapani. Sábado: la isla se llena, coger el primer ferry; la bici eléctrica es opcional (con la excursión en barco quizá no haga falta).",
     ],
     parking: "Coche parado en Trapani (parking del puerto o del hotel).",
     booking: "Ferry Liberty Lines con antelación (libertylines.it, ~12-16 €/persona ida). Reservar bici eléctrica online antes (los fines de semana de verano se agotan).",

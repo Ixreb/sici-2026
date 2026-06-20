@@ -662,7 +662,8 @@ export function renderJourneySummary() {
   const coche = carRef && carRef.precio ? carRef.precio : 0;
   const staysConPrecio = staysRef.filter((s) => s.precio);
   const alojamiento = staysConPrecio.reduce((acc, s) => acc + s.precio, 0);
-  const grandTotal = Math.round(vuelos + coche + alojamiento + enRuta);
+  const excursiones = budgetRef.excursionesPax2 || 0;
+  const grandTotal = Math.round(vuelos + coche + alojamiento + excursiones + enRuta);
   const faltan = staysRef.length - staysConPrecio.length;
 
   els.journeySummary.innerHTML = `
@@ -698,6 +699,7 @@ export function renderJourneySummary() {
         <li><span>Vuelos (Isaac + María, i/v)</span><strong>${eur(vuelos)}</strong></li>
         <li><span>Coche de alquiler (sin gasolina ni peajes)</span><strong>${eur(coche)}</strong></li>
         <li><span>Alojamiento (${staysConPrecio.length} de ${staysRef.length} bases)</span><strong>${eur(alojamiento)}</strong></li>
+        ${excursiones ? `<li><span>Excursión en barco (Favignana)</span><strong>${eur(excursiones)}</strong></li>` : ""}
       </ul>
       <p class="budget-group-title">En ruta · estimado</p>
       <ul class="budget-lines">
