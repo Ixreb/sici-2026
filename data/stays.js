@@ -78,6 +78,7 @@ export const stays = [
     fechas: "25 → 26 jun 2026 (1 noche)",
     lat: 37.681483,
     lng: 13.379158,
+    precio: 76.50,
     checkin: "15:00 - 18:00",
     checkout: "8:00 - 11:00",
     direccion: "Piazza Umberto I 18, 90030 Palazzo Adriano",

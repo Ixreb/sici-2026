@@ -297,7 +297,7 @@ export const days = [
     notes: [
       "Casale DE PASO: Ragusa → Casale → Agrigento, un solo arco hacia el oeste, sin rebotes. Entrar a Casale al llegar (~11:00) evita autocares y el horno del techo de plástico al mediodía.",
       "Casale abre 9:00-19:00, último ingreso 18:00, 17 € hasta 30 junio 2026. Llevar agua, visita max 2 h.",
-      "Scala dei Turchi 2026: NO hay reserva online, compra in situ con pago digital (6 €). Franja tarde 15:00-20:00 (último 19:30): la marga a mediodía es un horno reflectante.",
+      "Scala dei Turchi 2026: el pase de 6 €/pers (acceso + seguro) es solo para PISAR la marga blanca; verla y fotografiarla es GRATIS desde la playa o el Belvedere. NO hay reserva online: compra in situ con pago digital. Franja tarde 15:00-20:00 (último 19:30): la marga a mediodía es un horno reflectante.",
       "Día con coche pero bien repartido: Casale al fresco, Scala al atardecer, con descanso en el hotel entre medias.",
     ],
     parking: "Casale: parking propio del yacimiento. Scala: parking regulado de Realmonte. Agrigento: parking del hotel.",
