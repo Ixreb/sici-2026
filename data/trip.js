@@ -300,7 +300,7 @@ export const days = [
       "Scala dei Turchi 2026: el pase de 6 €/pers (acceso + seguro) es solo para PISAR la marga blanca; verla y fotografiarla es GRATIS desde la playa o el Belvedere. NO hay reserva online: compra in situ con pago digital. Franja tarde 15:00-20:00 (último 19:30): la marga a mediodía es un horno reflectante.",
       "Día con coche pero bien repartido: Casale al fresco, Scala al atardecer, con descanso en el hotel entre medias.",
     ],
-    parking: "Casale: parking propio del yacimiento. Scala: parking regulado de Realmonte. Agrigento: parking del hotel.",
+    parking: "Casale: parking propio del yacimiento. Scala: parkings privados de PAGO (NO incluidos en el pase de 6 €): Parkingland ~10 €/día (abierto hasta 23:00, ideal para el atardecer) o el de Punta Grande ~20 €/día; el comunal gratuito está temporalmente cerrado. Desde el parking, ~800 m a pie hasta la marga. Agrigento: parking del hotel.",
     booking: "Casale online ahorra cola. Scala se compra in situ. Alojamiento Agrigento confirmado.",
     planB: "Si Casale os arrolla, recortar a 1 h 30 (mosaicos principales) para llegar holgados a Scala al atardecer.",
     tags: ["UNESCO", "Paisaje", "Cambio de base"],
