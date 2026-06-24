@@ -69,7 +69,7 @@ export const stays = [
     checkout: "7:00 - 11:00",
     direccion: "Via Garibaldi 2, 92100 Agrigento",
     telefono: "+39 340 342 7938",
-    nota: "Check-in amplio (hasta 22:00), cómodo para llegar tras Scala dei Turchi al atardecer el día 4.",
+    nota: "Check-in amplio (hasta 22:00), cómodo para llegar tras Scala dei Turchi al atardecer el día 4. Tasa de turismo: 2 €/pers/noche → 8 € (2 noches, 2 pers), aparte.",
     confirmado: true,
   },
   {
@@ -126,7 +126,7 @@ export const stays = [
     checkin: "15:30 - 00:00",
     checkout: "00:00 - 10:00",
     direccion: "Via Giovanni Gentile 8, 95121 Catania",
-    nota: "Base del cierre: Etna, Taormina, Isola Bella, Aci Trezza. Check-in amplio (hasta medianoche), cómodo si llegáis tarde el día 11 desde Cefalù. Aeropuerto a ~15 min.",
+    nota: "Base del cierre: Etna, Taormina, Isola Bella, Aci Trezza. Check-in amplio (hasta medianoche), cómodo si llegáis tarde el día 11 desde Cefalù. Aeropuerto a ~15 min. Tasa de turismo: 3 €/pers/noche → 18 € (3 noches, 2 pers), aparte.",
     confirmado: true,
   },
 ];
