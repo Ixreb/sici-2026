@@ -49,11 +49,12 @@ export const stays = [
     fechas: "22 → 23 jun 2026 (1 noche)",
     lat: 36.925441,
     lng: 14.734724,
+    precio: 64.60,
     checkin: "14:00 - 20:00",
     checkout: "hasta 10:30",
     direccion: "Corso Mazzini 6, 97100 Ragusa",
     telefono: "+39 339 449 7274",
-    nota: "En Ragusa (zona Corso Mazzini). ZTL de Ibla 24h solo en las calles centrales (Piazza Duomo/Pola): confirmar dónde aparcar con el host.",
+    nota: "En Ragusa (zona Corso Mazzini). ZTL de Ibla 24h solo en las calles centrales (Piazza Duomo/Pola): confirmar dónde aparcar con el host. Tasa de turismo: +2 € aparte del alojamiento.",
     confirmado: true,
   },
   {
