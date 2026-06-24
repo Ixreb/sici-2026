@@ -324,7 +324,7 @@ export const days = [
       "Esta es la mañana de descanso real del bloque sur: aprovechadla, los días 4 y 6 son más movidos.",
       "Torre Salsa: 8 km de costa virgen, agua turquesa, sin servicios (llevar agua y sombrilla). Acceso por pista de tierra (Fiat 500 sin problema).",
     ],
-    parking: "Templos: parking Porta V o Tempio di Giunone. Torre Salsa: parking informal de tierra. San Leone: parking de playa.",
+    parking: "Templos DE NOCHE: aparcar en GIUNONE (Via Panoramica, coche ~3 €) y hacer el Eastern Hill ida y vuelta (Giunone→Concordia→Ercole), sin depender de la navetta. Mover el coche del parking del Museo Griffo (cierra ~19:30) al del Valle. Confirmar en taquilla qué entrada abre de noche. Torre Salsa: parking informal de tierra. San Leone: parking de playa.",
     booking: "Valle Templi online ahorra cola. Apertura nocturna 20 jun-20 sep (L-V hasta 22:00, salida 23:00) con la entrada normal de 14 €.",
     planB: "Si la mañana se hace corta, Templos también se puede empezar a media tarde sin prisa.",
     tags: ["Arqueología", "Playa", "Atardecer"],
