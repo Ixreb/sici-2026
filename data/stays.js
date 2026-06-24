@@ -107,10 +107,11 @@ export const stays = [
     fechas: "28 → 30 jun 2026 (2 noches)",
     lat: 38.138878,
     lng: 13.350753,
+    precio: 127.69,
     checkin: "15:00 - 18:00",
     checkout: "8:00 - 11:00",
     direccion: "Via Maggiore Pietro Toselli 136, 90143 Palermo",
-    nota: "Zona Libertà (al norte del centro). ZTL Palermo L-V 8-20h: confirmar parking/garaje con el host. Ciudad a pie.",
+    nota: "Zona Libertà (al norte del centro). ZTL Palermo L-V 8-20h: confirmar parking/garaje con el host. Ciudad a pie. Tasa de turismo: +16 € aparte del alojamiento.",
     confirmado: true,
   },
   {
