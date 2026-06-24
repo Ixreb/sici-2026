@@ -604,7 +604,7 @@ export const pendingTasks = [
     id: "valle-templos",
     category: "Reservas con tiempo",
     title: "Valle dei Templi entrada online",
-    detail: "lavalledeitempli.it ahorra cola. 14 € (oficial 2026). Día 5 a última hora: entrar 17:30-18:00, cierre 20:00 (luz dorada).",
+    detail: "lavalledeitempli.it ahorra cola. 14 € (oficial 2026). Día 5: entrar 17:00-17:30 para verlo sin prisa (desalojo 20:00, hacen falta ~3 h). Luz dorada sobre la Concordia desde ~18:30.",
     when: "1-2 semanas antes",
   },
   {
