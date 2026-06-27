@@ -397,7 +397,7 @@ export const days = [
       "Excursión en barco RESERVADA (~90 € los dos): vuelta a la isla por mar con paradas de baño en las calas (Cala Rossa, Bue Marino, Cala Azzurra). Confirmar la hora de salida.",
       "El coche se queda en Trapani. Sábado: la isla se llena, coger el primer ferry; la bici eléctrica es opcional (con la excursión en barco quizá no haga falta).",
     ],
-    parking: "Coche parado en Trapani (parking del puerto o del hotel).",
+    parking: "PROBADO ✓ Parking Le Saline (Via I Dorsale ZIR, enfrente del Decathlon, cancela amarilla y roja): 8 €/día, pago con tarjeta, vigilado. Lanzadera al puerto INCLUIDA ida y vuelta (06:00-24:00), perfecta para el ferry: te llevan y te recogen. La IDA se pide al aparcar (sin reserva); la VUELTA se avisa por WhatsApp (+39 349 9776553) 1 h antes con apellido, nº de personas e isla de origen. Conviene reservar la plaza online (parkinglesaline.it) en verano. Alternativa: parking del puerto o del hotel.",
     booking: "Ferry Liberty Lines con antelación (libertylines.it, ~12-16 €/persona ida). Reservar bici eléctrica online antes (los fines de semana de verano se agotan).",
     planB: "Si el mar empeora (raro en junio), cambiar Favignana por tarde de Trapani + Marsala.",
     tags: ["Isla", "Ferry", "Playa fuerte"],
